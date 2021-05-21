@@ -107,7 +107,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     "-u",
-    "--include-unathorized",
+    "--include-unauthorized",
     action="store_true",
     required=False,
     help="Include all posts that have IDs in the podping WATCHED_OPERATION_IDS, but are not from an 'authorized' account to exported csv file and ping report (if enabled)",
@@ -201,28 +201,30 @@ def output(post, quiet=False, use_test_node=False, write_csv=False,post_type="da
         else:
             return 1
 
-    data["required_posting_auths"] = post.get("required_posting_auths")
-    data["trx_id"] = post.get("trx_id")
-    data["timestamp"] = post.get("timestamp")
-
     count = 0
-    if use_test_node:
-        data["test_node"] = True
+    try: # if any error in looking for podcast url info just return count=0
+        data["required_posting_auths"] = post.get("required_posting_auths")
+        data["trx_id"] = post.get("trx_id")
+        data["timestamp"] = post.get("timestamp")
+    
+        if use_test_node:
+            data["test_node"] = True
 
-    if data.get("url"):
-        logging.info(
-            f"Feed Updated - {data.get('timestamp')} - {data.get('trx_id')} "
-            f"- {data.get('url')}"
-        )
-        count = 1
-    elif data.get("urls"):
-        for url in data.get("urls"):
-            count += 1
+        if data.get("url"):
             logging.info(
-                f"Feed Updated - {data.get('timestamp')} - {data.get('trx_id')} - {url}"
+                f"Feed Updated - {data.get('timestamp')} - {data.get('trx_id')} "
+                f"- {data.get('url')}"
             )
-    return count
-
+            count = 1
+        elif data.get("urls"):
+            for url in data.get("urls"):
+                count += 1
+                logging.info(
+                    f"Feed Updated - {data.get('timestamp')} - {data.get('trx_id')} - {url}"
+                )
+        return count
+    except:
+        return count
 
 def output_status(
     timestamp: str,
@@ -274,7 +276,7 @@ def scan_live(
     use_test_node=False,
     client_socket: Optional[socket] = None,
     quiet=False,
-    include_unathorized=False,
+    include_unauthorized=False,
     include_non_podping=False,
     write_csv=False,
 ):
@@ -325,7 +327,7 @@ def scan_live(
                 pings += count
                 Pings.total_pings += count
             else:
-                if include_unathorized:
+                if include_unauthorized:
                     count = output(post, quiet, use_test_node,write_csv,"data-unauthorized")
                     pings += count
                     Pings.total_pings += count                
@@ -345,7 +347,7 @@ def scan_history(
     reports=True,
     use_test_node=False,
     quiet=False,
-    include_unathorized=False,
+    include_unauthorized=False,
     include_non_podping=False,
     write_csv=False,
 ):
@@ -421,7 +423,7 @@ def scan_history(
                 pings += count
                 Pings.total_pings += count
             else:
-                if include_unathorized:
+                if include_unauthorized:
                     count = output(post, quiet, use_test_node,write_csv,"data-unauthorized")
                     pings += count
                     Pings.total_pings += count                
@@ -501,10 +503,10 @@ def main() -> None:
         hive = beem.Hive()
 
     """ do we want to see post information from podping unauthorized posts? """
-    if my_args["include_unathorized"]:
-        include_unathorized = True
+    if my_args["include_unauthorized"]:
+        include_unauthorized = True
     else:
-        include_unathorized = False
+        include_unauthorized = False
 
     """ do we want to see post information from non-podping posts?? """
     if my_args["include_nonpodping"]:
@@ -540,7 +542,7 @@ def main() -> None:
                 report_freq=report_minutes,
                 reports=reports,
                 quiet=quiet,
-                include_unathorized=include_unathorized,
+                include_unauthorized=include_unauthorized,
                 include_non_podping=include_non_podping,
                 write_csv=write_csv
             )
@@ -552,7 +554,7 @@ def main() -> None:
                 report_freq=report_minutes,
                 reports=reports,
                 quiet=quiet,
-                include_unathorized=include_unathorized,
+                include_unauthorized=include_unauthorized,
                 include_non_podping=include_non_podping,
                 write_csv=write_csv
             )
@@ -568,7 +570,7 @@ def main() -> None:
             reports, 
             quiet=quiet, 
             client_socket=client_socket,
-            include_unathorized=include_unathorized,
+            include_unauthorized=include_unauthorized,
             include_non_podping=include_non_podping,
             write_csv=write_csv
         )

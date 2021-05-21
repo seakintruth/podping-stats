@@ -5,8 +5,8 @@
 /venv
 .saved-info.txt
 
-# Example Specific Files #
-##########################
+# Specific Data Files #
+#######################
 */data.csv
 */data-not-podping_firehose.csv
 */data-unauthorized.csv

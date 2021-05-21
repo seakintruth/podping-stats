@@ -1,7 +1,7 @@
-# This example
-The intent here is to demonstrate how to create a .csv file on disk for data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
+# I'm a bot
+... in training ...
 
-The .csv file format is terribly inefficient, look to use sqlite or another method to write to, this is just an example. 15 hours of ingesting all hive 'custom json' posts consumed well over 200 mb in disk space!
+... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
 # Dependancies
 - Linux (install depenencies examples here are for apt (debian based distros)
@@ -17,20 +17,15 @@ sudo apt install r-base r-base-core r-recommended
 # Running the scripts
 ## Everything is a script
 Some automation - make these scripts executable
-- navigate to this example's folder and run:
+- navigate to this folder and run:
 ```
-sudo chmod +x *.py *.R
+sudo chmod +x *.py *.R *.sh
 ```
-## Collect data
-Then to begin or resume collecting data run:
+## Start the python script
+Then to begin or resume collecting data run and toot:
 ```
 ./hive-watcher-write-to-csv.py
 ```
-Or use the much prefered
-```
-./hive-watcher-write-to-feather.py
-```
- The data-not-podping_firehose.csv file is 205MB after 15 hours of watching the hive API.
 
 ## Visualize it
 After running for awhile run the data visualization script with:
