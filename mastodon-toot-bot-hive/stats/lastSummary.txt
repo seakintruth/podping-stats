@@ -1,9 +1,0 @@
-Podping hive "custom json" post report:
-	From 2021-05-21 15:13:27 UTC to 2021-05-21 16:13:12 UTC 
-		 (59 minutes and 45 seconds )
-	Post count is 186 (3.11 posts/min)
-	Total urls posted is 948 of which 606 are unique
-		(average of 5.1 urls/post)
-	All other "custom json" hive post count is 29871 (499.93 posts/min)
-	Podping portion of all "custom json" posts on hive is 0.61882%
-#podping #Stats
