@@ -7,7 +7,7 @@
 
 # Credentials files #
 #####################
-/mastodon-toot-bot/Credentials/*
+/mastodon-toot-bot-hive/credentials/*
 
 # Specific Data Files #
 #######################
