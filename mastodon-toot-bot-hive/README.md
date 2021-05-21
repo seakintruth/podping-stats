@@ -1,7 +1,10 @@
 # I'm a bot
 ... in training ...
+This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
-... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
+Currently this should run seperate daily and weekly reports via this `crontab -e`
+0 3 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/weekly-toot.sh
+0 4 * * * ~/git/podping-stats/mastodon-toot-bot-hive/daily-toot.sh
 
 # Dependancies
 - Linux (install depenencies examples here are for apt (debian based distros)
@@ -57,5 +60,5 @@ Podping hive "custom json" post summary:
 #podping #Stats
 ```
 
-# Projects based on this example
-- On github -> [podping-stats](https://github.com/seakintruth/podping-stats) for (planned) further development of these scripts into a mastodon toot bot about these statistics, and/or visualization dashboards on websites.
+# This Project is based on this example:
+- On github -> [podping.cloud](https://github.com/Podcastindex-org/podping.cloud/tree/main/hive-watcher/examples/write-to-csv-analyze-with-R)

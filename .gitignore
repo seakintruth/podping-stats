@@ -5,11 +5,16 @@
 /venv
 .saved-info.txt
 
+# Credentials files #
+#####################
+/mastodon-toot-bot-hive/credentials/*
+
 # Specific Data Files #
 #######################
 */data.csv
 */data-not-podping_firehose.csv
 */data-unauthorized.csv
+
 
 ### R ###
 # History files
