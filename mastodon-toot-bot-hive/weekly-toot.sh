@@ -12,4 +12,4 @@ rm ./stats/lastSummary.txt
 ./visualize-data.R
 
 # Toot with our bot
-./toot-last-summary-stats
+./toot-last-summary-stats.py

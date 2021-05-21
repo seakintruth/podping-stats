@@ -60,5 +60,5 @@ Podping hive "custom json" post summary:
 #podping #Stats
 ```
 
-# Projects based on this example
-- On github -> [podping-stats](https://github.com/seakintruth/podping-stats) for (planned) further development of these scripts into a mastodon toot bot about these statistics, and/or visualization dashboards on websites.
+# This Project is based on this example:
+- On github -> [podping.cloud](https://github.com/Podcastindex-org/podping.cloud/tree/main/hive-watcher/examples/write-to-csv-analyze-with-R)
