@@ -25,41 +25,7 @@ count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
 count_podping_data_unique <- data.table::uniqueN(podping_data)
 
 minutes_watching <- 
-  (max(podping_data$timestamp_seen)-min(podping_data$timestamp_seen)) / 60
-# for a vector image could use: postscript(file="image-timestamp_delay.ps")
-time_stamp_delays <- podping_data$timestamp_seen-podping_data$timestamp_post
-png(file="stats/image-timestamp_delay.png",
-    width=900, height=600)
-plot(
-  x=podping_data$timestamp_post,
-  y=time_stamp_delays,
-  main="Scatter plot of watcher delay in seconds"
-)
-dev.off()
-png(file="stats/image-timestamp_delay_hist.png",
-    width=900, height=600)
-hist(
-  time_stamp_delays,
-  main="Histogram of watcher delay in seconds"
-)
-dev.off()
-
-time_stamp_delays <- not_podping_data$timestamp_seen-not_podping_data$timestamp_post
-png(file="stats/image-timestamp_delay-non-podping.png",
-    width=900, height=600)
-plot(
-  x=not_podping_data$timestamp_post,
-  y=time_stamp_delays,
-  main="Scatter plot of watcher delay in seconds - non-podping posts"
-)
-dev.off()
-png(file="stats/image-timestamp_delay_hist-non-podping.png",
-    width=900, height=600)
-hist(
-  time_stamp_delays,
-  main="Histogram of watcher delay in seconds - non-podping posts"
-)
-dev.off()
+  (max(podping_data$timestamp_post)-min(podping_data$timestamp_post)) / 60
 
 # Posts per minute #
 ####################
@@ -181,8 +147,8 @@ length(unique(podcastUrls))
   )
 }
 time_length_display <- .get_pretty_timestamp_diff(
-  min(podping_data$timestamp_seen),
-  max(podping_data$timestamp_seen)
+  min(podping_data$timestamp_post),
+  max(podping_data$timestamp_post)
 )
 
 # Summary Statistics to Log #
@@ -213,10 +179,10 @@ message(
     5
   ),"%", "\n",
   "From ",
-  as.character(anytime(min(podping_data$timestamp_seen),asUTC = TRUE)),
+  as.character(anytime(min(podping_data$timestamp_post),asUTC = TRUE)),
   " UTC to ",
-  as.character(anytime(max(podping_data$timestamp_seen),asUTC = TRUE)),
-  " UTC \n\t Watched for ",
+  as.character(anytime(max(podping_data$timestamp_post),asUTC = TRUE)),
+  " UTC \n\t Data set period is for ",
   time_length_display,
   "\n#podping #Stats"
 )
