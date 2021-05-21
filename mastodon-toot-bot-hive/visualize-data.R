@@ -152,7 +152,7 @@ time_length_display <- .get_pretty_timestamp_diff(
 # Summary Statistics to Log #
 #############################
 summary_Stats <- paste0(  
-  'Podping hive "custom json" post summary:\n\t',
+  'Podping hive "custom json" post report:\n\t',
   "From ",
   as.character(anytime(min(podping_data$timestamp_post),asUTC = TRUE)),
   " UTC to ",
@@ -166,7 +166,7 @@ summary_Stats <- paste0(
   " posts/min)\n\t",
   "Total urls posted is ", 
   length(podcastUrls), 
-  " of wich ",
+  " of which ",
   length(unique(podcastUrls)),
   " are unique\n\t",
   "\t(average of ",
