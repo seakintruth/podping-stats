@@ -176,7 +176,7 @@ summary_Stats <- paste0(
   count_not_podping_data_unique,
   " (", round(count_not_podping_data_unique/minutes_watching,2),
   " posts/min)\n\t",
-  'Podping portion of all "custom json" posts on hive is ',
+  'Podping portion of all "custom json" posts on hive.io is ',
   round(
     100 * count_podping_data_unique / 
       (count_podping_data_unique+count_not_podping_data_unique),

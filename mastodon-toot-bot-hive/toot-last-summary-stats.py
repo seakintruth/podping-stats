@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import requests
-# read in last summary_stats  from ./stats/summaryStats.ndjson
+# read in credentials - url
 file = open("credentials/mastodon_site_url.txt")
 mastodon_site_url = file.read()
 file.close()
-# read in credentials
+# read in credentials - token
 file = open("credentials/token.txt")
 access_token = file.read()
 file.close()
@@ -22,3 +22,7 @@ params = {'status': summary_stats }
 print("Posting to " + mastodon_site_url)
 r = requests.post(url, data=params, headers=auth)
 print(r)
+
+#[TODO]
+# if not str(r)=="<Response [200]>" 
+#    THROW AN ERROR to logs/errors-toot-last-summary-stats.
