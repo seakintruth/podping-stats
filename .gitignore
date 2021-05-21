@@ -7,7 +7,10 @@
 
 # Example Specific Files #
 ##########################
-/hive-watcher/examples/write-to-csv-analyze-with-R/data*
+*/data.csv
+*/data-not-podping_firehose.csv
+*/data-unauthorized.csv
+
 ### R ###
 # History files
 /hive-watcher/examples/write-to-csv-analyze-with-R/.Rhistory
