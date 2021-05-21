@@ -1,10 +1,16 @@
 # I'm a bot
 ... in training ...
+
 This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
-Currently this should run seperate daily and weekly reports via this `crontab -e`
-0 3 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/weekly-toot.sh
-0 4 * * * ~/git/podping-stats/mastodon-toot-bot-hive/daily-toot.sh
+Currently running seperate daily and weekly, and monthly reports via this `crontab -e`
+```
+0 5 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24
+0 3 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168
+0 1 1 * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 672
+```
+
+The most granular report currently availble with these scripts is one hour - don't want to spam the mastodon instance, so sticking with daily for now...
 
 # Dependancies
 - Linux (install depenencies examples here are for apt (debian based distros)
