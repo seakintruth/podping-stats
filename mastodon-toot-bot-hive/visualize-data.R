@@ -44,6 +44,7 @@ write_plot_posts_per_min <- function(data_vals, chart_title) {
   names(per_min_chart_data_frame) <- c("time_bin","frequency")
   png(file=paste0("stats/",chart_title,".png"),
       width=900, height=600)
+
   plot(
     x=per_min_chart_data_frame$time_bin,
     y=per_min_chart_data_frame$frequency,
@@ -64,7 +65,6 @@ write_plot_posts_per_min(not_podping_data,"Not_podping_posts_per_minute")
 # starting descriptive stats with
 # https://bookdown.org/wadetroberts/bookdown-demo/descriptive-statistics-and-data-visualization.html
 
-str(podping_data$json)
 # json_str = stringr::str_replace_all(podping_data$json[1],"\\\\n",""),
 # need to de-prettify the json
 podping_data$json  <- podping_data$json %>% 
@@ -78,10 +78,7 @@ podping_data$json  <- podping_data$json %>%
     unexpected.escape = "skip", 
     simplify = TRUE
   )$urls
-} 
-
-head(not_podping_data$timestamp_post,2000
-     )
+}
 
 podping_data$json_url <- lapply(podping_data$json,.getUrlFromPostJson)
 podcastUrls <- unlist(podping_data$json_url)
@@ -146,6 +143,7 @@ length(unique(podcastUrls))
     .time_statement_list[length(.time_statement_list)]
   )
 }
+
 time_length_display <- .get_pretty_timestamp_diff(
   min(podping_data$timestamp_post),
   max(podping_data$timestamp_post)
@@ -153,9 +151,15 @@ time_length_display <- .get_pretty_timestamp_diff(
 
 # Summary Statistics to Log #
 #############################
-loggit::set_logfile("stats/summaryStats.ndjson")
-message(
+summary_Stats <- paste0(  
   'Podping hive "custom json" post summary:\n\t',
+  "From ",
+  as.character(anytime(min(podping_data$timestamp_post),asUTC = TRUE)),
+  " UTC to ",
+  as.character(anytime(max(podping_data$timestamp_post),asUTC = TRUE)),
+  " UTC \n\t\t (",
+  time_length_display,
+  ")\n\t",
   "Post count is ",
   count_podping_data_unique, 
   " (", round(count_podping_data_unique/minutes_watching,2),
@@ -168,21 +172,22 @@ message(
   "\t(average of ",
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t",
-  "All 'other' hive post count is ",
+  'All other "custom json" hive post count is ',
   count_not_podping_data_unique,
   " (", round(count_not_podping_data_unique/minutes_watching,2),
   " posts/min)\n\t",
-  "Podping portion of all 'custom json' posts on hive is ",
+  'Podping portion of all "custom json" posts on hive is ',
   round(
     100 * count_podping_data_unique / 
       (count_podping_data_unique+count_not_podping_data_unique),
     5
-  ),"%", "\n",
-  "From ",
-  as.character(anytime(min(podping_data$timestamp_post),asUTC = TRUE)),
-  " UTC to ",
-  as.character(anytime(max(podping_data$timestamp_post),asUTC = TRUE)),
-  " UTC \n\t Data set period is for ",
-  time_length_display,
+  ),"%",
   "\n#podping #Stats"
 )
+# export to last txt file
+fileConn<-file("stats/lastSummary.txt")
+writeLines(summary_Stats, fileConn)
+close(fileConn)
+# log the same stats
+loggit::set_logfile("stats/summaryStats.ndjson")
+message(summary_Stats)
