@@ -17,10 +17,10 @@ if (file.exists("data-unauthorized.csv")) {
 if (file.exists("data-not-podping_firehose.csv")) {
   not_podping_data <- fread(file="data-not-podping_firehose.csv")
 }
-if (exists("podping_unathorized_data")) {
+# if (exists("podping_unathorized_data")) {
   # For now not enough to bother analyzing seperetly
-  not_podping_data <- rbind(not_podping_data,podping_unathorized_data)
-}
+#  not_podping_data <- rbind(not_podping_data,podping_unathorized_data)
+#}
 count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
 count_podping_data_unique <- data.table::uniqueN(podping_data)
 
@@ -189,8 +189,8 @@ time_length_display <- .get_pretty_timestamp_diff(
 # Summary Statistics to Log #
 #############################
 summary_Stats <- paste0(  
-  'Podping hive "custom json" post report:\n\t',
-  "For the last ",
+  'Podping hive "custom json" post report: ',
+  "for the last",
   time_length_display,
   "\n\t",
   "Post count is ",
