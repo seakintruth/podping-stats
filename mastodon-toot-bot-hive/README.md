@@ -5,9 +5,9 @@ This bot posts summary statistics about podping on hive.io to a mastodon instanc
 
 Currently running seperate daily and weekly, and monthly reports via this `crontab -e`
 ```
-0 5 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24
-0 3 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168
-0 1 1 * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 672
+0 8 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24 >> ~/git/podping-stats/mastodon-toot-bot-hive/log/crontab.log
+0 9 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168 >> ~/git/podping-stats/mastodon-toot-bot-hive/log/crontab.log
+0 12 1 * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 >> ~/git/podping-stats/mastodon-toot-bot-hive/log/crontab.log
 ```
 
 The most granular report currently availble with these scripts is one hour - don't want to spam the mastodon instance, so sticking with daily for now...
