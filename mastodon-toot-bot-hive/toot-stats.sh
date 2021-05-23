@@ -6,21 +6,22 @@ do
         H) historyHours=${OPTARG};;
     esac
 done
-
+TMP_PATH=`dirname "$0"`
+SCRIPT_PATH=`( cd "$TMP_PATH" && pwd )`
 # [TODO] add test for expected files, report to error log
 # bash testing: https://ss64.com/bash/test.html
 
 # remove the data csv files (start fresh)
-rm data*
+rm $SCRIPT_PATH/data*
 # run the python tool to query for the past 24 hours
 # this takes roughly 5 minutes per day's worth of information, each day is .3 gb
-./hive-watcher.py --include-unauthorized --include-nonpodping --write-csv --history-only --old $historyHours
+$SCRIPT_PATH/hive-watcher.py --include-unauthorized --include-nonpodping --write-csv --history-only --old $historyHours
 
 # cleanup the lastSummary.txt file
-rm ./stats/lastSummary.txt
+rm $SCRIPT_PATH/stats/lastSummary.txt
 
 # run the rscript to generate analytics
-./visualize-data.R
+$SCRIPT_PATH/visualize-data.R
 
 # Toot with our bot
-./toot-last-summary-stats.py
+$SCRIPT_PATH/toot-last-summary-stats.py
