@@ -190,7 +190,7 @@ time_length_display <- .get_pretty_timestamp_diff(
 #############################
 summary_Stats <- paste0(  
   'Podping hive "custom json" post report ',
-  "for the last",
+  "for the last ",
   time_length_display,
   ":\n\t",
   "Post count is ",
