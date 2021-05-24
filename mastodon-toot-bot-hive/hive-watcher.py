@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from ipaddress import IPv4Address, IPv6Address, AddressValueError
 from socket import AF_INET, SOCK_STREAM, socket
 from typing import Set, Optional, Union
+import re
 
 import beem
 from beem.account import Account
@@ -239,7 +240,8 @@ def write_post_to_csv(post,filepath_data):
         'json':str(json.dumps(json.loads(post.get("json")), indent=4))
     }
     write_csv_line(fieldnames,post_row,filepath_data)
-    if filepath_data == 'data-podping-urls.csv' : 
+    if filepath_data == 'data-podping.csv' :
+        filepath_data_url = 'data-podping-url.csv' 
         # export a url list to a seperate file
         # csv writer, see: https://docs.python.org/3/library/csv.html
         fieldnames = ["trx_id","url","domain"]
@@ -251,9 +253,9 @@ def write_post_to_csv(post,filepath_data):
                 {
                     'trx_id':transaction_id,
                     'url':{url},
-                    'domain':extractDomain({url})
+                        'domain':extractDomain(s[8:url])
                 },
-                filepath_data
+                filepath_data_url
             )
         elif data.get("urls"):
             for url in data.get("urls"):
@@ -262,9 +264,9 @@ def write_post_to_csv(post,filepath_data):
                     {
                         'trx_id':transaction_id,
                         'url':{url},
-                        'domain':extractDomain({url})
+                        'domain':extractDomain(s[8:url])
                     },
-                    filepath_data
+                    filepath_data_url
                 )
 
 def output(post, quiet=False, use_test_node=False, write_csv=False,post_type="data_undefined") -> int:
