@@ -252,8 +252,8 @@ def write_post_to_csv(post,filepath_data):
                 fieldnames,
                 {
                     'trx_id':transaction_id,
-                    'url':{url},
-                        'domain':extractDomain(s[8:url])
+                    'url':url,
+                        'domain':extractDomain(url[8:])
                 },
                 filepath_data_url
             )
@@ -263,8 +263,8 @@ def write_post_to_csv(post,filepath_data):
                     fieldnames,
                     {
                         'trx_id':transaction_id,
-                        'url':{url},
-                        'domain':extractDomain(s[8:url])
+                        'url':url,
+                        'domain':extractDomain(url[8:])
                     },
                     filepath_data_url
                 )
