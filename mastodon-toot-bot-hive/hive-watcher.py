@@ -240,7 +240,7 @@ def write_post_to_csv(post,filepath_data):
     }
     write_csv_line(fieldnames,post_row,filepath_data)
     if filepath_data == 'data-podping-urls.csv' : 
-        # export a url lsit to a seperate file
+        # export a url list to a seperate file
         # csv writer, see: https://docs.python.org/3/library/csv.html
         fieldnames = ["trx_id","url","domain"]
         data = json.loads(post.get("json"))
