@@ -8,8 +8,8 @@ pacman::p_load(
   data.table, dplyr,tidyverse, anytime, 
   rjson, stringr, loggit, tidygraph
 )
-if (file.exists("data.csv")) {
-  podping_data <- fread(file="data.csv") 
+if (file.exists("data-podping.csv")) {
+  podping_data <- fread(file="data-podping.csv") 
 }
 if (file.exists("data-unauthorized.csv")) {
   podping_unathorized_data <- fread(file="data-unauthorized.csv")
@@ -189,10 +189,10 @@ time_length_display <- .get_pretty_timestamp_diff(
 # Summary Statistics to Log #
 #############################
 summary_Stats <- paste0(  
-  'Podping hive "custom json" post report: ',
+  'Podping hive "custom json" post report ',
   "for the last",
   time_length_display,
-  "\n\t",
+  ":\n\t",
   "Post count is ",
   count_podping_data_unique, 
   " (", round(count_podping_data_unique/minutes_watching,2),
