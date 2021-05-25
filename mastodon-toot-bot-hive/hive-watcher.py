@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from ipaddress import IPv4Address, IPv6Address, AddressValueError
 from socket import AF_INET, SOCK_STREAM, socket
 from typing import Set, Optional, Union
+import re
 
 import beem
 from beem.account import Account
@@ -135,6 +136,55 @@ group = my_parser.add_mutually_exclusive_group()
 group.add_argument("-q", "--quiet", action="store_true", help="Minimal output")
 group.add_argument("-v", "--verbose", action="store_true", help="Lots of output")
 
+# Modified from https://gist.githubusercontent.com/cisene/7a9c6f56481b1d9794f2066d57db6c6e/raw/74bc0a50cd19dcdab028c15739443e28d7e1c7a2/extractDomain.py
+# regex method may need updates from time to time but works for this analysis
+
+def extractDomain(data):
+
+    # Remove protocol part of url
+    data = re.sub(r"^http(s)?\x3a\x2f\x2f", "", str(data), flags=re.IGNORECASE)
+    
+    # Remove part after FQDN
+    data = re.sub(r"\x2f(.*)$", "", str(data), flags=re.IGNORECASE)
+
+    # Remove port
+    data = re.sub(r"\x3a\d{1,}$", "", str(data), flags=re.IGNORECASE)
+
+    # remove everything not a-z, 0-9, dash and dot
+    data = re.sub(r"[^a-z0-9\x2d\x2e]", "", str(data), flags=re.IGNORECASE)
+
+    # If IP, bail out early
+    if re.search(r"^(\d{1,3})\x2e(\d{1,3})\x2e(\d{1,3})\x2e(\d{1,3})$", str(data), flags=re.IGNORECASE):
+      return data
+
+    # Force lowercase
+    data = data.lower()
+
+    # split into chunks with dot/period separator
+    elements = data.split("\x2e")
+
+    # reverse order of chunks
+    elements.reverse()
+
+    # Check if third level domains, by TLDcc + second level
+    if (
+      re.search(r"^(ae|ar|at|au|bo|br|co|cn|cr|do|ec|es|gg|gh|gr|gt|hk|id|il|in|ir|it|jp|ke|kr|kw|ky|lk|my|mx|na|ng|np|nz|pe|pk|ph|pl|pt|py|ro|ru|sg|sv|th|tr|tt|tw|ua|uk|uy|ve|za|zw)$", str(elements[0]), flags=re.IGNORECASE) and
+      re.search(r"^(ac|asn|biz|co(m)?|csiro|edu|go(v|b)?|gv|id|int|leg|mi(l)?|ne(t)?|or(g)?|pri(v)?)$", str(elements[1]), flags=re.IGNORECASE)
+    ):
+      if len(elements) >= 3:
+        data = '.'.join(elements[:3])
+      else:
+        data = '.'.join(elements)
+
+    # Nope, regular second level
+    else:
+      if len(elements) >= 2:
+        data = '.'.join(elements[:2])
+      else:
+        data = '.'.join(elements)
+
+    return data
+
 
 def get_allowed_accounts(acc_name="podping") -> Set[str]:
     """get a list of all accounts allowed to post by acc_name (podping)
@@ -146,8 +196,7 @@ def get_allowed_accounts(acc_name="podping") -> Set[str]:
 
     master_account = Account(acc_name, blockchain_instance=h, lazy=True)
 
-    return set(master_account.get_following())
-
+    return set(master_account.get_following())   
 
 def allowed_op_id(operation_id) -> bool:
     """Checks if the operation_id is in the allowed list"""
@@ -156,6 +205,19 @@ def allowed_op_id(operation_id) -> bool:
     else:
         return False
 
+def write_csv_line(header_values,write_line,filepath_data):
+    # csv writer, see: https://docs.python.org/3/library/csv.html
+    if os.path.isfile(filepath_data) :
+        with open(filepath_data,'a', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=header_values)
+            writer.writerow(write_line)
+            csvfile.close
+    else :
+        with open(filepath_data,'w', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=header_values)
+            writer.writeheader()
+            writer.writerow(write_line)
+            csvfile.close
 
 def write_post_to_csv(post,filepath_data):
     fieldnames = [
@@ -163,31 +225,57 @@ def write_post_to_csv(post,filepath_data):
         'id','type','trx_id','trx_num','block_num',
         'required_auths','required_posting_auths','json'
     ]
+    transaction_id=str(post.get("trx_id"))
     # build a new custom dictionary from the post
     post_row={
         'timestamp_seen':repr(time.time()),
         'timestamp_post':repr(post.get("timestamp").timestamp()),
         'id':str(post.get("id")),
         'type':str(post.get("type")),
-        'trx_id':str(post.get("trx_id")),
+        'trx_id':transaction_id,
         'trx_num':repr(post.get("trx_num")),
         'block_num':repr(post.get("block_num")),
         'required_auths':repr(post.get("required_auths")),
         'required_posting_auths':repr(post.get("required_posting_auths")),
         'json':str(json.dumps(json.loads(post.get("json")), indent=4))
     }
-    # csv writer, see: https://docs.python.org/3/library/csv.html
-    if os.path.isfile(filepath_data) :
-        with open(filepath_data,'a', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writerow(post_row)
-            csvfile.close
-    else :
-        with open(filepath_data,'w', newline='') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerow(post_row)
-            csvfile.close
+    write_csv_line(fieldnames,post_row,filepath_data)
+    if filepath_data == 'data-podping.csv' :
+        filepath_data_url = 'data-podping-url.csv' 
+        # export a url list to a seperate file
+        # csv writer, see: https://docs.python.org/3/library/csv.html
+        fieldnames = ["trx_id","url","domain"]
+        data = json.loads(post.get("json"))
+        if data.get("url"):
+            url = {data.get('url')}
+            if len(url)>8:
+                url_domain = extractDomain(url[8:])
+            else:
+                url_domain = ""
+            write_csv_line(
+                fieldnames,
+                {
+                    'trx_id':transaction_id,
+                    'url':url,
+                    'domain':url_domain
+                },
+                filepath_data_url
+            )    
+        elif data.get("urls"):
+            for url in data.get("urls"):
+                if len(url)>8:
+                    url_domain = extractDomain(url[8:])
+                else:
+                    url_domain = ""
+                write_csv_line(
+                    fieldnames,
+                    {
+                        'trx_id':transaction_id,
+                        'url':url,
+                        'domain':url_domain
+                    },
+                    filepath_data_url
+                )
 
 def output(post, quiet=False, use_test_node=False, write_csv=False,post_type="data_undefined") -> int:
     if write_csv:
@@ -206,10 +294,8 @@ def output(post, quiet=False, use_test_node=False, write_csv=False,post_type="da
         data["required_posting_auths"] = post.get("required_posting_auths")
         data["trx_id"] = post.get("trx_id")
         data["timestamp"] = post.get("timestamp")
-    
         if use_test_node:
             data["test_node"] = True
-
         if data.get("url"):
             logging.info(
                 f"Feed Updated - {data.get('timestamp')} - {data.get('trx_id')} "
@@ -323,7 +409,7 @@ def scan_live(
 
         if allowed_op_id(post["id"]):
             if set(post["required_posting_auths"]) & allowed_accounts:
-                count = output(post, quiet, use_test_node,write_csv,"data")
+                count = output(post, quiet, use_test_node,write_csv,"data-podping")
                 pings += count
                 Pings.total_pings += count
             else:
@@ -419,7 +505,7 @@ def scan_history(
 
         if allowed_op_id(post["id"]):
             if set(post["required_posting_auths"]) & allowed_accounts:
-                count = output(post, quiet, use_test_node,write_csv,"data")
+                count = output(post, quiet, use_test_node,write_csv,"data-podping")
                 pings += count
                 Pings.total_pings += count
             else:

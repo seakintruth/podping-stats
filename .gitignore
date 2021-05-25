@@ -1,20 +1,19 @@
 # editors #
-###########
 .vscode
 .idea/
 /venv
 .saved-info.txt
 
 # Credentials files #
-#####################
 /mastodon-toot-bot-hive/credentials/*
 
 # Specific Data Files #
-#######################
 */data.csv
 */data-not-podping_firehose.csv
 */data-unauthorized.csv
 
+# The crontab log #
+*crontab.log
 
 ### R ###
 # History files
