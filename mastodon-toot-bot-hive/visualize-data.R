@@ -21,7 +21,9 @@ if (file.exists("data-not-podping_firehose.csv")) {
   # For now not enough to bother analyzing seperetly
 #  not_podping_data <- rbind(not_podping_data,podping_unathorized_data)
 #}
-count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
+if (exists("not_podping_data")) {
+  count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
+}
 count_podping_data_unique <- data.table::uniqueN(podping_data)
 
 minutes_watching <- 
@@ -57,8 +59,9 @@ write_plot_posts_per_min <- function(data_vals, chart_title) {
 }
 # could filter data to specific time frames...
 write_plot_posts_per_min(podping_data,"podping_posts_per_minute")
-write_plot_posts_per_min(not_podping_data,"Not_podping_posts_per_minute")
-
+if (exists("not_podping_data")) {
+  write_plot_posts_per_min(not_podping_data,"Not_podping_posts_per_minute")
+}
 # podping_data
 ######################
 # get the URLs from the json objects
@@ -186,6 +189,23 @@ time_length_display <- .get_pretty_timestamp_diff(
   max(podping_data$timestamp_post)
 )
 
+if (exists("not_podping_data")) {
+  summary_stats_not_podping_data <- paste0(
+    'All other "custom json" hive post count is ',
+    count_not_podping_data_unique,
+    " (", round(count_not_podping_data_unique/minutes_watching,2),
+    " posts/min)\n\t",
+    'Podping portion of all "custom json" posts on hive.io is ',
+    round(
+      100 * count_podping_data_unique / 
+        (count_podping_data_unique+count_not_podping_data_unique),
+      5
+    ),"\n"
+  )
+} else {
+  summary_stats_not_podping_data <- ""
+}
+
 # Summary Statistics to Log #
 #############################
 summary_Stats <- paste0(  
@@ -204,18 +224,8 @@ summary_Stats <- paste0(
   " are unique\n\t",
   "\t(average of ",
   round(length(podcastUrls)/count_podping_data_unique,2),
-  " urls/post)\n\t",
-  'All other "custom json" hive post count is ',
-  count_not_podping_data_unique,
-  " (", round(count_not_podping_data_unique/minutes_watching,2),
-  " posts/min)\n\t",
-  'Podping portion of all "custom json" posts on hive.io is ',
-  round(
-    100 * count_podping_data_unique / 
-      (count_podping_data_unique+count_not_podping_data_unique),
-    5
-  ),"%",
-  "\n#podping #Stats"
+  " urls/post)\n\t", summary_stats_not_podping_data,
+  "#podping #Stats"
 )
 # export to last txt file
 fileConn<-file("stats/lastSummary.txt")

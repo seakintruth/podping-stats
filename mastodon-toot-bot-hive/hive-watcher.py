@@ -248,23 +248,31 @@ def write_post_to_csv(post,filepath_data):
         data = json.loads(post.get("json"))
         if data.get("url"):
             url = {data.get('url')}
+            if len(url)>8:
+                url_domain = extractDomain(url[8:])
+            else:
+                url_domain = ""
             write_csv_line(
                 fieldnames,
                 {
                     'trx_id':transaction_id,
                     'url':url,
-                        'domain':extractDomain(url[8:])
+                    'domain':url_domain
                 },
                 filepath_data_url
-            )
+            )    
         elif data.get("urls"):
             for url in data.get("urls"):
+                if len(url)>8:
+                    url_domain = extractDomain(url[8:])
+                else:
+                    url_domain = ""
                 write_csv_line(
                     fieldnames,
                     {
                         'trx_id':transaction_id,
                         'url':url,
-                        'domain':extractDomain(url[8:])
+                        'domain':url_domain
                     },
                     filepath_data_url
                 )
