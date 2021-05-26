@@ -200,7 +200,7 @@ if (exists("not_podping_data")) {
       100 * count_podping_data_unique / 
         (count_podping_data_unique+count_not_podping_data_unique),
       5
-    ),"\n"
+    ),"%\n"
   )
 } else {
   summary_stats_not_podping_data <- ""
