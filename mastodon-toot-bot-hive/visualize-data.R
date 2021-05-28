@@ -302,9 +302,10 @@ summary_Stats <- paste0(
   "\t(average of ",
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t", summary_stats_not_podping_data,
-  "#podping #Stats \n" , 
+  "\nDetails at:\n" , 
   "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=",
-  utils::URLencode(as.character(Sys.time()))
+  utils::URLencode(as.character(Sys.time())),
+  "\n#podping #Stats"
 )
 # export to last txt file
 fileConn <- file("stats/lastSummary.txt")

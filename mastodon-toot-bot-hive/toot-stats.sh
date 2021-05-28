@@ -51,11 +51,14 @@ rm $SCRIPT_PATH/stats/lastSummary.txt
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
+# Push changes to github pages
+git add . && git commit -m "update reports" && git push
+
 if $testRun; then
   echo "Not tooting durring testing"
 else
+  # wait for 15 seconds to allow for the git hub pages to be updated...
+  sleep 15s
   # toot the stats
   $SCRIPT_PATH/toot-last-summary-stats.py
 fi
-
-git add . && git commit -m "update reports" && git push
