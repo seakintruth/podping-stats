@@ -62,36 +62,6 @@ plot_events_per_frequency <- function(
   )$urls
 }
 
-# Posts per minute #
-####################
-write_plot_posts_per_half_hour <- function(data_vals, chart_title) {
-  data_vals$posix_time_post <- data_vals$timestamp_post %>%
-    anytime() %>%
-    as.POSIXct()
-  # create bins
-  by_mins_podpings <- cut.POSIXt(data_vals$posix_time_post,"30 mins")
-  podping_data_mins <- split(data_vals$block_num, by_mins_podpings)
-  per_min_chart_data <- lapply(podping_data_mins,FUN=length)
-  per_min_chart_data_frame <- cbind(
-    as.data.frame(anytime(names(per_min_chart_data))),
-    as.data.frame(unlist(per_min_chart_data))
-  )
-  per_min_chart_data_frame <- head(per_min_chart_data_frame,-1)
-  names(per_min_chart_data_frame) <- c("time_bin","frequency")
-  png(file=paste0("stats/",chart_title,".png"),
-      width=900, height=600)
-  
-  plot(
-    x=per_min_chart_data_frame$time_bin,
-    y=per_min_chart_data_frame$frequency,
-    type = "l",
-    xlab="Time",
-    ylab="posts / half hour",
-    main=paste0(chart_title, "Post Frequency")
-  )
-  dev.off()
-}
-
 # Display stuff #
 #################
 .get_pretty_timestamp_diff <- function(
@@ -241,6 +211,8 @@ time_length_display <- .get_pretty_timestamp_diff(
   max(podping_data$timestamp_post)
 )
 
+report_name_prefix <- paste0(Sys.Date(),"-",str_trim(time_length_display, side ="both"))
+
 #############
 # visualize #
 #############
@@ -270,9 +242,7 @@ plot_events_per_frequency(
   pretty_frequency,
   "podping-post-frequency"
 )
-if (exists("not_podping_data")) {
-  write_plot_posts_per_half_hour(not_podping_data,"Not_podping_posts_per_half_hour")
-}
+
 # podping_data
 ######################
 # get the URLs from the json objects
@@ -306,9 +276,14 @@ if (exists("not_podping_data")) {
   summary_stats_not_podping_data <- ""
 }
 
-#############################
-# Summary Statistics to Log #
-#############################
+###########
+# predict #
+###########
+#[TODO]
+
+##############################
+# Summary Statistics Reports #
+##############################
 summary_Stats <- paste0(  
   'Podping hive "custom json" post report ',
   "for the last ",
@@ -326,11 +301,10 @@ summary_Stats <- paste0(
   "\t(average of ",
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t", summary_stats_not_podping_data,
-  "#podping #Stats",
-  paste0("https://htmlpreview.github.io/?",
-         "https://raw.githubusercontent.com/seakintruth/podping-stats/master/",
-         "mastodon-toot-bot-hive/stats/",
-         paste0(Sys.Date(),"-",str_trim(time_length_display),"-url-report.html")
+  "#podping #Stats \n" , 
+  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
+  utils::URLencode(
+    paste0(report_name_prefix,"-url-report.html")
   )
 )
 # export to last txt file
@@ -352,18 +326,23 @@ formated_summary_table <- gt::gt(url_summary) %>%
       time_length_display, ""),
     subtitle = "Podping urls are 'custom json' posts on the Hive.io block chain"
   ) %>% 
-  gt::tab_source_note(paste0(  
-    "Total urls posted is ", 
-    length(podcastUrls), 
-    " of which ",
-    length(unique(podcastUrls)),
-    " are unique\n\t",
-    "\t(average of ",
-    round(length(podcastUrls)/count_podping_data_unique,2),
-    " urls/post)\n\t", summary_stats_not_podping_data,
-    "#podping #Stats")
+  gt::tab_source_note(
+    paste0(  
+      "Total urls posted is ", 
+      length(podcastUrls), 
+      " of which ",
+      length(unique(podcastUrls)),
+      " are unique\n\t",
+      "\t(average of ",
+      round(length(podcastUrls)/count_podping_data_unique,2),
+      " urls/post)\n\t", summary_stats_not_podping_data,
+      "#podping #Stats \n" , 
+      "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
+      utils::URLencode(
+        paste0(report_name_prefix,"-url-report.html")
+      )
+    ) 
   ) %>%
-  tab_source_note("https://github.com/seakintruth/podping-stats") %>%
   tab_options(
     column_labels.background.color = customGreen0,
     heading.background.color = customGreen, 
@@ -371,19 +350,50 @@ formated_summary_table <- gt::gt(url_summary) %>%
     table.background.color  = powderBlue
   )
 
-gt::gtsave(formated_summary_table,expand=10,filename="url-report.png",path="stats")
+gt::gtsave(formated_summary_table,expand=10,filename="lastest-url-report.png",path="stats")
 
 gt::gtsave(
   formated_summary_table,
-  filename=paste0(Sys.Date(),"-",str_trim(time_length_display),"-url-report.html"),
+  filename=paste0(report_name_prefix,"-url-report.html"),
   path="stats"
+)
+fCopyComplete <- file.copy(
+  paste0("stats/",report_name_prefix,"-url-report.html"),
+  "stats/last-url-report.html",TRUE
 )
 
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
 
-###########
-# predict #
-###########
-#[TODO]
+md_past_reports <-paste0(
+  "# Past reports \n",
+    paste0(
+      "- [",list.files("stats",pattern="*.html"),"]",
+      "(",list.files("stats",pattern="*.html"),")\n",
+    collapse=""),
+  collapse=""
+)
+
+md_past_charts <- paste0(
+  "\n# Past charts",  
+  paste0(
+    "\n- ![",list.files("stats",pattern="*.png"),"]",
+    "(",list.files("stats",pattern="*.png"),"|50%)",
+    collapse=""),
+  collapse=""
+)
+
+      
+# Write the stats/index.md github pages files
+readr::write_lines(
+  paste0(
+    "# Summary Stats \n",
+    summary_Stats,
+    "\n",
+    md_past_reports,
+    md_past_charts, collapse=""
+  ),
+  file = "stats/index.md"
+)
+  

@@ -1,37 +1,73 @@
-## Welcome to GitHub Pages
+# Statistics Reports
+- [Statistic Reporting](mastodon-toot-bot-hive/stats/index.md)
 
-You can use the [editor on GitHub](https://github.com/seakintruth/podping-stats/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+# I'm a bot
+... in training ...
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Currently running seperate daily and weekly, and monthly reports via this `crontab -e`
+```
+0 8 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24 >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+0 9 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168 >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+0 12 1 * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+The most granular report currently availble with these scripts is one hour - don't want to spam the mastodon instance, so sticking with daily for now...
 
-### Jekyll Themes
+# Dependancies
+- Linux (install depenencies examples here are for apt (debian based distros)
+- Ensure python3 and pip are installed (check with `pip --version`)
+- Install beem wit pip
+```
+pip3 install beem
+```
+- Install R
+```
+sudo apt install r-base r-base-core r-recommended
+```
+# Running the scripts
+## Everything is a script
+Some automation - make these scripts executable
+- navigate to this folder and run:
+```
+sudo chmod +x *.py *.R *.sh
+```
+## Start the python script
+Then to begin or resume collecting data run and toot:
+```
+./hive-watcher-write-to-csv.py
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/seakintruth/podping-stats/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Visualize it
+After running for awhile run the data visualization script with:
+```
+./visualize-data.R 
+```
 
-### Support or Contact
+## Results
+What's the delay between the watcher and the posted time stamp on the hive blockchain?
+Here is a histogram for that.
+![Example Histogram](stats/image-timestamp_delay_hist.png)
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+And for all other 'custom json' posts on hive for the same period
+![Example Histogram](stats/image-timestamp_delay_hist-non-podping.png)
+
+And others. 
+
+The last thing the [visualize-data.R](visualize-data.R) script does is write as a log the following to a [.ndjson file](stats/summaryStats.ndjson):
+
+```
+Podping hive "custom json" post summary:
+    Post count is 2710 (2.95 posts/min)
+    Total urls posted is 12128 of wich 6258 are unique
+        (average of 4.48 urls/post)
+    All 'other' hive post count is 458672 (500 posts/min)
+    Podping portion of all 'custom json' posts on hive is 0.58737%
+    From 2021-05-20 03:46:36 UTC to 2021-05-20 19:03:56 UTC
+    Watched for 15 hours 17 minutes and 20.15 seconds
+#podping #Stats
+```
+
+# This Project is based on this example:
+- On github -> [podping.cloud](https://github.com/Podcastindex-org/podping.cloud/tree/main/hive-watcher/examples/write-to-csv-analyze-with-R)
