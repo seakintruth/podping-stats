@@ -346,7 +346,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
     source_notes.background.color = customGreen0,
     table.background.color  = powderBlue
   )
-gt::gtsave(formated_summary_table,expand=10,filename="lastest-url-report.png",path="stats")
+# gt::gtsave(formated_summary_table,expand=10,filename="lastest-url-report.png",path="stats")
 gt::gtsave(
   formated_summary_table,
   filename=paste0(report_name_prefix,"-url-report.html"),
