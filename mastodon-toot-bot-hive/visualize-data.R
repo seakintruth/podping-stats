@@ -302,10 +302,8 @@ summary_Stats <- paste0(
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t", summary_stats_not_podping_data,
   "#podping #Stats \n" , 
-  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
-  utils::URLencode(
-    paste0(report_name_prefix,"-url-report.html")
-  )
+  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=",
+  utils::URLencode(as.character(Sys.time()))
 )
 # export to last txt file
 fileConn <- file("stats/lastSummary.txt")
@@ -378,17 +376,12 @@ md_past_charts <- paste0(
     collapse=""),
   collapse=""
 )
-summary_stats_md <- summary_Stats %>%
-  stringr::str_replace_all(pattern = "\\\n",replacement = "\\\n- ") %>%
-  stringr::str_replace_all(pattern = "\\\t",replacement = "&emsp;")
 
 # Write the stats/index.md github pages files
 readr::write_lines(
   paste0(
     "# Domain Stats\n",
     md_last_url_report_html,
-    "\n# Summary Stats \n",
-    summary_stats_md,
     "\n",
     md_past_reports,
     md_past_charts, collapse=""

@@ -7,12 +7,12 @@
 
 </head>
 <body>
-<div id="bypsecwzto" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="eqqxopydsr" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#bypsecwzto .gt_table {
+#eqqxopydsr .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -37,7 +37,7 @@
   border-left-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_heading {
+#eqqxopydsr .gt_heading {
   background-color: #71CA97;
   text-align: center;
   border-bottom-color: #B0E0E6;
@@ -49,7 +49,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_title {
+#eqqxopydsr .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -59,7 +59,7 @@
   border-bottom-width: 0;
 }
 
-#bypsecwzto .gt_subtitle {
+#eqqxopydsr .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -69,13 +69,13 @@
   border-top-width: 0;
 }
 
-#bypsecwzto .gt_bottom_border {
+#eqqxopydsr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_col_headings {
+#eqqxopydsr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -90,7 +90,7 @@
   border-right-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_col_heading {
+#eqqxopydsr .gt_col_heading {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -110,7 +110,7 @@
   overflow-x: hidden;
 }
 
-#bypsecwzto .gt_column_spanner_outer {
+#eqqxopydsr .gt_column_spanner_outer {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -122,15 +122,15 @@
   padding-right: 4px;
 }
 
-#bypsecwzto .gt_column_spanner_outer:first-child {
+#eqqxopydsr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bypsecwzto .gt_column_spanner_outer:last-child {
+#eqqxopydsr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bypsecwzto .gt_column_spanner {
+#eqqxopydsr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -142,7 +142,7 @@
   width: 100%;
 }
 
-#bypsecwzto .gt_group_heading {
+#eqqxopydsr .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #B0E0E6;
@@ -164,7 +164,7 @@
   vertical-align: middle;
 }
 
-#bypsecwzto .gt_empty_group_heading {
+#eqqxopydsr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #B0E0E6;
@@ -179,15 +179,15 @@
   vertical-align: middle;
 }
 
-#bypsecwzto .gt_from_md > :first-child {
+#eqqxopydsr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bypsecwzto .gt_from_md > :last-child {
+#eqqxopydsr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bypsecwzto .gt_row {
+#eqqxopydsr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -206,7 +206,7 @@
   overflow-x: hidden;
 }
 
-#bypsecwzto .gt_stub {
+#eqqxopydsr .gt_stub {
   color: #333333;
   background-color: #B0E0E6;
   font-size: 100%;
@@ -218,7 +218,7 @@
   padding-left: 12px;
 }
 
-#bypsecwzto .gt_summary_row {
+#eqqxopydsr .gt_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -228,7 +228,7 @@
   padding-right: 5px;
 }
 
-#bypsecwzto .gt_first_summary_row {
+#eqqxopydsr .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -238,7 +238,7 @@
   border-top-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_grand_summary_row {
+#eqqxopydsr .gt_grand_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -248,7 +248,7 @@
   padding-right: 5px;
 }
 
-#bypsecwzto .gt_first_grand_summary_row {
+#eqqxopydsr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -258,11 +258,11 @@
   border-top-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_striped {
+#eqqxopydsr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bypsecwzto .gt_table_body {
+#eqqxopydsr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -271,7 +271,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_footnotes {
+#eqqxopydsr .gt_footnotes {
   color: #333333;
   background-color: #B0E0E6;
   border-bottom-style: none;
@@ -285,13 +285,13 @@
   border-right-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_footnote {
+#eqqxopydsr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#bypsecwzto .gt_sourcenotes {
+#eqqxopydsr .gt_sourcenotes {
   color: #333333;
   background-color: #DeF7E9;
   border-bottom-style: none;
@@ -305,41 +305,41 @@
   border-right-color: #D3D3D3;
 }
 
-#bypsecwzto .gt_sourcenote {
+#eqqxopydsr .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#bypsecwzto .gt_left {
+#eqqxopydsr .gt_left {
   text-align: left;
 }
 
-#bypsecwzto .gt_center {
+#eqqxopydsr .gt_center {
   text-align: center;
 }
 
-#bypsecwzto .gt_right {
+#eqqxopydsr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bypsecwzto .gt_font_normal {
+#eqqxopydsr .gt_font_normal {
   font-weight: normal;
 }
 
-#bypsecwzto .gt_font_bold {
+#eqqxopydsr .gt_font_bold {
   font-weight: bold;
 }
 
-#bypsecwzto .gt_font_italic {
+#eqqxopydsr .gt_font_italic {
   font-style: italic;
 }
 
-#bypsecwzto .gt_super {
+#eqqxopydsr .gt_super {
   font-size: 65%;
 }
 
-#bypsecwzto .gt_footnote_marks {
+#eqqxopydsr .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -405,13 +405,6 @@ https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/</td>
 </div>
 </body>
 </html>
-# Summary Stats 
-Podping hive "custom json" post report for the last 7 days :
-- &emsp;Post count is 28824 (2.86 posts/min)
-- &emsp;Total urls posted is 122343 of which 37648 are unique
-- &emsp;&emsp;(average of 4.24 urls/post)
-- &emsp;#podping #Stats 
-- https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/2021-05-28-7%20days-url-report.html
 # Past reports 
 - [2021-05-28-7 days-url-report.html](2021-05-28-7 days-url-report.html)
 - [2021-05-28-day-url-report.html](2021-05-28-day-url-report.html)
