@@ -378,15 +378,17 @@ md_past_charts <- paste0(
     collapse=""),
   collapse=""
 )
+summary_stats_md <- summary_Stats %>%
+  stringr::str_replace_all(pattern = "\\\n",replacement = "\\\n- ") %>%
+  stringr::str_replace_all(pattern = "\\\t",replacement = "&emsp;")
+
 # Write the stats/index.md github pages files
 readr::write_lines(
   paste0(
     "# Domain Stats\n",
     md_last_url_report_html,
-    "# Summary Stats \n",
-    summary_Stats %>%
-      stringr::str_replace_all(pattern = "\\\n",replacement = "\\\n- ") %>%
-      stringr::str_replace_all(pattern = "\\\t",replacement = "&emsp;"),
+    "\n# Summary Stats \n",
+    summary_stats_md,
     "\n",
     md_past_reports,
     md_past_charts, collapse=""
