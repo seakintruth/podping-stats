@@ -284,6 +284,7 @@ if (exists("not_podping_data")) {
 ##############################
 # Summary Statistics Reports #
 ##############################
+# summary_Stats is used for the toot-bot
 summary_Stats <- paste0(  
   'Podping hive "custom json" post report ',
   "for the last ",
@@ -310,8 +311,9 @@ fileConn <- file("stats/lastSummary.txt")
 writeLines(summary_Stats, fileConn)
 close(fileConn)
 
+# Build the reports for the github pages found at:
+# https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/
 # url count Summary:
-
 customGreen0 = "#DeF7E9"
 customGreen = "#71CA97"
 customRed = "#FF7F7F"
@@ -334,8 +336,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
       "\t(average of ",
       round(length(podcastUrls)/count_podping_data_unique,2),
       " urls/post)\n\t", summary_stats_not_podping_data,
-      "#podping #Stats \n" , 
-      "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/"
+      "#podping #Stats \n"
     ) 
   ) %>%
   tab_options(
