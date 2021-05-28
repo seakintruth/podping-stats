@@ -11,8 +11,7 @@ https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/2021-05
 - [last-url-report.html](last-url-report.html)
 
 # Past charts
-- ![lastest-url-report.png](lastest-url-report.png|50%)
-- ![Not_podping_posts_per_half_hour.png](Not_podping_posts_per_half_hour.png|50%)
-- ![podping-post-frequency.png](podping-post-frequency.png|50%)
-- ![podping-url-frequency.png](podping-url-frequency.png|50%)
-- ![url-report.png](url-report.png|50%)
+- ![lastest-url-report.png](lastest-url-report.png)
+- ![Not_podping_posts_per_half_hour.png](Not_podping_posts_per_half_hour.png)
+- ![podping-post-frequency.png](podping-post-frequency.png)
+- ![podping-url-frequency.png](podping-url-frequency.png)
