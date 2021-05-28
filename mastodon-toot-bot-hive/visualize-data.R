@@ -337,10 +337,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
       round(length(podcastUrls)/count_podping_data_unique,2),
       " urls/post)\n\t", summary_stats_not_podping_data,
       "#podping #Stats \n" , 
-      "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
-      utils::URLencode(
-        paste0(report_name_prefix,"-url-report.html")
-      )
+      "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/"
     ) 
   ) %>%
   tab_options(
