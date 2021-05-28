@@ -193,9 +193,7 @@ def get_allowed_accounts(acc_name="podping") -> Set[str]:
     # This is giving an error if I don't specify api server exactly.
     # TODO reported as Issue on Beem library https://github.com/holgern/beem/issues/301
     h = beem.Hive(node="https://api.hive.blog")
-
     master_account = Account(acc_name, blockchain_instance=h, lazy=True)
-
     return set(master_account.get_following())   
 
 def allowed_op_id(operation_id) -> bool:
@@ -226,10 +224,11 @@ def write_post_to_csv(post,filepath_data):
         'required_auths','required_posting_auths','json'
     ]
     transaction_id=str(post.get("trx_id"))
+    timestamp_post=post.get("timestamp").timestamp()
     # build a new custom dictionary from the post
     post_row={
         'timestamp_seen':repr(time.time()),
-        'timestamp_post':repr(post.get("timestamp").timestamp()),
+        'timestamp_post':timestamp_post,
         'id':str(post.get("id")),
         'type':str(post.get("type")),
         'trx_id':transaction_id,
@@ -244,7 +243,7 @@ def write_post_to_csv(post,filepath_data):
         filepath_data_url = 'data-podping-url.csv' 
         # export a url list to a seperate file
         # csv writer, see: https://docs.python.org/3/library/csv.html
-        fieldnames = ["trx_id","url","domain"]
+        fieldnames = ["trx_id","url","domain","timestamp_post"]
         data = json.loads(post.get("json"))
         if data.get("url"):
             url = {data.get('url')}
@@ -257,7 +256,8 @@ def write_post_to_csv(post,filepath_data):
                 {
                     'trx_id':transaction_id,
                     'url':url,
-                    'domain':url_domain
+                    'domain':url_domain,
+                    'timestamp_post':timestamp_post
                 },
                 filepath_data_url
             )    
@@ -272,7 +272,8 @@ def write_post_to_csv(post,filepath_data):
                     {
                         'trx_id':transaction_id,
                         'url':url,
-                        'domain':url_domain
+                        'domain':url_domain,
+                        'timestamp_post':timestamp_post
                     },
                     filepath_data_url
                 )

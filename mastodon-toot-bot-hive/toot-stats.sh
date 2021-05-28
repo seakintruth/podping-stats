@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # A string with command options
+# example usage: get last week of data and don't toot about it , exclude nonpodping:
+# ./toot-stats.sh -H 168 -n true -t true
 testRun=false
 excludeNonPodping=false
 # https://stackoverflow.com/a/6946864
