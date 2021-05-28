@@ -234,7 +234,7 @@ url_summary <- cbind(
 url_summary <- cbind(
   url_summary,round((100*url_summary$"url count")/sum(url_summary$"url count"),1)
 )
-names(url_summary)<- c('domain', "url count","url/minute","percent")
+names(url_summary)<- c('domain', "url count","url/minute","share (%)")
 
 time_length_display <- .get_pretty_timestamp_diff(
   min(podping_data$timestamp_post),
@@ -326,7 +326,12 @@ summary_Stats <- paste0(
   "\t(average of ",
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t", summary_stats_not_podping_data,
-  "#podping #Stats"
+  "#podping #Stats",
+  paste0("https://htmlpreview.github.io/?",
+         "https://raw.githubusercontent.com/seakintruth/podping-stats/master/",
+         "mastodon-toot-bot-hive/stats/",
+         paste0(Sys.Date(),"-",str_trim(time_length_display),"-url-report.html")
+  )
 )
 # export to last txt file
 fileConn <- file("stats/lastSummary.txt")
@@ -367,6 +372,13 @@ formated_summary_table <- gt::gt(url_summary) %>%
   )
 
 gt::gtsave(formated_summary_table,expand=10,filename="url-report.png",path="stats")
+
+gt::gtsave(
+  formated_summary_table,
+  filename=paste0(Sys.Date(),"-",str_trim(time_length_display),"-url-report.html"),
+  path="stats"
+)
+
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
