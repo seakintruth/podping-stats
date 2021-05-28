@@ -5,75 +5,54 @@
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   psych, ggplot2, table1, patchwork,
-  data.table, dplyr,tidyverse, anytime, 
-  rjson, stringr, loggit, tidygraph
+  data.table, dplyr, tidyverse, anytime, 
+  rjson, stringr, loggit, tidygraph, gt,webshot
 )
-if (file.exists("data-podping.csv")) {
-  podping_data <- fread(file="data-podping.csv") 
-}
-if (file.exists("data-unauthorized.csv")) {
-  podping_unathorized_data <- fread(file="data-unauthorized.csv")
-}
-if (file.exists("data-not-podping_firehose.csv")) {
-  not_podping_data <- fread(file="data-not-podping_firehose.csv")
-}
-# if (exists("podping_unathorized_data")) {
-  # For now not enough to bother analyzing seperetly
-#  not_podping_data <- rbind(not_podping_data,podping_unathorized_data)
-#}
-if (exists("not_podping_data")) {
-  count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
-}
-count_podping_data_unique <- data.table::uniqueN(podping_data)
-
-minutes_watching <- 
-  (max(podping_data$timestamp_post)-min(podping_data$timestamp_post)) / 60
-
-# Posts per minute #
-####################
-write_plot_posts_per_min <- function(data_vals, chart_title) {
-  data_vals$posix_time_post <- data_vals$timestamp_post %>%
+# webshot only installs if it's missing or old
+suppressMessages(
+ webshot::install_phantomjs(force=FALSE)
+)
+###################
+# Local Functions #
+###################
+# Posts per minute
+plot_events_per_frequency <- function(
+  event_vals, 
+  chart_title, 
+  intPerMinutes, 
+  display_frequency,
+  file_name
+) {
+  event_vals <- event_vals %>%
     anytime() %>%
     as.POSIXct()
   # create bins
-  by_mins_podpings <- cut.POSIXt(data_vals$posix_time_post,"1 mins")
-  podping_data_mins <- split(data_vals$block_num, by_mins_podpings)
+  by_mins_podpings <- cut.POSIXt(event_vals,paste0(intPerMinutes," mins"))
+  podping_data_mins <- split(event_vals, by_mins_podpings)
   per_min_chart_data <- lapply(podping_data_mins,FUN=length)
   per_min_chart_data_frame <- cbind(
     as.data.frame(anytime(names(per_min_chart_data))),
     as.data.frame(unlist(per_min_chart_data))
   )
   names(per_min_chart_data_frame) <- c("time_bin","frequency")
-  png(file=paste0("stats/",chart_title,".png"),
+  png(file=paste0("stats/",file_name,".png"),
       width=900, height=600)
 
+  # remove last row from dataframe 
+  per_min_chart_data_frame <- head(per_min_chart_data_frame,-1)
+  
   plot(
     x=per_min_chart_data_frame$time_bin,
     y=per_min_chart_data_frame$frequency,
     type = "l",
     xlab="Time",
-    ylab="Posts / Minute",
-    main=paste0(chart_title, "Post Frequency")
+    ylab=paste0("items / ", display_frequency),
+    main=paste0(chart_title)
   )
+  
+  
   dev.off()
 }
-# could filter data to specific time frames...
-write_plot_posts_per_min(podping_data,"podping_posts_per_minute")
-if (exists("not_podping_data")) {
-  write_plot_posts_per_min(not_podping_data,"Not_podping_posts_per_minute")
-}
-# podping_data
-######################
-# get the URLs from the json objects
-# starting descriptive stats with
-# https://bookdown.org/wadetroberts/bookdown-demo/descriptive-statistics-and-data-visualization.html
-
-# json_str = stringr::str_replace_all(podping_data$json[1],"\\\\n",""),
-# need to de-prettify the json
-podping_data$json  <- podping_data$json %>% 
-  stringr::str_replace_all("\\\\n","") %>%
-  stringr::str_replace_all("'","")  %>%
-  stringr::str_replace_all('\\"\\"','\\"') 
 
 .getUrlFromPostJson <- function(x) {
   rjson::fromJSON(
@@ -83,10 +62,36 @@ podping_data$json  <- podping_data$json %>%
   )$urls
 }
 
-podping_data$json_url <- lapply(podping_data$json,.getUrlFromPostJson)
-podcastUrls <- unlist(podping_data$json_url)
-length(podcastUrls)
-length(unique(podcastUrls))
+# Posts per minute #
+####################
+write_plot_posts_per_half_hour <- function(data_vals, chart_title) {
+  data_vals$posix_time_post <- data_vals$timestamp_post %>%
+    anytime() %>%
+    as.POSIXct()
+  # create bins
+  by_mins_podpings <- cut.POSIXt(data_vals$posix_time_post,"30 mins")
+  podping_data_mins <- split(data_vals$block_num, by_mins_podpings)
+  per_min_chart_data <- lapply(podping_data_mins,FUN=length)
+  per_min_chart_data_frame <- cbind(
+    as.data.frame(anytime(names(per_min_chart_data))),
+    as.data.frame(unlist(per_min_chart_data))
+  )
+  per_min_chart_data_frame <- head(per_min_chart_data_frame,-1)
+  names(per_min_chart_data_frame) <- c("time_bin","frequency")
+  png(file=paste0("stats/",chart_title,".png"),
+      width=900, height=600)
+  
+  plot(
+    x=per_min_chart_data_frame$time_bin,
+    y=per_min_chart_data_frame$frequency,
+    type = "l",
+    xlab="Time",
+    ylab="posts / half hour",
+    main=paste0(chart_title, "Post Frequency")
+  )
+  dev.off()
+}
+
 # Display stuff #
 #################
 .get_pretty_timestamp_diff <- function(
@@ -130,7 +135,7 @@ length(unique(podcastUrls))
           } else {
             .seconds_display <-1 # round(.seconds,seconds_decimal)
           }
-       }
+        }
       }
     }
   } else {
@@ -145,55 +150,150 @@ length(unique(podcastUrls))
   }
   .time_statement_list <- c(
     ifelse(as.integer(.years),
-      ifelse((.years == 1)," year ",paste0(.years," years ")),
-      NA
+           ifelse((.years == 1)," year ",paste0(.years," years ")),
+           NA
     ),
     ifelse(as.integer(.days),
-      ifelse((.days == 1)," day ",paste0(.days," days ")),
-      NA
+           ifelse((.days == 1)," day ",paste0(.days," days ")),
+           NA
     ),
     ifelse(as.integer(.hours),
-      ifelse((.hours == 1)," hour ",paste0(.hours," hours ")),
-      NA
+           ifelse((.hours == 1)," hour ",paste0(.hours," hours ")),
+           NA
     ),
     ifelse(as.integer(.minutes),
-      ifelse((.minutes == 1)," minute ",paste0(.minutes," minutes ")),
-      NA
+           ifelse((.minutes == 1)," minute ",paste0(.minutes," minutes ")),
+           NA
     ),
     ifelse(as.integer(.seconds_display),
-      ifelse(
-        (.seconds_display == 1),
-        " second ",
-        paste0(.seconds_display," seconds ")
-      ),
-      NA
+           ifelse(
+             (.seconds_display == 1),
+             " second ",
+             paste0(.seconds_display," seconds ")
+           ),
+           NA
     )
   )
   .time_statement_list <- na.omit(.time_statement_list)
   ifelse(
     (length(.time_statement_list) <= 1),
     .time_statement_list[1],
-  paste0(
+    paste0(
       paste0(
-          .time_statement_list[1:(length(.time_statement_list)-1)],
-          collapse=""
+        .time_statement_list[1:(length(.time_statement_list)-1)],
+        collapse=""
       ),
       "and ",
       .time_statement_list[length(.time_statement_list)]
     )
   )
 }
+####################
+# read in the data #
+####################
+if (file.exists("data-podping.csv")) {
+  podping_data <- fread(file="data-podping.csv") 
+}
+if (file.exists("data-unauthorized.csv")) {
+  podping_unathorized_data <- fread(file="data-unauthorized.csv")
+}
+if (file.exists("data-not-podping_firehose.csv")) {
+  not_podping_data <- fread(file="data-not-podping_firehose.csv")
+}
+if (file.exists("data-podping-url.csv")) {
+  url_data <- fread(file="data-podping-url.csv")
+}
+# if (exists("podping_unathorized_data")) {
+  # For now not enough to bother analyzing seperetly
+#  not_podping_data <- rbind(not_podping_data,podping_unathorized_data)
+#}
+if (exists("not_podping_data")) {
+  count_not_podping_data_unique <- data.table::uniqueN(not_podping_data)
+}
+count_podping_data_unique <- data.table::uniqueN(podping_data)
+
+##################
+# clean the data #
+##################
+minutes_total <- 
+  (max(podping_data$timestamp_post)-min(podping_data$timestamp_post)) / 60
+
+intFrequency <- as.integer(
+  (max(url_data$timestamp_post)-min(url_data$timestamp_post))/(60*56)
+)
+
+pretty_frequency <- .get_pretty_timestamp_diff(
+  min(url_data$timestamp_post),
+  min(url_data$timestamp_post) + (intFrequency*60)
+)
+url_summary <- url_data %>% count(domain, sort = TRUE) %>% filter(domain>0) %>% filter(n>1)
+names(url_summary)<- c('domain', "url count")
+url_summary <- cbind(
+  url_summary,round(url_summary$"url count"/(minutes_total),1)
+)
+url_summary <- cbind(
+  url_summary,round((100*url_summary$"url count")/sum(url_summary$"url count"),1)
+)
+names(url_summary)<- c('domain', "url count","url/minute","percent")
 
 time_length_display <- .get_pretty_timestamp_diff(
   min(podping_data$timestamp_post),
   max(podping_data$timestamp_post)
 )
 
+#############
+# visualize #
+#############
+plot_events_per_frequency(
+  url_data$timestamp_post, 
+  paste0(
+    "Podpings grouped into url count for every ",
+    pretty_frequency,
+    " over the past ",
+    time_length_display
+  ),
+  intFrequency,
+  pretty_frequency,
+  "podping-url-frequency"
+)
+
+# could filter data to specific time frames...
+plot_events_per_frequency(
+  podping_data$timestamp_post,
+  paste0(
+    "Podpings grouped into post counts for every ",
+    pretty_frequency,
+    " over the past ",
+    time_length_display
+  ),
+  intFrequency,
+  pretty_frequency,
+  "podping-post-frequency"
+)
+if (exists("not_podping_data")) {
+  write_plot_posts_per_half_hour(not_podping_data,"Not_podping_posts_per_half_hour")
+}
+# podping_data
+######################
+# get the URLs from the json objects
+# starting descriptive stats with
+# https://bookdown.org/wadetroberts/bookdown-demo/descriptive-statistics-and-data-visualization.html
+
+# json_str = stringr::str_replace_all(podping_data$json[1],"\\\\n",""),
+# need to de-prettify the json
+podping_data$json  <- podping_data$json %>% 
+  stringr::str_replace_all("\\\\n","") %>%
+  stringr::str_replace_all("'","")  %>%
+  stringr::str_replace_all('\\"\\"','\\"') 
+
+podping_data$json_url <- lapply(podping_data$json,.getUrlFromPostJson)
+podcastUrls <- unlist(podping_data$json_url)
+
 if (exists("not_podping_data")) {
   summary_stats_not_podping_data <- paste0(
     'All other "custom json" hive post count is ',
     count_not_podping_data_unique,
-    " (", round(count_not_podping_data_unique/minutes_watching,2),
+    " (", round(count_not_podping_data_unique/minutes_total,2),
     " posts/min)\n\t",
     'Podping portion of all "custom json" posts on hive.io is ',
     round(
@@ -206,6 +306,7 @@ if (exists("not_podping_data")) {
   summary_stats_not_podping_data <- ""
 }
 
+#############################
 # Summary Statistics to Log #
 #############################
 summary_Stats <- paste0(  
@@ -215,7 +316,7 @@ summary_Stats <- paste0(
   ":\n\t",
   "Post count is ",
   count_podping_data_unique, 
-  " (", round(count_podping_data_unique/minutes_watching,2),
+  " (", round(count_podping_data_unique/minutes_total,2),
   " posts/min)\n\t",
   "Total urls posted is ", 
   length(podcastUrls), 
@@ -228,9 +329,49 @@ summary_Stats <- paste0(
   "#podping #Stats"
 )
 # export to last txt file
-fileConn<-file("stats/lastSummary.txt")
+fileConn <- file("stats/lastSummary.txt")
 writeLines(summary_Stats, fileConn)
 close(fileConn)
+
+# url count Summary:
+
+customGreen0 = "#DeF7E9"
+customGreen = "#71CA97"
+customRed = "#FF7F7F"
+powderBlue = "#B0E0E6"
+formated_summary_table <- gt::gt(url_summary) %>% 
+  tab_header(
+    title = paste0(  
+      'Podping report ',
+      "for the last ",
+      time_length_display, ""),
+    subtitle = "Podping urls are 'custom json' posts on the Hive.io block chain"
+  ) %>% 
+  gt::tab_source_note(paste0(  
+    "Total urls posted is ", 
+    length(podcastUrls), 
+    " of which ",
+    length(unique(podcastUrls)),
+    " are unique\n\t",
+    "\t(average of ",
+    round(length(podcastUrls)/count_podping_data_unique,2),
+    " urls/post)\n\t", summary_stats_not_podping_data,
+    "#podping #Stats")
+  ) %>%
+  tab_source_note("https://github.com/seakintruth/podping-stats") %>%
+  tab_options(
+    column_labels.background.color = customGreen0,
+    heading.background.color = customGreen, 
+    source_notes.background.color = customGreen0,
+    table.background.color  = powderBlue
+  )
+
+gt::gtsave(formated_summary_table,expand=10,filename="url-report.png",path="stats")
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
+
+###########
+# predict #
+###########
+#[TODO]
