@@ -1,3 +1,6 @@
+# Stats Reports
+[Stats for mastodon-toot-bot-hive](https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/)
+
 # I'm a bot
 ... in training ...
 
