@@ -346,9 +346,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
     source_notes.background.color = customGreen0,
     table.background.color  = powderBlue
   )
-
 gt::gtsave(formated_summary_table,expand=10,filename="lastest-url-report.png",path="stats")
-
 gt::gtsave(
   formated_summary_table,
   filename=paste0(report_name_prefix,"-url-report.html"),
@@ -358,10 +356,8 @@ fCopyComplete <- file.copy(
   paste0("stats/",report_name_prefix,"-url-report.html"),
   "stats/last-url-report.html",TRUE
 )
-
 # Last url Report HTML 
 md_last_url_report_html <- paste0(read_lines(file = "stats/last-url-report.html",skip = 1),collapse="\n")
-
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
@@ -374,7 +370,6 @@ md_past_reports <-paste0(
     collapse=""),
   collapse=""
 )
-
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
@@ -383,19 +378,18 @@ md_past_charts <- paste0(
     collapse=""),
   collapse=""
 )
-
-      
 # Write the stats/index.md github pages files
 readr::write_lines(
   paste0(
     "# Domain Stats\n",
     md_last_url_report_html,
     "# Summary Stats \n",
-    summary_Stats,
+    summary_Stats %>%
+      stringr::str_replace_all(pattern = "\\\n",replacement = "\\\n- ") %>%
+      stringr::str_replace_all(pattern = "\\\t",replacement = "&emsp;"),
     "\n",
     md_past_reports,
     md_past_charts, collapse=""
   ),
   file = "stats/index.md"
 )
-  
