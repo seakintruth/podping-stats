@@ -362,6 +362,9 @@ fCopyComplete <- file.copy(
   "stats/last-url-report.html",TRUE
 )
 
+# Last url Report HTML 
+md_last_url_report_html <- paste0(read_lines(file = "stats/last-url-report.html",skip = 1),collapse="\n")
+
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
@@ -379,7 +382,7 @@ md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
     "\n- ![",list.files("stats",pattern="*.png"),"]",
-    "(",list.files("stats",pattern="*.png"),"|50%)",
+    "(",list.files("stats",pattern="*.png"),")",
     collapse=""),
   collapse=""
 )
@@ -388,6 +391,8 @@ md_past_charts <- paste0(
 # Write the stats/index.md github pages files
 readr::write_lines(
   paste0(
+    "# Domain Stats\n",
+    md_last_url_report_html,
     "# Summary Stats \n",
     summary_Stats,
     "\n",
