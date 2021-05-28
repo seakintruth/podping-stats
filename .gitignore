@@ -11,6 +11,8 @@
 */data.csv
 */data-not-podping_firehose.csv
 */data-unauthorized.csv
+*/data-podping-url.csv
+*/data-podping.csv
 
 # The crontab log #
 *crontab.log

@@ -2,7 +2,9 @@
 # A string with command options
 # example usage: get last week of data and don't toot about it , exclude nonpodping:
 # ./toot-stats.sh -H 168 -n true -t true
+# -t argument
 testRun=false
+# -n argument
 excludeNonPodping=false
 # https://stackoverflow.com/a/6946864
 # This method is simple to use, but less flexible (not smart), can't use -nt, use:
@@ -55,3 +57,5 @@ else
   # toot the stats
   $SCRIPT_PATH/toot-last-summary-stats.py
 fi
+
+git add . && git commit -m "update reports" && git push
