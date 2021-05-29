@@ -376,7 +376,7 @@ md_past_reports <-paste0(
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
-    "\n- ![",list.files("stats",pattern="*.png"),"]",
+    "\n![",list.files("stats",pattern="*.png"),"]",
     "(",list.files("stats",pattern="*.png"),")",
     collapse=""),
   collapse=""
