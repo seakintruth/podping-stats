@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # A string with command options
-# example usage: get last day of data and don't toot about it , exclude nonpodping:
-# ./toot-stats.sh -H 24 -n true -t true
+# example usage: get last week of data and don't toot about it , exclude nonpodping, do push to git hub:
+# ./toot-stats.sh -H 168 -n true -t true -p true
 # -t argument
 testRun=false
 # -n argument
 excludeNonPodping=false
 # https://stackoverflow.com/a/6946864
 # This method for arguments is simple to use, but less flexible (not smart), can't use -nt, use:
-# ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true -t true
+# ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true -t true -p true
 
 options=$@
 # An array with all the arguments
@@ -23,6 +23,7 @@ for argument in $options
       -H) historyHours=${arguments[index]} ;;
       -n) excludeNonPodping=${arguments[index]} ;;
       -t) testRun=${arguments[index]} ;;
+      -p) pushToGit=${arguments[index]} ;;
     esac
   done
 
@@ -51,11 +52,16 @@ rm $SCRIPT_PATH/stats/lastSummary.txt
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
+if $pushToGit; then
+  # Push changes to github pages
+  git add ../. && git commit -m "update reports" && git push
+else
+  echo "Not pushing reports to github"
+fi
+
 if $testRun; then
   echo "Not tooting or pushing to git durring testing"
 else
-  # Push changes to github pages
-  git add . && git commit -m "update reports" && git push
   # wait for 15 seconds to allow for the git hub pages to be updated...
   sleep 15s
   # toot the stats
