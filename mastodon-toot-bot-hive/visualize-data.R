@@ -4,9 +4,8 @@
 # Version 0.1
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
-  psych, ggplot2, table1, patchwork,
-  data.table, dplyr, tidyverse, anytime, 
-  rjson, stringr, loggit, tidygraph, gt,webshot
+  ggplot2, data.table, dplyr, tidyverse, anytime, 
+  rjson, stringr, loggit, gt, webshot
 )
 # webshot only installs if it's missing or old
 suppressMessages(
@@ -196,6 +195,7 @@ pretty_frequency <- .get_pretty_timestamp_diff(
   min(url_data$timestamp_post),
   min(url_data$timestamp_post) + (intFrequency*60)
 )
+# Sort and filter 
 url_summary <- url_data %>% count(domain, sort = TRUE) %>% filter(domain>0) %>% filter(n>1)
 names(url_summary)<- c('domain', "url count")
 url_summary <- cbind(
@@ -205,6 +205,9 @@ url_summary <- cbind(
   url_summary,round((100*url_summary$"url count")/sum(url_summary$"url count"),1)
 )
 names(url_summary)<- c('domain', "url count","url/minute","share (%)")
+# only return the top 25 items
+url_summary <- head(url_summary,25)
+
 
 time_length_display <- .get_pretty_timestamp_diff(
   min(podping_data$timestamp_post),
@@ -345,7 +348,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
     heading.background.color = customGreen, 
     source_notes.background.color = customGreen0,
     table.background.color  = powderBlue
-  )
+  ) 
 # gt::gtsave(formated_summary_table,expand=10,filename="lastest-url-report.png",path="stats")
 gt::gtsave(
   formated_summary_table,
