@@ -261,55 +261,55 @@ plot(
   xlab="Time",
   col="red",
   ylab=paste0("Items / ", pretty_frequency),
-  lty=1,lwd = 3,
+  lty=1,lwd = 3,cex=1.3,
   main=paste0(chart_title)
 )
 lines(
   x=per_min_urls_chart_data_frame$time_bin,
   y=per_min_post_chart_data$frequency,
-  type="o",lwd = 3,
+  type="o",lwd = 3,cex=1.3,
   col="blue",
   lty=2
 )
 lines(
   x=as.data.frame(by_mins_domain_bins[1])$time_bin,
   y=as.data.frame(by_mins_domain_bins[1])$frequency,
-  type="l",lwd = 3,
+  type="l",lwd = 3,cex=1.3,
   col=domain_colors[1],
   lty=1
 )
 lines(
   x=as.data.frame(by_mins_domain_bins[2])$time_bin,
   y=as.data.frame(by_mins_domain_bins[2])$frequency,
-  type="l",lwd = 3,
+  type="l",lwd = 3,cex=1.3,
   col=domain_colors[2],
   lty=2
 )
 lines(
   x=as.data.frame(by_mins_domain_bins[3])$time_bin,
   y=as.data.frame(by_mins_domain_bins[3])$frequency,
-  type="l",lwd = 3,
+  type="l",lwd = 3,cex=1.3,
   col=domain_colors[3],
   lty=3
 )
 lines(
   x=as.data.frame(by_mins_domain_bins[4])$time_bin,
   y=as.data.frame(by_mins_domain_bins[4])$frequency,
-  type="l",
+  type="l",lwd = 3,cex=1.3,
   col=domain_colors[4],
   lty=4
 )
 lines(
   x=as.data.frame(by_mins_domain_bins[5])$time_bin,
   y=as.data.frame(by_mins_domain_bins[5])$frequency,
-  type="l",lwd = 3,
+  type="l",lwd = 3,cex=1.3,
   col=domain_colors[5],
   lty=5
 )
 legend(
   "topleft", 
   legend=c("Url Count","Post Count",url_domains_to_graph), 
-  col=c("red","blue",domain_colors), lty=c(1,2,1:5), lwd = 3, cex=1.2 
+  col=c("red","blue",domain_colors), lty=c(1,2,1:5), lwd = 3, cex=1.3 
 )
 
 dev.off()
