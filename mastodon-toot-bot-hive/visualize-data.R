@@ -189,6 +189,10 @@ url_timestamps <- url_data$timestamp_post %>%
     anytime() %>%
     as.POSIXct()
 
+# Graph the top 5 domains
+url_domains_to_graph <- head(url_summary$domain,5)
+url_domains_to_graph_data <-url_data %>% dplyr::filter(domain %in% url_domains_to_graph )
+
 chart_title <- paste0(
   "Podpings grouped into item count for every ",
   pretty_frequency,
@@ -202,8 +206,31 @@ chart_file_path <- paste0("stats/",report_name_prefix,"-podping-frequency.png")
 # create bins
 by_mins_urls_bins <- cut.POSIXt(url_timestamps,paste0(int_frequency," mins"))
 by_mins_post_bins <- cut.POSIXt(post_timestamps,paste0(int_frequency," mins"))
-podping_urls_mins <- split(url_timestamps, by_mins_urls_bins)
-podping_post_mins <- split(post_timestamps, by_mins_post_bins)
+
+.get_min_bins <- function (this_domain,y){
+  y <-y %>% dplyr::filter(domain == this_domain)
+  timestamp <- y$timestamp_post %>%
+    anytime() %>%
+    as.POSIXct()
+
+  by_mins_domain_bins <-cut.POSIXt(timestamp,paste0(int_frequency," mins"))
+  podping_domain_mins <- base::split(timestamp, by_mins_domain_bins)
+  per_min_domain_chart_data <- lapply(podping_domain_mins,FUN=length)
+  per_min_domain_chart_data_frame <- cbind(
+    as.data.frame(anytime(names(per_min_domain_chart_data))),
+    as.data.frame(unlist(per_min_domain_chart_data))
+  )
+  names(per_min_domain_chart_data_frame) <- c("time_bin","frequency")
+  # remove last row  
+  per_min_domain_chart_data_frame  %>%  head(-1)
+}
+by_mins_domain_bins <- lapply(
+  url_domains_to_graph,
+  FUN=.get_min_bins,
+  y=url_domains_to_graph_data
+)
+podping_urls_mins <- base::split(url_timestamps, by_mins_urls_bins)
+podping_post_mins <- base::split(post_timestamps, by_mins_post_bins)
 per_min_urls_chart_data <- lapply(podping_urls_mins,FUN=length)
 per_min_urls_chart_data_frame <- cbind(
   as.data.frame(anytime(names(per_min_urls_chart_data))),
@@ -217,7 +244,13 @@ per_min_post_chart_data <- lapply(podping_post_mins,FUN=length) %>%
   as.data.frame() %>%
   head(-1)
 names(per_min_post_chart_data) <- "frequency"
-
+domain_colors<-c(
+  "aquamarine4",
+  "azure4",
+  "darkolivegreen4",
+  "burlywood4",
+  "coral4"
+)
 png(file=chart_file_path,
     width=900, height=600)
 
@@ -228,17 +261,55 @@ plot(
   xlab="Time",
   col="red",
   ylab=paste0("Items / ", pretty_frequency),
+  lty=1,lwd = 3,
   main=paste0(chart_title)
 )
 lines(
   x=per_min_urls_chart_data_frame$time_bin,
   y=per_min_post_chart_data$frequency,
-  type="b",
-  col="blue")
+  type="o",lwd = 3,
+  col="blue",
+  lty=2
+)
+lines(
+  x=as.data.frame(by_mins_domain_bins[1])$time_bin,
+  y=as.data.frame(by_mins_domain_bins[1])$frequency,
+  type="l",lwd = 3,
+  col=domain_colors[1],
+  lty=1
+)
+lines(
+  x=as.data.frame(by_mins_domain_bins[2])$time_bin,
+  y=as.data.frame(by_mins_domain_bins[2])$frequency,
+  type="l",lwd = 3,
+  col=domain_colors[2],
+  lty=2
+)
+lines(
+  x=as.data.frame(by_mins_domain_bins[3])$time_bin,
+  y=as.data.frame(by_mins_domain_bins[3])$frequency,
+  type="l",lwd = 3,
+  col=domain_colors[3],
+  lty=3
+)
+lines(
+  x=as.data.frame(by_mins_domain_bins[4])$time_bin,
+  y=as.data.frame(by_mins_domain_bins[4])$frequency,
+  type="l",
+  col=domain_colors[4],
+  lty=4
+)
+lines(
+  x=as.data.frame(by_mins_domain_bins[5])$time_bin,
+  y=as.data.frame(by_mins_domain_bins[5])$frequency,
+  type="l",lwd = 3,
+  col=domain_colors[5],
+  lty=5
+)
 legend(
   "topleft", 
-  legend=c("Url Count","Post Count"), 
-  col=c("red","blue"), lty=1:2, cex=0.8 
+  legend=c("Url Count","Post Count",url_domains_to_graph), 
+  col=c("red","blue",domain_colors), lty=c(1,2,1:5), lwd = 3, cex=1.2 
 )
 
 dev.off()
