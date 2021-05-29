@@ -436,19 +436,26 @@ md_last_url_report_html <- paste0(
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
 
+past_report_files <- list.files("stats",pattern="*.html") %>% 
+  sort(decreasing= TRUE)
+
 md_past_reports <-paste0(
   "# Past reports \n",
     paste0(
-      "- [",list.files("stats",pattern="*.html"),"]",
-      "(",list.files("stats",pattern="*.html"),")\n",
+      "- [",past_report_files,"]",
+      "(",past_report_files,")\n",
     collapse=""),
   collapse=""
 )
+
+past_chart_files <- list.files("stats",pattern="*.png") %>% 
+  sort(decreasing= TRUE)
+
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
-    "\n![",list.files("stats",pattern="*.png"),"]",
-    "(",list.files("stats",pattern="*.png"),")",
+    "\n![",past_chart_files,"]",
+    "(",past_chart_files,")",
     collapse=""),
   collapse=""
 )
