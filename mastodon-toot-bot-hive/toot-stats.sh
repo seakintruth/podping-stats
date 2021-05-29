@@ -7,7 +7,7 @@ testRun=false
 # -n argument
 excludeNonPodping=false
 # https://stackoverflow.com/a/6946864
-# This method is simple to use, but less flexible (not smart), can't use -nt, use:
+# This method for arguments is simple to use, but less flexible (not smart), can't use -nt, use:
 # ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true -t true
 
 options=$@
@@ -51,12 +51,11 @@ rm $SCRIPT_PATH/stats/lastSummary.txt
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
-# Push changes to github pages
-git add . && git commit -m "update reports" && git push
-
 if $testRun; then
-  echo "Not tooting durring testing"
+  echo "Not tooting or pushing to git durring testing"
 else
+  # Push changes to github pages
+  git add . && git commit -m "update reports" && git push
   # wait for 15 seconds to allow for the git hub pages to be updated...
   sleep 15s
   # toot the stats
