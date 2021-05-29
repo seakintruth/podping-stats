@@ -479,7 +479,7 @@
 </html>
 # Past reports 
 - [2021-05-28-7 days-url-report.html](2021-05-28-7 days-url-report.html)
-- [2021-05-28-day-url-report.html](2021-05-28-day-url-report.html)
+- [2021-05-28-28 days-url-report.html](2021-05-28-28 days-url-report.html)
 
 # Past charts
 - ![2021-05-28-28 days-podping-post-frequency.png](2021-05-28-28 days-podping-post-frequency.png)
