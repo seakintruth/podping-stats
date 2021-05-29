@@ -14,44 +14,6 @@ suppressMessages(
 ###################
 # Local Functions #
 ###################
-# Posts per minute
-plot_events_per_frequency <- function(
-  event_vals, 
-  chart_title, 
-  intPerMinutes, 
-  display_frequency,
-  file_name
-) {
-  event_vals <- event_vals %>%
-    anytime() %>%
-    as.POSIXct()
-  # create bins
-  by_mins_podpings <- cut.POSIXt(event_vals,paste0(intPerMinutes," mins"))
-  podping_data_mins <- split(event_vals, by_mins_podpings)
-  per_min_chart_data <- lapply(podping_data_mins,FUN=length)
-  per_min_chart_data_frame <- cbind(
-    as.data.frame(anytime(names(per_min_chart_data))),
-    as.data.frame(unlist(per_min_chart_data))
-  )
-  names(per_min_chart_data_frame) <- c("time_bin","frequency")
-  png(file=paste0("stats/",report_name_prefix,"-",file_name,".png"),
-      width=900, height=600)
-
-  # remove last row from dataframe 
-  per_min_chart_data_frame <- head(per_min_chart_data_frame,-1)
-  
-  plot(
-    x=per_min_chart_data_frame$time_bin,
-    y=per_min_chart_data_frame$frequency,
-    type = "l",
-    xlab="Time",
-    ylab=paste0("items / ", display_frequency),
-    main=paste0(chart_title)
-  )
-  
-  
-  dev.off()
-}
 
 .getUrlFromPostJson <- function(x) {
   rjson::fromJSON(
@@ -187,13 +149,13 @@ count_podping_data_unique <- data.table::uniqueN(podping_data)
 minutes_total <- 
   (max(podping_data$timestamp_post)-min(podping_data$timestamp_post)) / 60
 
-intFrequency <- as.integer(
+int_frequency <- as.integer(
   (max(url_data$timestamp_post)-min(url_data$timestamp_post))/(60*56)
 )
 
 pretty_frequency <- .get_pretty_timestamp_diff(
   min(url_data$timestamp_post),
-  min(url_data$timestamp_post) + (intFrequency*60)
+  min(url_data$timestamp_post) + (int_frequency*60)
 )
 # Sort and filter 
 url_summary <- url_data %>% count(domain, sort = TRUE) %>% filter(domain>0) %>% filter(n>1)
@@ -205,9 +167,9 @@ url_summary <- cbind(
   url_summary,round((100*url_summary$"url count")/sum(url_summary$"url count"),1)
 )
 names(url_summary)<- c('domain', "url count","url/minute","share (%)")
-# only return the top 25 items
-url_summary <- head(url_summary,25)
 
+# only return the top 25 items for this table
+url_summary <- head(url_summary,25)
 
 time_length_display <- .get_pretty_timestamp_diff(
   min(podping_data$timestamp_post),
@@ -219,32 +181,67 @@ report_name_prefix <- paste0(Sys.Date(),"-",str_trim(time_length_display, side =
 #############
 # visualize #
 #############
-plot_events_per_frequency(
-  url_data$timestamp_post, 
-  paste0(
-    "Podpings grouped into url count for every ",
-    pretty_frequency,
-    " over the past ",
-    time_length_display
-  ),
-  intFrequency,
+post_timestamps <- podping_data$timestamp_post %>%
+    anytime() %>%
+    as.POSIXct()
+
+url_timestamps <- url_data$timestamp_post %>%
+    anytime() %>%
+    as.POSIXct()
+
+chart_title <- paste0(
+  "Podpings grouped into item count for every ",
   pretty_frequency,
-  "podping-url-frequency"
+  " over the past ",
+  time_length_display
 )
 
+chart_file_path <- paste0("stats/",report_name_prefix,"-podping-frequency.png")
+
 # could filter data to specific time frames...
-plot_events_per_frequency(
-  podping_data$timestamp_post,
-  paste0(
-    "Podpings grouped into post counts for every ",
-    pretty_frequency,
-    " over the past ",
-    time_length_display
-  ),
-  intFrequency,
-  pretty_frequency,
-  "podping-post-frequency"
+# create bins
+by_mins_urls_bins <- cut.POSIXt(url_timestamps,paste0(int_frequency," mins"))
+by_mins_post_bins <- cut.POSIXt(post_timestamps,paste0(int_frequency," mins"))
+podping_urls_mins <- split(url_timestamps, by_mins_urls_bins)
+podping_post_mins <- split(post_timestamps, by_mins_post_bins)
+per_min_urls_chart_data <- lapply(podping_urls_mins,FUN=length)
+per_min_urls_chart_data_frame <- cbind(
+  as.data.frame(anytime(names(per_min_urls_chart_data))),
+  as.data.frame(unlist(per_min_urls_chart_data))
 )
+names(per_min_urls_chart_data_frame) <- c("time_bin","frequency")
+# remove last row from dataframe 
+per_min_urls_chart_data_frame <- head(per_min_urls_chart_data_frame,-1)
+per_min_post_chart_data <- lapply(podping_post_mins,FUN=length) %>%
+  unlist() %>%
+  as.data.frame() %>%
+  head(-1)
+names(per_min_post_chart_data) <- "frequency"
+
+png(file=chart_file_path,
+    width=900, height=600)
+
+plot(
+  x=per_min_urls_chart_data_frame$time_bin,
+  y=per_min_urls_chart_data_frame$frequency,
+  type = "b",
+  xlab="Time",
+  col="red",
+  ylab=paste0("Items / ", pretty_frequency),
+  main=paste0(chart_title)
+)
+lines(
+  x=per_min_urls_chart_data_frame$time_bin,
+  y=per_min_post_chart_data$frequency,
+  type="b",
+  col="blue")
+legend(
+  "topleft", 
+  legend=c("Url Count","Post Count"), 
+  col=c("red","blue"), lty=1:2, cex=0.8 
+)
+
+dev.off()
 
 # podping_data
 ######################
@@ -311,6 +308,7 @@ summary_Stats <- paste0(
   "\n#podping #Stats"
 )
 # export to last txt file
+
 fileConn <- file("stats/lastSummary.txt")
 writeLines(summary_Stats, fileConn)
 close(fileConn)
@@ -358,7 +356,7 @@ gt::gtsave(
 # Last url Report HTML 
 md_last_url_report_html <- paste0(
   read_lines(
-    file = "stats/",report_name_prefix,"-url-report.html",
+    file = paste0("stats/",report_name_prefix,"-url-report.html"),
     skip = 1
   ),
   collapse="\n"
