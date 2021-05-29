@@ -34,7 +34,7 @@ plot_events_per_frequency <- function(
     as.data.frame(unlist(per_min_chart_data))
   )
   names(per_min_chart_data_frame) <- c("time_bin","frequency")
-  png(file=paste0("stats/",file_name,".png"),
+  png(file=paste0("stats/",report_name_prefix,"-",file_name,".png"),
       width=900, height=600)
 
   # remove last row from dataframe 
@@ -355,12 +355,14 @@ gt::gtsave(
   filename=paste0(report_name_prefix,"-url-report.html"),
   path="stats"
 )
-fCopyComplete <- file.copy(
-  paste0("stats/",report_name_prefix,"-url-report.html"),
-  "stats/last-url-report.html",TRUE
-)
 # Last url Report HTML 
-md_last_url_report_html <- paste0(read_lines(file = "stats/last-url-report.html",skip = 1),collapse="\n")
+md_last_url_report_html <- paste0(
+  read_lines(
+    file = "stats/",report_name_prefix,"-url-report.html",
+    skip = 1
+  ),
+  collapse="\n"
+)
 # log the same stats
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)

@@ -478,15 +478,9 @@
 </body>
 </html>
 # Past reports 
-- [2021-05-28-28.3 days-url-report.html](2021-05-28-28.3 days-url-report.html)
 - [2021-05-28-7 days-url-report.html](2021-05-28-7 days-url-report.html)
 - [2021-05-28-day-url-report.html](2021-05-28-day-url-report.html)
-- [2021-05-29-28.3 days-url-report.html](2021-05-29-28.3 days-url-report.html)
-- [2021-05-29-59.4 minutes-url-report.html](2021-05-29-59.4 minutes-url-report.html)
-- [last-url-report.html](last-url-report.html)
 
 # Past charts
 - ![2021-05-28-28 days-podping-post-frequency.png](2021-05-28-28 days-podping-post-frequency.png)
 - ![2021-05-28-28 days-podping-url-frequency.png](2021-05-28-28 days-podping-url-frequency.png)
-- ![podping-post-frequency.png](podping-post-frequency.png)
-- ![podping-url-frequency.png](podping-url-frequency.png)
