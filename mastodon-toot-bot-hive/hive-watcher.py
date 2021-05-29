@@ -246,7 +246,7 @@ def write_post_to_csv(post,filepath_data):
         fieldnames = ["trx_id","url","domain","timestamp_post"]
         data = json.loads(post.get("json"))
         if data.get("url"):
-            url = {data.get('url')}
+            url = data.get('url')
             if len(url)>8:
                 url_domain = extractDomain(url[8:])
             else:
