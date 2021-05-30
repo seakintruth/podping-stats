@@ -2,13 +2,18 @@
 # A string with command options
 # example usage: get last week of data and don't toot about it , exclude nonpodping, do push to git hub:
 # ./toot-stats.sh -H 168 -n true -t true -p true
+# This method for arguments is simple to use, 
+# but less flexible (not smart), can't use -nt, use:
+
+# Set defaults
+############################3
 # -t argument
-testRun=false
+tootSummary=false
 # -n argument
 excludeNonPodping=false
+# -push results to github
+pushToGit=false
 # https://stackoverflow.com/a/6946864
-# This method for arguments is simple to use, but less flexible (not smart), can't use -nt, use:
-# ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true -t true -p true
 
 options=$@
 # An array with all the arguments
@@ -22,7 +27,7 @@ for argument in $options
     case $argument in
       -H) historyHours=${arguments[index]} ;;
       -n) excludeNonPodping=${arguments[index]} ;;
-      -t) testRun=${arguments[index]} ;;
+      -t) tootSummary=${arguments[index]} ;;
       -p) pushToGit=${arguments[index]} ;;
     esac
   done
@@ -40,7 +45,7 @@ rm $SCRIPT_PATH/data*
 # run the python tool to query for the past 24 hours
 # this takes roughly 5 minutes per day's worth of information, each day is .3 gb
 echo $historyHours
-if $excludeNonPodping; then
+if $excludeNonPodping ; then
   $SCRIPT_PATH/hive-watcher.py --include-unauthorized --write-csv --history-only --old $historyHours
 else
   $SCRIPT_PATH/hive-watcher.py --include-unauthorized --include-nonpodping --write-csv --history-only --old $historyHours
@@ -52,18 +57,18 @@ rm $SCRIPT_PATH/stats/lastSummary.txt
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
-if $pushToGit; then
+if $pushToGit ; then
   # Push changes to github pages
-  git add ../. && git commit -m "update reports" && git push
-else
-  echo "Not pushing reports to github"
+  git add ../. 
+  git commit -m "update reports" 
+  git push
+  if $tootSummary ; then
+    # wait for 15 seconds to allow for the git hub pages to be updated...
+    sleep 15s
+  fi
 fi
 
-if $testRun; then
-  echo "Not tooting or pushing to git durring testing"
-else
-  # wait for 15 seconds to allow for the git hub pages to be updated...
-  sleep 15s
+if $tootSummary ; then
   # toot the stats
   $SCRIPT_PATH/toot-last-summary-stats.py
 fi
