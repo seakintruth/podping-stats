@@ -262,9 +262,6 @@ plot(
   col="red",
   ylim=c(0,max(per_min_urls_chart_data_frame$frequency)),
   ylab=paste0("Items / ", pretty_frequency),
-  ylim=0,max(
-    per_min_urls_chart_data_frame$frequency
-  ),
   lty=1,lwd = 3,cex=1.3,
   main=paste0(chart_title)
 )
@@ -312,8 +309,8 @@ lines(
 )
 legend(
   "topleft", 
-  legend=c("Url Count",bg="transparent","Post Count",url_domains_to_graph), 
-  col=c("red","blue",domain_colors), lty=c(1,2,1:5), lwd = 3, cex=1.3 
+  legend=c("Url Count","Post Count",url_domains_to_graph,bg="transparent"), 
+  col=c("red","blue",domain_colors), lty=c(1,2,1:5), bg="transparent", lwd = 3, cex=1 
 )
 
 dev.off()
