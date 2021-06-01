@@ -309,7 +309,7 @@ lines(
 )
 legend(
   "topleft", 
-  legend=c("Url Count","Post Count",url_domains_to_graph,bg="transparent"), 
+  legend=c("Url Count","Post Count",url_domains_to_graph), 
   col=c("red","blue",domain_colors), lty=c(1,2,1:5), bg="transparent", lwd = 3, cex=1 
 )
 
