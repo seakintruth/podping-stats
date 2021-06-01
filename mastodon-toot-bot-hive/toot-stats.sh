@@ -54,7 +54,7 @@ $SCRIPT_PATH/visualize-data.R
 
 if $pushToGit; then
   # Push changes to github pages
-  git add ../. && git commit -m "update reports" && git push
+  git add $SCRIPT_PATH/../. && git commit -m "update reports" && git push
 else
   echo "Not pushing reports to github"
 fi
