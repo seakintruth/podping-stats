@@ -56,9 +56,6 @@ else
   $SCRIPT_PATH/hive-watcher.py --include-unauthorized --include-nonpodping --write-csv --history-only --old $historyHours
 fi
 
-# cleanup the lastSummary.txt file ([TODO] move this to the R script...)
-rm $SCRIPT_PATH/stats/lastSummary.txt
-
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 

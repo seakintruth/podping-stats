@@ -462,6 +462,7 @@ md_past_reports <-paste0(
 past_chart_files <- list.files("stats",pattern="*.png") %>% 
   sort(decreasing= TRUE)
 
+# [TODO] make each chart clickable...
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
