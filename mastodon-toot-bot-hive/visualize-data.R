@@ -260,6 +260,7 @@ plot(
   type = "b",
   xlab="Time",
   col="red",
+  ylim=c(0,max(per_min_urls_chart_data_frame$frequency)),
   ylab=paste0("Items / ", pretty_frequency),
   ylim=0,max(
     per_min_urls_chart_data_frame$frequency

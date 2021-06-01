@@ -2,7 +2,7 @@
 # A string with command options
 # example usage: get last week of data and don't toot about it , exclude nonpodping, do push to git hub:
 # ./toot-stats.sh -H 168 -n true -t true -p true
-# This method for arguments is simple to use, 
+# This method for arguments is simple to use,
 # but less flexible (not smart), can't use -nt, use:
 
 # Set defaults
@@ -59,9 +59,9 @@ $SCRIPT_PATH/visualize-data.R
 
 if $pushToGit ; then
   # Push changes to github pages
-  git add ../. 
-  git commit -m "update reports" 
-  git push
+  git add $SCRIPT_PATH/../. && git commit -m "update reports" && git push
+else
+  echo "Not pushing reports to github"
   if $tootSummary ; then
     # wait for 15 seconds to allow for the git hub pages to be updated...
     sleep 15s
