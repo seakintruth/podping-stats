@@ -176,7 +176,8 @@ time_length_display <- .get_pretty_timestamp_diff(
   max(podping_data$timestamp_post)
 )
 
-report_name_prefix <- paste0(Sys.Date(),"-",str_trim(time_length_display, side ="both"))
+report_name_prefix <- paste0(Sys.Date(),"_",str_trim(time_length_display, side ="both"))
+last_name_prefix <- paste0("last_published_",str_trim(time_length_display, side ="both"))
 
 #############
 # visualize #
@@ -197,10 +198,15 @@ chart_title <- paste0(
   "Podpings grouped into item count for every ",
   pretty_frequency,
   " over the past ",
-  time_length_display
+  str_trim(time_length_display, side ="both"),
+  " for ", Sys.Date()
 )
 
+#Sys.Date(),"-",
+
 chart_file_path <- paste0("stats/",report_name_prefix,"-podping-frequency.png")
+chart_file_path_last <- paste0("stats/",last_name_prefix,"-podping-frequency.png")
+
 
 # could filter data to specific time frames...
 # create bins
@@ -312,8 +318,9 @@ legend(
   legend=c("Url Count","Post Count",url_domains_to_graph), 
   col=c("red","blue",domain_colors), lty=c(1,2,1:5), bg="transparent", lwd = 3, cex=1 
 )
-
 dev.off()
+# make a copy of the file to link to...
+file.copy(from=chart_file_path,to=chart_file_path_last,overwrite=TRUE)
 
 # podping_data
 ######################
@@ -380,7 +387,9 @@ summary_Stats <- paste0(
   "\n#podping #Stats"
 )
 # export to last txt file
-
+if (file.exists("stats/lastSummary.txt")){
+  file.remove("stats/lastSummary.txt")
+}
 fileConn <- file("stats/lastSummary.txt")
 writeLines(summary_Stats, fileConn)
 close(fileConn)
@@ -425,6 +434,7 @@ gt::gtsave(
   filename=paste0(report_name_prefix,"-url-report.html"),
   path="stats"
 )
+
 # Last url Report HTML 
 md_last_url_report_html <- paste0(
   read_lines(

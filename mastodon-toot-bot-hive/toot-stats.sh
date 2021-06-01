@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 # A string with command options
 # example usage: get last week of data and don't toot about it , exclude nonpodping, do push to git hub:
-# ./toot-stats.sh -H 168 -n true -t true -p true
+# -daily- 
+# ./toot-stats.sh -H 168 -n true -t false -p true
+# -weekly-
+# ./toot-stats.sh -H 168 -n true -t false -p true
+# -monthly- Every 29.8 days resolves to 30 day file names
+# ./toot-stats.sh -H 717 -n true -t false -p true
 # This method for arguments is simple to use,
 # but less flexible (not smart), can't use -nt, use:
 
@@ -45,30 +50,31 @@ rm $SCRIPT_PATH/data*
 # run the python tool to query for the past 24 hours
 # this takes roughly 5 minutes per day's worth of information, each day is .3 gb
 echo $historyHours
-if $excludeNonPodping ; then
+if $excludeNonPodping; then
   $SCRIPT_PATH/hive-watcher.py --include-unauthorized --write-csv --history-only --old $historyHours
 else
   $SCRIPT_PATH/hive-watcher.py --include-unauthorized --include-nonpodping --write-csv --history-only --old $historyHours
 fi
 
-# cleanup the lastSummary.txt file
+# cleanup the lastSummary.txt file ([TODO] move this to the R script...)
 rm $SCRIPT_PATH/stats/lastSummary.txt
 
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
-if $pushToGit ; then
+if $pushToGit; then
   # Push changes to github pages
   git add $SCRIPT_PATH/../. && git commit -m "update reports" && git push
-else
-  echo "Not pushing reports to github"
   if $tootSummary ; then
-    # wait for 15 seconds to allow for the git hub pages to be updated...
+    # wait for 15 seconds to allow for the git hub pages to be updated
+    # prior to tooting
     sleep 15s
   fi
+else
+  echo "Not pushing reports to github"
 fi
 
-if $tootSummary ; then
+if $tootSummary; then
   # toot the stats
   $SCRIPT_PATH/toot-last-summary-stats.py
 fi
