@@ -2,7 +2,7 @@
 # A string with command options
 # example usage: get last week of data and don't toot about it , exclude nonpodping, do push to git hub:
 # -daily- 
-# ./toot-stats.sh -H 168 -n true -t false -p true
+# ./toot-stats.sh -H 24 -n true -t false -p true
 # -weekly-
 # ./toot-stats.sh -H 168 -n true -t false -p true
 # -monthly- Every 29.8 days resolves to 30 day file names
