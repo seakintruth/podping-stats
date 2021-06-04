@@ -6,11 +6,21 @@
 
 This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
-Currently running seperate daily and weekly, and monthly reports via this `crontab -e`
+Currently running seperate reports and toots via this `crontab -e`
 ```
-0 8 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24 >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
-0 9 * * 1 ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168 >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
-0 12 1 * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 720 -n true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+# At minute 30 past every 2nd hour, generate weekly charts, don't toot
+30 */2 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168 -n true -t false -p true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+
+# at minute 0 every hour,  generate last daily report, don't toot
+0 * * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24 -n true -t false -p true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+
+# at minute 15 on hour 7 every day - Toot the message with non-podping info at 7:15 am
+15 7 * * * ~/data_monthly_podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 24 -n false -t true -p true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+
+# Seperate folder for this data, as it takes a while and don't want to interfer with the other data sets...
+# at minute 30 on hour 11 every Sunday begin - Toot the monthly data message with non-podping info
+1 11 * * 1 ~/data_monthly_podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 717 -n false -t true -p false && cp stats/.* ~/git/podping-stats/mastodon-toot-bot-hive/stats/ && git -C ~/git/podping-stats commit -a -m "update reports" && git -C ~/git/podping-stats push >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+
 ```
 
 The most granular report currently availble with these scripts is one hour - don't want to spam the mastodon instance, so sticking with daily for now...
