@@ -152,7 +152,6 @@ minutes_total <-
 int_frequency <- as.integer(
   (max(url_data$timestamp_post)-min(url_data$timestamp_post))/(60*56)
 )
-
 pretty_frequency <- .get_pretty_timestamp_diff(
   min(url_data$timestamp_post),
   min(url_data$timestamp_post) + (int_frequency*60)
@@ -167,7 +166,6 @@ url_summary <- cbind(
   url_summary,round((100*url_summary$"url count")/sum(url_summary$"url count"),1)
 )
 names(url_summary)<- c('domain', "url count","url/minute","share (%)")
-
 # only return the top 25 items for this table
 url_summary <- head(url_summary,25)
 
@@ -458,7 +456,7 @@ message(summary_Stats)
   files_list <- files_list  %>% 
     arrange(.,desc(V2)) %>% 
     select(V1) %>% 
-    as.list
+    as.vector()  
 }
 
 past_report_files <- .get_ordered_stat_file_list(
