@@ -447,8 +447,24 @@ md_last_url_report_html <- paste0(
 loggit::set_logfile("stats/summaryStats.ndjson")
 message(summary_Stats)
 
-past_report_files <- list.files("stats",pattern="*.html") %>% 
-  sort(decreasing= TRUE)
+.get_ordered_stat_file_list <- function(strStatsFolderName,strPattern){
+  files_list <- list.files(strStatsFolderName,pattern=strPattern)
+  files_list <- as.data.frame(matrix(c(
+    files_list,
+    file.mtime(paste0(paste0(strStatsFolderName,"/"),files_list)),
+    1:length(files_list)),
+    nrow=length(files_list))
+  )
+  files_list <- files_list  %>% 
+    arrange(.,desc(V2)) %>% 
+    select(V1) %>% 
+    as.list
+}
+
+past_report_files <- .get_ordered_stat_file_list(
+  "stats",
+  ".html"
+)
 
 md_past_reports <-paste0(
   "# Past reports \n",
@@ -458,28 +474,14 @@ md_past_reports <-paste0(
     collapse=""),
   collapse=""
 )
-.get_ordered_stat_file_list <- function(strStatsFolderName,strPattern){
-  current_chart_files <- list.files(strStatsFolderName,pattern=strPattern)
-  current_chart_files <- as.data.frame(matrix(c(
-    current_chart_files,
-    file.mtime(paste0(paste0(strStatsFolderName,"/"),current_chart_files)),
-    1:length(current_chart_files)),
-    nrow=length(current_chart_files))
-  )
-  current_chart_files <- current_chart_files  %>% 
-    arrange(.,desc(V2)) %>% 
-    select(V1) %>% 
-    as.list
-}
 current_chart_files <- .get_ordered_stat_file_list(
   "stats",
   "^last_published_.*png"
 )
 past_chart_files <- .get_ordered_stat_file_list(
   "stats",
-    "^(!?last_published_).*png"
+  "*png$"
 )
-
 
 md_last_published_charts <- paste0(
   "\n# Charts",  
