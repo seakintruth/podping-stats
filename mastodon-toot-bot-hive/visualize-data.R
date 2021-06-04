@@ -487,17 +487,18 @@ past_chart_files <- past_chart_files[
 md_last_published_charts <- paste0(
   "\n# Charts",  
   paste0(
-    "\n![",current_chart_files,"]",
+    "\n[![",current_chart_files,"]",
+    "(",current_chart_files,")]",
     "(",current_chart_files,")",
     collapse=""),
   collapse=""
 )
 
-# [TODO] make each chart clickable...
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
-    "\n![",past_chart_files,"]",
+    "\n[![",past_chart_files,"]",
+    "(",past_chart_files,")]",
     "(",past_chart_files,")",
     collapse=""),
   collapse=""
