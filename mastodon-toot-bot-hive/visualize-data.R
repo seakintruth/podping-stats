@@ -459,10 +459,32 @@ md_past_reports <-paste0(
   collapse=""
 )
 
+current_chart_files <- list.files("stats",pattern="^last_published.*png")
+current_chart_files <- as.data.frame(matrix(c(
+  current_chart_files,
+  file.mtime(paste0("stats/",current_chart_files)),
+  1:length(current_chart_files)),
+  nrow=length(current_chart_files))
+)
+
+current_chart_files <- current_chart_files  %>% 
+  arrange(.,desc(V2)) %>% 
+  select(V1)
+
 past_chart_files <- list.files("stats",pattern="*.png") %>% 
   sort(decreasing= TRUE)
 
+md_last_published_charts <- paste0(
+  "\n# Charts",  
+  paste0(
+    "\n![",current_chart_files,"]",
+    "(",current_chart_files,")",
+    collapse=""),
+  collapse=""
+)
+
 # [TODO] make each chart clickable...
+# [TODO] remove last published 
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
@@ -478,8 +500,10 @@ readr::write_lines(
     "# Domain Stats\n",
     md_last_url_report_html,
     "\n",
+    md_last_published_charts,
+    md_past_charts,
     md_past_reports,
-    md_past_charts, collapse=""
+    collapse=""
   ),
   file = "stats/index.md"
 )
