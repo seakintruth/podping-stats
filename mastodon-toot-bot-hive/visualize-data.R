@@ -494,7 +494,6 @@ md_last_published_charts <- paste0(
 )
 
 # [TODO] make each chart clickable...
-# [TODO] remove last published 
 md_past_charts <- paste0(
   "\n# Past charts",  
   paste0(
