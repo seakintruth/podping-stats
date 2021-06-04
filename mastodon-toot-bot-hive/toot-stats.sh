@@ -61,9 +61,10 @@ $SCRIPT_PATH/visualize-data.R
 
 if $pushToGit; then
   # Push changes to github pages
-  git add $SCRIPT_PATH/../.
-  git commit -m "update reports"
-  git push
+  # use argument -C to cause git to point to the path
+  # https://stackoverflow.com/a/20115526
+  git -C $SCRIPT_PATH/../. commit -a -m "update reports"
+  git -C $SCRIPT_PATH/../. push
   if $tootSummary ; then
     # wait for 15 seconds to allow for the git hub pages to be updated
     # prior to tooting
