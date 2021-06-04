@@ -19,7 +19,7 @@ Currently running seperate reports and toots via this `crontab -e`
 
 # Seperate folder for this data, as it takes a while and don't want to interfer with the other data sets...
 # at minute 30 on hour 11 every Sunday begin - Toot the monthly data message with non-podping info
-1 11 * * 1 ~/data_monthly_podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 717 -n false -t true -p false && cp stats/.* ~/git/podping-stats/mastodon-toot-bot-hive/stats/ && git -C ~/git/podping-stats commit -a -m "update reports" && git -C ~/git/podping-stats push >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
+1 11 * * 1 rm ~/data_monthly_podping-stats/mastodon-toot-bot-hive/stats/* && ~/data_monthly_podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 717 -n false -t true -p false && cp ~/data_monthly_podping-stats/mastodon-toot-bot-hive/stats/* ~/git/podping-stats/mastodon-toot-bot-hive/stats/ && git -C ~/git/podping-stats commit -a -m "update reports" && git -C ~/git/podping-stats push >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
 
 ```
 
