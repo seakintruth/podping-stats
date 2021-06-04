@@ -481,6 +481,9 @@ past_chart_files <- .get_ordered_stat_file_list(
   "stats",
   "*png$"
 )
+past_chart_files <- past_chart_files[
+  !(past_chart_files %in% current_chart_files)
+]
 md_last_published_charts <- paste0(
   "\n# Charts",  
   paste0(
