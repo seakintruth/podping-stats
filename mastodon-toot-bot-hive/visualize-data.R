@@ -456,7 +456,8 @@ message(summary_Stats)
   files_list <- files_list  %>% 
     arrange(.,desc(V2)) %>% 
     select(V1) %>% 
-    as.vector()  
+    as.vector() %>%
+    unlist
 }
 
 past_report_files <- .get_ordered_stat_file_list(
@@ -480,7 +481,6 @@ past_chart_files <- .get_ordered_stat_file_list(
   "stats",
   "*png$"
 )
-
 md_last_published_charts <- paste0(
   "\n# Charts",  
   paste0(
