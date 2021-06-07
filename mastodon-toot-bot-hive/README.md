@@ -4,9 +4,20 @@
 # I'm a bot
 ... in training ...
 
+## Credentials
+Posting requires two files in the folder [./credentials](./credentials)
+1) File 'mastodon_site_url.txt' contains only the mastodon instance url:
+```
+https://podcastindex.social 
+```
+2) File 'token.txt' contains only the [bearer authorization token](https://docs.joinmastodon.org/methods/accounts/#account-credentials):
+<app token>
+
+## Routine Posting
 This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
 
 Currently running seperate reports and toots via this `crontab -e`
+
 ```
 # At minute 30 past every 2nd hour, generate weekly charts, don't toot
 30 */2 * * * ~/git/podping-stats/mastodon-toot-bot-hive/toot-stats.sh -H 168 -n true -t false -p true >> ~/git/podping-stats/mastodon-toot-bot-hive/logs/crontab.log
