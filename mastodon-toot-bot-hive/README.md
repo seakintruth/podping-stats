@@ -11,7 +11,9 @@ Posting requires two files in the folder [./credentials](./credentials)
 https://podcastindex.social 
 ```
 2) File 'token.txt' contains only the [bearer authorization token](https://docs.joinmastodon.org/methods/accounts/#account-credentials):
+```
 <app token>
+```
 
 ## Routine Posting
 This bot posts summary statistics about podping on hive.io to a mastodon instance ... data exploration in [R](https://cran.r-project.org/) of the [podping](podping.cloud) data being reported on the [hive.io](hive.io) blockchain. 
