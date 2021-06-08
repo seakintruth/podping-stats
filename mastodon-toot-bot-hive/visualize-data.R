@@ -28,7 +28,7 @@ suppressMessages(
 .get_pretty_timestamp_diff <- function(
   start_timestamp,
   end_timestamp,
-  seconds_decimal=2,
+  seconds_decimal=0,
   round_simple=TRUE
 ){
   # Set defaults
@@ -43,24 +43,24 @@ suppressMessages(
   if (round_simple) {
     .years <- as.integer(.seconds / (365.24*24*60*60))
     if (.years > 0) {
-      .years <-round(.seconds / (365.24*24*60*60),1)
+      .years <-round(.seconds / (365.24*24*60*60),0)
       .seconds <- 0
     } else {
       .days <- as.integer((.seconds / (365.24*24*60*60)-.years)*365.24)
       if (.days > 0 ) {
-        .days <-round((.seconds / (365.24*24*60*60)-.years)*365.24,1)
+        .days <-round((.seconds / (365.24*24*60*60)-.years)*365.24,0)
         .seconds <- 0
       } else {
         .days_decimal <-(.seconds / (365.24*24*60*60)-.years)*365.24-.days
         .hours <- as.integer(.days_decimal*24)
         if (.hours > 0) {
-          .hours <- round(.days_decimal*24,1)
+          .hours <- round(.days_decimal*24,0)
         }else{
           .hours_decimal <- .days_decimal*24 - .hours
           .minutes <- as.integer(.hours_decimal*60)
           .minutes_decimal <- .hours_decimal*60 - .minutes
           if (.minutes > 0) {
-            .minutes <- round(.hours_decimal*60,1)
+            .minutes <- round(.hours_decimal*60,0)
             .hours_decimal <- 0
             .seconds_display <- 0    
           } else {
