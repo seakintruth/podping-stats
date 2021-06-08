@@ -4,5 +4,5 @@ Podping hive "custom json" post report for the last 30 days :
 		(average of 2.58 urls/post)
 	
 Details at:
-https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=2021-06-08%2000:47:18
+https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=2021-06-08%2000:56:11
 #podping #Stats
