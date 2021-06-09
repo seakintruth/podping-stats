@@ -63,6 +63,7 @@ if $pushToGit; then
   # Push changes to github pages
   # use argument -C to cause git to point to the path
   # https://stackoverflow.com/a/20115526
+  git -C $SCRIPT_PATH/../. add .
   git -C $SCRIPT_PATH/../. commit -a -m "update reports"
   git -C $SCRIPT_PATH/../. push
   if $tootSummary ; then
