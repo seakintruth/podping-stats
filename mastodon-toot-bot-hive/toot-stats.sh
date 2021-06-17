@@ -59,13 +59,20 @@ fi
 # run the rscript to generate analytics
 $SCRIPT_PATH/visualize-data.R
 
+if $tootSummary; then
+  # toot the stats
+  $SCRIPT_PATH/toot-last-summary-stats.py
+fi
+
 if $pushToGit; then
   # Push changes to github pages
   # use argument -C to cause git to point to the path
   # https://stackoverflow.com/a/20115526
   git -C $SCRIPT_PATH/../. add .
-  git -C $SCRIPT_PATH/../. commit -a -m "update reports"
-  git -C $SCRIPT_PATH/../. push
+  git -C $SCRIPT_PATH commit -a -m "update reports"
+  # for some reason push is not completing?
+  sleep 2s
+  git -C $SCRIPT_PATH push
   if $tootSummary ; then
     # wait for 15 seconds to allow for the git hub pages to be updated
     # prior to tooting
@@ -73,9 +80,4 @@ if $pushToGit; then
   fi
 else
   echo "Not pushing reports to github"
-fi
-
-if $tootSummary; then
-  # toot the stats
-  $SCRIPT_PATH/toot-last-summary-stats.py
 fi
