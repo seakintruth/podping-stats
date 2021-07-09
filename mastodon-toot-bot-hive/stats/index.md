@@ -7,12 +7,12 @@
 
 </head>
 <body>
-<div id="jryereqmfd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dwnjgkjbbz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jryereqmfd .gt_table {
+#dwnjgkjbbz .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -37,7 +37,7 @@
   border-left-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_heading {
+#dwnjgkjbbz .gt_heading {
   background-color: #71CA97;
   text-align: center;
   border-bottom-color: #B0E0E6;
@@ -49,7 +49,7 @@
   border-right-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_title {
+#dwnjgkjbbz .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -59,7 +59,7 @@
   border-bottom-width: 0;
 }
 
-#jryereqmfd .gt_subtitle {
+#dwnjgkjbbz .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -69,13 +69,13 @@
   border-top-width: 0;
 }
 
-#jryereqmfd .gt_bottom_border {
+#dwnjgkjbbz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_col_headings {
+#dwnjgkjbbz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -90,7 +90,7 @@
   border-right-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_col_heading {
+#dwnjgkjbbz .gt_col_heading {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -110,7 +110,7 @@
   overflow-x: hidden;
 }
 
-#jryereqmfd .gt_column_spanner_outer {
+#dwnjgkjbbz .gt_column_spanner_outer {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -122,15 +122,15 @@
   padding-right: 4px;
 }
 
-#jryereqmfd .gt_column_spanner_outer:first-child {
+#dwnjgkjbbz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jryereqmfd .gt_column_spanner_outer:last-child {
+#dwnjgkjbbz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jryereqmfd .gt_column_spanner {
+#dwnjgkjbbz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -142,7 +142,7 @@
   width: 100%;
 }
 
-#jryereqmfd .gt_group_heading {
+#dwnjgkjbbz .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #B0E0E6;
@@ -164,7 +164,7 @@
   vertical-align: middle;
 }
 
-#jryereqmfd .gt_empty_group_heading {
+#dwnjgkjbbz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #B0E0E6;
@@ -179,15 +179,15 @@
   vertical-align: middle;
 }
 
-#jryereqmfd .gt_from_md > :first-child {
+#dwnjgkjbbz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jryereqmfd .gt_from_md > :last-child {
+#dwnjgkjbbz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jryereqmfd .gt_row {
+#dwnjgkjbbz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -206,7 +206,7 @@
   overflow-x: hidden;
 }
 
-#jryereqmfd .gt_stub {
+#dwnjgkjbbz .gt_stub {
   color: #333333;
   background-color: #B0E0E6;
   font-size: 100%;
@@ -218,7 +218,7 @@
   padding-left: 12px;
 }
 
-#jryereqmfd .gt_summary_row {
+#dwnjgkjbbz .gt_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -228,7 +228,7 @@
   padding-right: 5px;
 }
 
-#jryereqmfd .gt_first_summary_row {
+#dwnjgkjbbz .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -238,7 +238,7 @@
   border-top-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_grand_summary_row {
+#dwnjgkjbbz .gt_grand_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -248,7 +248,7 @@
   padding-right: 5px;
 }
 
-#jryereqmfd .gt_first_grand_summary_row {
+#dwnjgkjbbz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -258,11 +258,11 @@
   border-top-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_striped {
+#dwnjgkjbbz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jryereqmfd .gt_table_body {
+#dwnjgkjbbz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -271,7 +271,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_footnotes {
+#dwnjgkjbbz .gt_footnotes {
   color: #333333;
   background-color: #B0E0E6;
   border-bottom-style: none;
@@ -285,13 +285,13 @@
   border-right-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_footnote {
+#dwnjgkjbbz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#jryereqmfd .gt_sourcenotes {
+#dwnjgkjbbz .gt_sourcenotes {
   color: #333333;
   background-color: #DeF7E9;
   border-bottom-style: none;
@@ -305,41 +305,41 @@
   border-right-color: #D3D3D3;
 }
 
-#jryereqmfd .gt_sourcenote {
+#dwnjgkjbbz .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#jryereqmfd .gt_left {
+#dwnjgkjbbz .gt_left {
   text-align: left;
 }
 
-#jryereqmfd .gt_center {
+#dwnjgkjbbz .gt_center {
   text-align: center;
 }
 
-#jryereqmfd .gt_right {
+#dwnjgkjbbz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jryereqmfd .gt_font_normal {
+#dwnjgkjbbz .gt_font_normal {
   font-weight: normal;
 }
 
-#jryereqmfd .gt_font_bold {
+#dwnjgkjbbz .gt_font_bold {
   font-weight: bold;
 }
 
-#jryereqmfd .gt_font_italic {
+#dwnjgkjbbz .gt_font_italic {
   font-style: italic;
 }
 
-#jryereqmfd .gt_super {
+#dwnjgkjbbz .gt_super {
   font-size: 65%;
 }
 
-#jryereqmfd .gt_footnote_marks {
+#dwnjgkjbbz .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -348,7 +348,7 @@
   <table class="gt_table">
   <thead class="gt_header">
     <tr>
-      <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Podping report for the last 7 days </th>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style>Podping report for the last  day </th>
     </tr>
     <tr>
       <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>Podping urls are 'custom json' posts on the Hive.io block chain</th>
@@ -364,42 +364,30 @@
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">com.buzzsprout</td>
-<td class="gt_row gt_right">91947</td>
-<td class="gt_row gt_right">9.1</td>
-<td class="gt_row gt_right">75.0</td></tr>
+<td class="gt_row gt_right">14404</td>
+<td class="gt_row gt_right">10.0</td>
+<td class="gt_row gt_right">74.0</td></tr>
     <tr><td class="gt_row gt_left">fm.transistor</td>
-<td class="gt_row gt_right">15494</td>
-<td class="gt_row gt_right">1.5</td>
-<td class="gt_row gt_right">12.6</td></tr>
+<td class="gt_row gt_right">2630</td>
+<td class="gt_row gt_right">1.8</td>
+<td class="gt_row gt_right">13.5</td></tr>
     <tr><td class="gt_row gt_left">com.rss</td>
-<td class="gt_row gt_right">10664</td>
-<td class="gt_row gt_right">1.1</td>
-<td class="gt_row gt_right">8.7</td></tr>
+<td class="gt_row gt_right">1660</td>
+<td class="gt_row gt_right">1.2</td>
+<td class="gt_row gt_right">8.5</td></tr>
     <tr><td class="gt_row gt_left">fm.captivate</td>
-<td class="gt_row gt_right">4421</td>
-<td class="gt_row gt_right">0.4</td>
-<td class="gt_row gt_right">3.6</td></tr>
+<td class="gt_row gt_right">756</td>
+<td class="gt_row gt_right">0.5</td>
+<td class="gt_row gt_right">3.9</td></tr>
     <tr><td class="gt_row gt_left">net.podnews</td>
-<td class="gt_row gt_right">19</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">0.0</td></tr>
-    <tr><td class="gt_row gt_left">com.nashownotes</td>
-<td class="gt_row gt_right">4</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">0.0</td></tr>
-    <tr><td class="gt_row gt_left">me.brianoflondon</td>
-<td class="gt_row gt_right">2</td>
-<td class="gt_row gt_right">0.0</td>
-<td class="gt_row gt_right">0.0</td></tr>
-    <tr><td class="gt_row gt_left">network.engineered</td>
-<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">5</td>
 <td class="gt_row gt_right">0.0</td>
 <td class="gt_row gt_right">0.0</td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="4">Total urls posted is 122554 of which 36907 are unique
-		(average of 4.23 urls/post)
+      <td class="gt_sourcenote" colspan="4">Total urls posted is 19457 of which 8824 are unique
+		(average of 4.52 urls/post)
 	#podping #Stats 
 </td>
     </tr>
@@ -411,8 +399,8 @@
 </html>
 
 # Charts
-[![last_published_7 days-podping-frequency.png](last_published_7 days-podping-frequency.png)](last_published_7 days-podping-frequency.png)
 [![last_published_day-podping-frequency.png](last_published_day-podping-frequency.png)](last_published_day-podping-frequency.png)
+[![last_published_7 days-podping-frequency.png](last_published_7 days-podping-frequency.png)](last_published_7 days-podping-frequency.png)
 [![last_published_3 days-podping-frequency.png](last_published_3 days-podping-frequency.png)](last_published_3 days-podping-frequency.png)
 [![last_published_4 days-podping-frequency.png](last_published_4 days-podping-frequency.png)](last_published_4 days-podping-frequency.png)
 [![last_published_4 hours-podping-frequency.png](last_published_4 hours-podping-frequency.png)](last_published_4 hours-podping-frequency.png)
@@ -432,8 +420,8 @@
 [![last_published_24 hours-podping-frequency.png](last_published_24 hours-podping-frequency.png)](last_published_24 hours-podping-frequency.png)
 [![last_published_30 days-podping-frequency.png](last_published_30 days-podping-frequency.png)](last_published_30 days-podping-frequency.png)
 # Past charts
-[![2021-07-09_7 days-podping-frequency.png](2021-07-09_7 days-podping-frequency.png)](2021-07-09_7 days-podping-frequency.png)
 [![2021-07-09_day-podping-frequency.png](2021-07-09_day-podping-frequency.png)](2021-07-09_day-podping-frequency.png)
+[![2021-07-09_7 days-podping-frequency.png](2021-07-09_7 days-podping-frequency.png)](2021-07-09_7 days-podping-frequency.png)
 [![2021-07-08_day-podping-frequency.png](2021-07-08_day-podping-frequency.png)](2021-07-08_day-podping-frequency.png)
 [![2021-07-08_7 days-podping-frequency.png](2021-07-08_7 days-podping-frequency.png)](2021-07-08_7 days-podping-frequency.png)
 [![2021-07-07_day-podping-frequency.png](2021-07-07_day-podping-frequency.png)](2021-07-07_day-podping-frequency.png)
@@ -539,8 +527,8 @@
 [![2021-05-30_day-podping-frequency.png](2021-05-30_day-podping-frequency.png)](2021-05-30_day-podping-frequency.png)
 [![2021-05-31_7 days-podping-frequency.png](2021-05-31_7 days-podping-frequency.png)](2021-05-31_7 days-podping-frequency.png)
 [![2021-05-28_28 days-podping-post-frequency.png](2021-05-28_28 days-podping-post-frequency.png)](2021-05-28_28 days-podping-post-frequency.png)# Past reports 
-- [2021-07-09_7 days-url-report.html](2021-07-09_7 days-url-report.html)
 - [2021-07-09_day-url-report.html](2021-07-09_day-url-report.html)
+- [2021-07-09_7 days-url-report.html](2021-07-09_7 days-url-report.html)
 - [2021-07-08_day-url-report.html](2021-07-08_day-url-report.html)
 - [2021-07-08_7 days-url-report.html](2021-07-08_7 days-url-report.html)
 - [2021-07-07_day-url-report.html](2021-07-07_day-url-report.html)
