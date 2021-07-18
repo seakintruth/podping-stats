@@ -1,8 +1,8 @@
 Podping hive "custom json" post report for the last  day :
-	Post count is 3651 (2.53 posts/min)
-	Total urls posted is 8863 of which 4737 are unique
+	Post count is 3659 (2.54 posts/min)
+	Total urls posted is 8897 of which 4729 are unique
 		(average of 2.43 urls/post)
 	
 Details at:
-https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=2021-07-17%2021:02:48
+https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=2021-07-17%2022:02:51
 #podping #Stats
