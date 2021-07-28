@@ -7,12 +7,12 @@
 
 </head>
 <body>
-<div id="vxhgicmoar" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="wrnwmmrqoz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#vxhgicmoar .gt_table {
+#wrnwmmrqoz .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -37,7 +37,7 @@
   border-left-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_heading {
+#wrnwmmrqoz .gt_heading {
   background-color: #71CA97;
   text-align: center;
   border-bottom-color: #B0E0E6;
@@ -49,7 +49,7 @@
   border-right-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_title {
+#wrnwmmrqoz .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -59,7 +59,7 @@
   border-bottom-width: 0;
 }
 
-#vxhgicmoar .gt_subtitle {
+#wrnwmmrqoz .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -69,13 +69,13 @@
   border-top-width: 0;
 }
 
-#vxhgicmoar .gt_bottom_border {
+#wrnwmmrqoz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_col_headings {
+#wrnwmmrqoz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -90,7 +90,7 @@
   border-right-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_col_heading {
+#wrnwmmrqoz .gt_col_heading {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -110,7 +110,7 @@
   overflow-x: hidden;
 }
 
-#vxhgicmoar .gt_column_spanner_outer {
+#wrnwmmrqoz .gt_column_spanner_outer {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -122,15 +122,15 @@
   padding-right: 4px;
 }
 
-#vxhgicmoar .gt_column_spanner_outer:first-child {
+#wrnwmmrqoz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vxhgicmoar .gt_column_spanner_outer:last-child {
+#wrnwmmrqoz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vxhgicmoar .gt_column_spanner {
+#wrnwmmrqoz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -142,7 +142,7 @@
   width: 100%;
 }
 
-#vxhgicmoar .gt_group_heading {
+#wrnwmmrqoz .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #B0E0E6;
@@ -164,7 +164,7 @@
   vertical-align: middle;
 }
 
-#vxhgicmoar .gt_empty_group_heading {
+#wrnwmmrqoz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #B0E0E6;
@@ -179,15 +179,15 @@
   vertical-align: middle;
 }
 
-#vxhgicmoar .gt_from_md > :first-child {
+#wrnwmmrqoz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vxhgicmoar .gt_from_md > :last-child {
+#wrnwmmrqoz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vxhgicmoar .gt_row {
+#wrnwmmrqoz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -206,7 +206,7 @@
   overflow-x: hidden;
 }
 
-#vxhgicmoar .gt_stub {
+#wrnwmmrqoz .gt_stub {
   color: #333333;
   background-color: #B0E0E6;
   font-size: 100%;
@@ -218,7 +218,7 @@
   padding-left: 12px;
 }
 
-#vxhgicmoar .gt_summary_row {
+#wrnwmmrqoz .gt_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -228,7 +228,7 @@
   padding-right: 5px;
 }
 
-#vxhgicmoar .gt_first_summary_row {
+#wrnwmmrqoz .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -238,7 +238,7 @@
   border-top-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_grand_summary_row {
+#wrnwmmrqoz .gt_grand_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -248,7 +248,7 @@
   padding-right: 5px;
 }
 
-#vxhgicmoar .gt_first_grand_summary_row {
+#wrnwmmrqoz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -258,11 +258,11 @@
   border-top-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_striped {
+#wrnwmmrqoz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vxhgicmoar .gt_table_body {
+#wrnwmmrqoz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -271,7 +271,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_footnotes {
+#wrnwmmrqoz .gt_footnotes {
   color: #333333;
   background-color: #B0E0E6;
   border-bottom-style: none;
@@ -285,13 +285,13 @@
   border-right-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_footnote {
+#wrnwmmrqoz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#vxhgicmoar .gt_sourcenotes {
+#wrnwmmrqoz .gt_sourcenotes {
   color: #333333;
   background-color: #DeF7E9;
   border-bottom-style: none;
@@ -305,41 +305,41 @@
   border-right-color: #D3D3D3;
 }
 
-#vxhgicmoar .gt_sourcenote {
+#wrnwmmrqoz .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#vxhgicmoar .gt_left {
+#wrnwmmrqoz .gt_left {
   text-align: left;
 }
 
-#vxhgicmoar .gt_center {
+#wrnwmmrqoz .gt_center {
   text-align: center;
 }
 
-#vxhgicmoar .gt_right {
+#wrnwmmrqoz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vxhgicmoar .gt_font_normal {
+#wrnwmmrqoz .gt_font_normal {
   font-weight: normal;
 }
 
-#vxhgicmoar .gt_font_bold {
+#wrnwmmrqoz .gt_font_bold {
   font-weight: bold;
 }
 
-#vxhgicmoar .gt_font_italic {
+#wrnwmmrqoz .gt_font_italic {
   font-style: italic;
 }
 
-#vxhgicmoar .gt_super {
+#wrnwmmrqoz .gt_super {
   font-size: 65%;
 }
 
-#vxhgicmoar .gt_footnote_marks {
+#wrnwmmrqoz .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -364,33 +364,33 @@
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">com.buzzsprout</td>
-<td class="gt_row gt_right">40128</td>
-<td class="gt_row gt_right">11.5</td>
-<td class="gt_row gt_right">72.0</td></tr>
+<td class="gt_row gt_right">47745</td>
+<td class="gt_row gt_right">13.7</td>
+<td class="gt_row gt_right">71.4</td></tr>
     <tr><td class="gt_row gt_left">fm.transistor</td>
-<td class="gt_row gt_right">7610</td>
-<td class="gt_row gt_right">2.2</td>
-<td class="gt_row gt_right">13.6</td></tr>
+<td class="gt_row gt_right">9193</td>
+<td class="gt_row gt_right">2.6</td>
+<td class="gt_row gt_right">13.8</td></tr>
     <tr><td class="gt_row gt_left">com.rss</td>
-<td class="gt_row gt_right">5422</td>
-<td class="gt_row gt_right">1.6</td>
+<td class="gt_row gt_right">6480</td>
+<td class="gt_row gt_right">1.9</td>
 <td class="gt_row gt_right">9.7</td></tr>
     <tr><td class="gt_row gt_left">fm.captivate</td>
-<td class="gt_row gt_right">2312</td>
-<td class="gt_row gt_right">0.7</td>
-<td class="gt_row gt_right">4.1</td></tr>
+<td class="gt_row gt_right">2855</td>
+<td class="gt_row gt_right">0.8</td>
+<td class="gt_row gt_right">4.3</td></tr>
     <tr><td class="gt_row gt_left">tv.3speak</td>
-<td class="gt_row gt_right">281</td>
-<td class="gt_row gt_right">0.1</td>
-<td class="gt_row gt_right">0.5</td></tr>
+<td class="gt_row gt_right">562</td>
+<td class="gt_row gt_right">0.2</td>
+<td class="gt_row gt_right">0.8</td></tr>
     <tr><td class="gt_row gt_left">net.podnews</td>
-<td class="gt_row gt_right">15</td>
+<td class="gt_row gt_right">21</td>
 <td class="gt_row gt_right">0.0</td>
 <td class="gt_row gt_right">0.0</td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="4">Total urls posted is 55768 of which 19864 are unique
+      <td class="gt_sourcenote" colspan="4">Total urls posted is 66856 of which 19928 are unique
 		(average of 4.58 urls/post)
 	#podping #Stats 
 </td>
