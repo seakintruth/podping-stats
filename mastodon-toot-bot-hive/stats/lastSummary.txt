@@ -1,8 +1,8 @@
-Podping hive "custom json" post report for the last 2 days :
-	Post count is 13853 (4.47 posts/min)
-	Total urls posted is 60922 of which 18347 are unique
-		(average of 4.4 urls/post)
+Podping hive "custom json" post report for the last  day :
+	Post count is 4411 (3.05 posts/min)
+	Total urls posted is 19742 of which 9955 are unique
+		(average of 4.48 urls/post)
 	
 Details at:
-https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=2021-08-03%2015:17:06
+https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=2021-08-03%2016:06:51
 #podping #Stats
