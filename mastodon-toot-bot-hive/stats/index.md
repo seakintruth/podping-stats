@@ -7,12 +7,12 @@
 
 </head>
 <body>
-<div id="nngwnzqimb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="crfbvaxrcm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#nngwnzqimb .gt_table {
+#crfbvaxrcm .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -37,7 +37,7 @@
   border-left-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_heading {
+#crfbvaxrcm .gt_heading {
   background-color: #71CA97;
   text-align: center;
   border-bottom-color: #B0E0E6;
@@ -49,7 +49,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_title {
+#crfbvaxrcm .gt_title {
   color: #FFFFFF;
   font-size: 125%;
   font-weight: initial;
@@ -59,7 +59,7 @@
   border-bottom-width: 0;
 }
 
-#nngwnzqimb .gt_subtitle {
+#crfbvaxrcm .gt_subtitle {
   color: #FFFFFF;
   font-size: 85%;
   font-weight: initial;
@@ -69,13 +69,13 @@
   border-top-width: 0;
 }
 
-#nngwnzqimb .gt_bottom_border {
+#crfbvaxrcm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_col_headings {
+#crfbvaxrcm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -90,7 +90,7 @@
   border-right-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_col_heading {
+#crfbvaxrcm .gt_col_heading {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -110,7 +110,7 @@
   overflow-x: hidden;
 }
 
-#nngwnzqimb .gt_column_spanner_outer {
+#crfbvaxrcm .gt_column_spanner_outer {
   color: #333333;
   background-color: #DeF7E9;
   font-size: 100%;
@@ -122,15 +122,15 @@
   padding-right: 4px;
 }
 
-#nngwnzqimb .gt_column_spanner_outer:first-child {
+#crfbvaxrcm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nngwnzqimb .gt_column_spanner_outer:last-child {
+#crfbvaxrcm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nngwnzqimb .gt_column_spanner {
+#crfbvaxrcm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -142,7 +142,7 @@
   width: 100%;
 }
 
-#nngwnzqimb .gt_group_heading {
+#crfbvaxrcm .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #B0E0E6;
@@ -164,7 +164,7 @@
   vertical-align: middle;
 }
 
-#nngwnzqimb .gt_empty_group_heading {
+#crfbvaxrcm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #B0E0E6;
@@ -179,15 +179,15 @@
   vertical-align: middle;
 }
 
-#nngwnzqimb .gt_from_md > :first-child {
+#crfbvaxrcm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nngwnzqimb .gt_from_md > :last-child {
+#crfbvaxrcm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nngwnzqimb .gt_row {
+#crfbvaxrcm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -206,7 +206,7 @@
   overflow-x: hidden;
 }
 
-#nngwnzqimb .gt_stub {
+#crfbvaxrcm .gt_stub {
   color: #333333;
   background-color: #B0E0E6;
   font-size: 100%;
@@ -218,7 +218,7 @@
   padding-left: 12px;
 }
 
-#nngwnzqimb .gt_summary_row {
+#crfbvaxrcm .gt_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -228,7 +228,7 @@
   padding-right: 5px;
 }
 
-#nngwnzqimb .gt_first_summary_row {
+#crfbvaxrcm .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -238,7 +238,7 @@
   border-top-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_grand_summary_row {
+#crfbvaxrcm .gt_grand_summary_row {
   color: #333333;
   background-color: #B0E0E6;
   text-transform: inherit;
@@ -248,7 +248,7 @@
   padding-right: 5px;
 }
 
-#nngwnzqimb .gt_first_grand_summary_row {
+#crfbvaxrcm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -258,11 +258,11 @@
   border-top-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_striped {
+#crfbvaxrcm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nngwnzqimb .gt_table_body {
+#crfbvaxrcm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -271,7 +271,7 @@
   border-bottom-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_footnotes {
+#crfbvaxrcm .gt_footnotes {
   color: #333333;
   background-color: #B0E0E6;
   border-bottom-style: none;
@@ -285,13 +285,13 @@
   border-right-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_footnote {
+#crfbvaxrcm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#nngwnzqimb .gt_sourcenotes {
+#crfbvaxrcm .gt_sourcenotes {
   color: #333333;
   background-color: #DeF7E9;
   border-bottom-style: none;
@@ -305,41 +305,41 @@
   border-right-color: #D3D3D3;
 }
 
-#nngwnzqimb .gt_sourcenote {
+#crfbvaxrcm .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#nngwnzqimb .gt_left {
+#crfbvaxrcm .gt_left {
   text-align: left;
 }
 
-#nngwnzqimb .gt_center {
+#crfbvaxrcm .gt_center {
   text-align: center;
 }
 
-#nngwnzqimb .gt_right {
+#crfbvaxrcm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nngwnzqimb .gt_font_normal {
+#crfbvaxrcm .gt_font_normal {
   font-weight: normal;
 }
 
-#nngwnzqimb .gt_font_bold {
+#crfbvaxrcm .gt_font_bold {
   font-weight: bold;
 }
 
-#nngwnzqimb .gt_font_italic {
+#crfbvaxrcm .gt_font_italic {
   font-style: italic;
 }
 
-#nngwnzqimb .gt_super {
+#crfbvaxrcm .gt_super {
   font-size: 65%;
 }
 
-#nngwnzqimb .gt_footnote_marks {
+#crfbvaxrcm .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -364,38 +364,46 @@
   </thead>
   <tbody class="gt_table_body">
     <tr><td class="gt_row gt_left">com.buzzsprout</td>
-<td class="gt_row gt_right">25571</td>
-<td class="gt_row gt_right">4.6</td>
-<td class="gt_row gt_right">68.7</td></tr>
+<td class="gt_row gt_right">59695</td>
+<td class="gt_row gt_right">10.6</td>
+<td class="gt_row gt_right">68.1</td></tr>
     <tr><td class="gt_row gt_left">fm.transistor</td>
-<td class="gt_row gt_right">5944</td>
-<td class="gt_row gt_right">1.1</td>
-<td class="gt_row gt_right">16.0</td></tr>
+<td class="gt_row gt_right">14195</td>
+<td class="gt_row gt_right">2.5</td>
+<td class="gt_row gt_right">16.2</td></tr>
     <tr><td class="gt_row gt_left">com.rss</td>
-<td class="gt_row gt_right">3298</td>
-<td class="gt_row gt_right">0.6</td>
-<td class="gt_row gt_right">8.9</td></tr>
+<td class="gt_row gt_right">7907</td>
+<td class="gt_row gt_right">1.4</td>
+<td class="gt_row gt_right">9.0</td></tr>
     <tr><td class="gt_row gt_left">fm.captivate</td>
-<td class="gt_row gt_right">1480</td>
-<td class="gt_row gt_right">0.3</td>
-<td class="gt_row gt_right">4.0</td></tr>
+<td class="gt_row gt_right">3647</td>
+<td class="gt_row gt_right">0.6</td>
+<td class="gt_row gt_right">4.2</td></tr>
     <tr><td class="gt_row gt_left">tv.3speak</td>
-<td class="gt_row gt_right">595</td>
-<td class="gt_row gt_right">0.1</td>
-<td class="gt_row gt_right">1.6</td></tr>
+<td class="gt_row gt_right">1491</td>
+<td class="gt_row gt_right">0.3</td>
+<td class="gt_row gt_right">1.7</td></tr>
     <tr><td class="gt_row gt_left">fm.podserve</td>
-<td class="gt_row gt_right">324</td>
+<td class="gt_row gt_right">767</td>
 <td class="gt_row gt_right">0.1</td>
 <td class="gt_row gt_right">0.9</td></tr>
     <tr><td class="gt_row gt_left">net.podnews</td>
+<td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">0.0</td></tr>
+    <tr><td class="gt_row gt_left">com.nashownotes</td>
 <td class="gt_row gt_right">5</td>
+<td class="gt_row gt_right">0.0</td>
+<td class="gt_row gt_right">0.0</td></tr>
+    <tr><td class="gt_row gt_left">test.buzzsprout</td>
+<td class="gt_row gt_right">3</td>
 <td class="gt_row gt_right">0.0</td>
 <td class="gt_row gt_right">0.0</td></tr>
   </tbody>
   <tfoot class="gt_sourcenotes">
     <tr>
-      <td class="gt_sourcenote" colspan="4">Total urls posted is 37218 of which 16858 are unique
-		(average of 4.16 urls/post)
+      <td class="gt_sourcenote" colspan="4">Total urls posted is 87720 of which 26414 are unique
+		(average of 4.12 urls/post)
 	#podping #Stats 
 </td>
     </tr>
@@ -410,8 +418,6 @@
 [![last_published_4 days-podping-frequency.png](last_published_4 days-podping-frequency.png)](last_published_4 days-podping-frequency.png)
 [![last_published_day-podping-frequency.png](last_published_day-podping-frequency.png)](last_published_day-podping-frequency.png)
 [![last_published_3 days-podping-frequency.png](last_published_3 days-podping-frequency.png)](last_published_3 days-podping-frequency.png)
-[![last_published_7 days-podping-frequency.png](last_published_7 days-podping-frequency.png)](last_published_7 days-podping-frequency.png)
-[![last_published_6 days-podping-frequency.png](last_published_6 days-podping-frequency.png)](last_published_6 days-podping-frequency.png)
 [![last_published_5 days-podping-frequency.png](last_published_5 days-podping-frequency.png)](last_published_5 days-podping-frequency.png)
 [![last_published_2 days-podping-frequency.png](last_published_2 days-podping-frequency.png)](last_published_2 days-podping-frequency.png)
 [![last_published_hour-podping-frequency.png](last_published_hour-podping-frequency.png)](last_published_hour-podping-frequency.png)
@@ -436,35 +442,25 @@
 [![2021-08-13_4 days-podping-frequency.png](2021-08-13_4 days-podping-frequency.png)](2021-08-13_4 days-podping-frequency.png)
 [![2021-08-13_day-podping-frequency.png](2021-08-13_day-podping-frequency.png)](2021-08-13_day-podping-frequency.png)
 [![2021-08-13_3 days-podping-frequency.png](2021-08-13_3 days-podping-frequency.png)](2021-08-13_3 days-podping-frequency.png)
-[![2021-08-13_7 days-podping-frequency.png](2021-08-13_7 days-podping-frequency.png)](2021-08-13_7 days-podping-frequency.png)
 [![2021-08-12_3 days-podping-frequency.png](2021-08-12_3 days-podping-frequency.png)](2021-08-12_3 days-podping-frequency.png)
 [![2021-08-12_day-podping-frequency.png](2021-08-12_day-podping-frequency.png)](2021-08-12_day-podping-frequency.png)
 [![2021-08-12_4 days-podping-frequency.png](2021-08-12_4 days-podping-frequency.png)](2021-08-12_4 days-podping-frequency.png)
 [![2021-08-11_3 days-podping-frequency.png](2021-08-11_3 days-podping-frequency.png)](2021-08-11_3 days-podping-frequency.png)
 [![2021-08-11_day-podping-frequency.png](2021-08-11_day-podping-frequency.png)](2021-08-11_day-podping-frequency.png)
-[![2021-08-11_6 days-podping-frequency.png](2021-08-11_6 days-podping-frequency.png)](2021-08-11_6 days-podping-frequency.png)
-[![2021-08-11_7 days-podping-frequency.png](2021-08-11_7 days-podping-frequency.png)](2021-08-11_7 days-podping-frequency.png)
 [![2021-08-11_5 days-podping-frequency.png](2021-08-11_5 days-podping-frequency.png)](2021-08-11_5 days-podping-frequency.png)
 [![2021-08-10_3 days-podping-frequency.png](2021-08-10_3 days-podping-frequency.png)](2021-08-10_3 days-podping-frequency.png)
 [![2021-08-10_day-podping-frequency.png](2021-08-10_day-podping-frequency.png)](2021-08-10_day-podping-frequency.png)
 [![2021-08-10_2 days-podping-frequency.png](2021-08-10_2 days-podping-frequency.png)](2021-08-10_2 days-podping-frequency.png)
-[![2021-08-10_6 days-podping-frequency.png](2021-08-10_6 days-podping-frequency.png)](2021-08-10_6 days-podping-frequency.png)
 [![2021-08-09_3 days-podping-frequency.png](2021-08-09_3 days-podping-frequency.png)](2021-08-09_3 days-podping-frequency.png)
 [![2021-08-09_day-podping-frequency.png](2021-08-09_day-podping-frequency.png)](2021-08-09_day-podping-frequency.png)
 [![2021-08-09_4 days-podping-frequency.png](2021-08-09_4 days-podping-frequency.png)](2021-08-09_4 days-podping-frequency.png)
-[![2021-08-09_7 days-podping-frequency.png](2021-08-09_7 days-podping-frequency.png)](2021-08-09_7 days-podping-frequency.png)
-[![2021-08-09_5 days-podping-frequency.png](2021-08-09_5 days-podping-frequency.png)](2021-08-09_5 days-podping-frequency.png)
-[![2021-08-09_6 days-podping-frequency.png](2021-08-09_6 days-podping-frequency.png)](2021-08-09_6 days-podping-frequency.png)
 [![2021-08-08_3 days-podping-frequency.png](2021-08-08_3 days-podping-frequency.png)](2021-08-08_3 days-podping-frequency.png)
 [![2021-08-08_day-podping-frequency.png](2021-08-08_day-podping-frequency.png)](2021-08-08_day-podping-frequency.png)
 [![2021-08-08_4 days-podping-frequency.png](2021-08-08_4 days-podping-frequency.png)](2021-08-08_4 days-podping-frequency.png)
-[![2021-08-08_6 days-podping-frequency.png](2021-08-08_6 days-podping-frequency.png)](2021-08-08_6 days-podping-frequency.png)
 [![2021-08-08_7 days-podping-frequency.png](2021-08-08_7 days-podping-frequency.png)](2021-08-08_7 days-podping-frequency.png)
 [![2021-08-07_3 days-podping-frequency.png](2021-08-07_3 days-podping-frequency.png)](2021-08-07_3 days-podping-frequency.png)
 [![2021-08-07_day-podping-frequency.png](2021-08-07_day-podping-frequency.png)](2021-08-07_day-podping-frequency.png)
 [![2021-08-07_7 days-podping-frequency.png](2021-08-07_7 days-podping-frequency.png)](2021-08-07_7 days-podping-frequency.png)
-[![2021-08-07_5 days-podping-frequency.png](2021-08-07_5 days-podping-frequency.png)](2021-08-07_5 days-podping-frequency.png)
-[![2021-08-07_6 days-podping-frequency.png](2021-08-07_6 days-podping-frequency.png)](2021-08-07_6 days-podping-frequency.png)
 [![2021-08-06_3 days-podping-frequency.png](2021-08-06_3 days-podping-frequency.png)](2021-08-06_3 days-podping-frequency.png)
 [![2021-08-06_day-podping-frequency.png](2021-08-06_day-podping-frequency.png)](2021-08-06_day-podping-frequency.png)
 [![2021-08-06_hour-podping-frequency.png](2021-08-06_hour-podping-frequency.png)](2021-08-06_hour-podping-frequency.png)
@@ -473,43 +469,28 @@
 [![2021-08-05_3 days-podping-frequency.png](2021-08-05_3 days-podping-frequency.png)](2021-08-05_3 days-podping-frequency.png)
 [![2021-08-05_day-podping-frequency.png](2021-08-05_day-podping-frequency.png)](2021-08-05_day-podping-frequency.png)
 [![2021-08-05_2 days-podping-frequency.png](2021-08-05_2 days-podping-frequency.png)](2021-08-05_2 days-podping-frequency.png)
-[![2021-08-05_7 days-podping-frequency.png](2021-08-05_7 days-podping-frequency.png)](2021-08-05_7 days-podping-frequency.png)
 [![2021-08-05_4 days-podping-frequency.png](2021-08-05_4 days-podping-frequency.png)](2021-08-05_4 days-podping-frequency.png)
 [![2021-08-04_3 days-podping-frequency.png](2021-08-04_3 days-podping-frequency.png)](2021-08-04_3 days-podping-frequency.png)
-[![2021-08-04_7 days-podping-frequency.png](2021-08-04_7 days-podping-frequency.png)](2021-08-04_7 days-podping-frequency.png)
 [![2021-08-04_2 days-podping-frequency.png](2021-08-04_2 days-podping-frequency.png)](2021-08-04_2 days-podping-frequency.png)
 [![2021-08-04_day-podping-frequency.png](2021-08-04_day-podping-frequency.png)](2021-08-04_day-podping-frequency.png)
-[![2021-08-04_6 days-podping-frequency.png](2021-08-04_6 days-podping-frequency.png)](2021-08-04_6 days-podping-frequency.png)
 [![2021-08-04_4 days-podping-frequency.png](2021-08-04_4 days-podping-frequency.png)](2021-08-04_4 days-podping-frequency.png)
-[![2021-08-04_5 days-podping-frequency.png](2021-08-04_5 days-podping-frequency.png)](2021-08-04_5 days-podping-frequency.png)
 [![2021-08-03_5 days-podping-frequency.png](2021-08-03_5 days-podping-frequency.png)](2021-08-03_5 days-podping-frequency.png)
 [![2021-08-03_day-podping-frequency.png](2021-08-03_day-podping-frequency.png)](2021-08-03_day-podping-frequency.png)
 [![2021-08-03_2 days-podping-frequency.png](2021-08-03_2 days-podping-frequency.png)](2021-08-03_2 days-podping-frequency.png)
-[![2021-08-03_6 days-podping-frequency.png](2021-08-03_6 days-podping-frequency.png)](2021-08-03_6 days-podping-frequency.png)
 [![2021-08-03_4 days-podping-frequency.png](2021-08-03_4 days-podping-frequency.png)](2021-08-03_4 days-podping-frequency.png)
 [![2021-08-02_2 days-podping-frequency.png](2021-08-02_2 days-podping-frequency.png)](2021-08-02_2 days-podping-frequency.png)
 [![2021-08-02_day-podping-frequency.png](2021-08-02_day-podping-frequency.png)](2021-08-02_day-podping-frequency.png)
 [![2021-08-02_4 days-podping-frequency.png](2021-08-02_4 days-podping-frequency.png)](2021-08-02_4 days-podping-frequency.png)
 [![2021-08-02_3 days-podping-frequency.png](2021-08-02_3 days-podping-frequency.png)](2021-08-02_3 days-podping-frequency.png)
-[![2021-08-01_5 days-podping-frequency.png](2021-08-01_5 days-podping-frequency.png)](2021-08-01_5 days-podping-frequency.png)
-[![2021-08-01_day-podping-frequency.png](2021-08-01_day-podping-frequency.png)](2021-08-01_day-podping-frequency.png)
-[![2021-08-01_6 days-podping-frequency.png](2021-08-01_6 days-podping-frequency.png)](2021-08-01_6 days-podping-frequency.png)
 [![2021-08-01_2 days-podping-frequency.png](2021-08-01_2 days-podping-frequency.png)](2021-08-01_2 days-podping-frequency.png)
 [![2021-08-01_hour-podping-frequency.png](2021-08-01_hour-podping-frequency.png)](2021-08-01_hour-podping-frequency.png)
 [![2021-08-01_3 days-podping-frequency.png](2021-08-01_3 days-podping-frequency.png)](2021-08-01_3 days-podping-frequency.png)
-[![2021-08-01_7 days-podping-frequency.png](2021-08-01_7 days-podping-frequency.png)](2021-08-01_7 days-podping-frequency.png)
 [![2021-08-01_4 days-podping-frequency.png](2021-08-01_4 days-podping-frequency.png)](2021-08-01_4 days-podping-frequency.png)
-[![2021-07-31_5 days-podping-frequency.png](2021-07-31_5 days-podping-frequency.png)](2021-07-31_5 days-podping-frequency.png)
 [![2021-07-31_day-podping-frequency.png](2021-07-31_day-podping-frequency.png)](2021-07-31_day-podping-frequency.png)
 [![2021-07-31_7 days-podping-frequency.png](2021-07-31_7 days-podping-frequency.png)](2021-07-31_7 days-podping-frequency.png)
-[![2021-07-31_3 days-podping-frequency.png](2021-07-31_3 days-podping-frequency.png)](2021-07-31_3 days-podping-frequency.png)
-[![2021-07-31_6 days-podping-frequency.png](2021-07-31_6 days-podping-frequency.png)](2021-07-31_6 days-podping-frequency.png)
 [![2021-07-31_4 days-podping-frequency.png](2021-07-31_4 days-podping-frequency.png)](2021-07-31_4 days-podping-frequency.png)
 [![2021-07-31_2 days-podping-frequency.png](2021-07-31_2 days-podping-frequency.png)](2021-07-31_2 days-podping-frequency.png)
-[![2021-07-30_5 days-podping-frequency.png](2021-07-30_5 days-podping-frequency.png)](2021-07-30_5 days-podping-frequency.png)
 [![2021-07-30_day-podping-frequency.png](2021-07-30_day-podping-frequency.png)](2021-07-30_day-podping-frequency.png)
-[![2021-07-30_4 days-podping-frequency.png](2021-07-30_4 days-podping-frequency.png)](2021-07-30_4 days-podping-frequency.png)
-[![2021-07-30_7 days-podping-frequency.png](2021-07-30_7 days-podping-frequency.png)](2021-07-30_7 days-podping-frequency.png)
 [![2021-07-30_3 days-podping-frequency.png](2021-07-30_3 days-podping-frequency.png)](2021-07-30_3 days-podping-frequency.png)
 [![2021-07-30_2 days-podping-frequency.png](2021-07-30_2 days-podping-frequency.png)](2021-07-30_2 days-podping-frequency.png)
 [![2021-07-29_4 days-podping-frequency.png](2021-07-29_4 days-podping-frequency.png)](2021-07-29_4 days-podping-frequency.png)
@@ -550,7 +531,6 @@
 [![2021-07-14_day-podping-frequency.png](2021-07-14_day-podping-frequency.png)](2021-07-14_day-podping-frequency.png)
 [![2021-07-14_7 days-podping-frequency.png](2021-07-14_7 days-podping-frequency.png)](2021-07-14_7 days-podping-frequency.png)
 [![2021-07-13_7 days-podping-frequency.png](2021-07-13_7 days-podping-frequency.png)](2021-07-13_7 days-podping-frequency.png)
-[![2021-07-13_6 days-podping-frequency.png](2021-07-13_6 days-podping-frequency.png)](2021-07-13_6 days-podping-frequency.png)
 [![2021-07-13_day-podping-frequency.png](2021-07-13_day-podping-frequency.png)](2021-07-13_day-podping-frequency.png)
 [![2021-07-12_day-podping-frequency.png](2021-07-12_day-podping-frequency.png)](2021-07-12_day-podping-frequency.png)
 [![2021-07-12_7 days-podping-frequency.png](2021-07-12_7 days-podping-frequency.png)](2021-07-12_7 days-podping-frequency.png)
@@ -563,23 +543,14 @@
 [![2021-07-08_day-podping-frequency.png](2021-07-08_day-podping-frequency.png)](2021-07-08_day-podping-frequency.png)
 [![2021-07-08_7 days-podping-frequency.png](2021-07-08_7 days-podping-frequency.png)](2021-07-08_7 days-podping-frequency.png)
 [![2021-07-07_day-podping-frequency.png](2021-07-07_day-podping-frequency.png)](2021-07-07_day-podping-frequency.png)
-[![2021-07-07_7 days-podping-frequency.png](2021-07-07_7 days-podping-frequency.png)](2021-07-07_7 days-podping-frequency.png)
 [![2021-07-06_day-podping-frequency.png](2021-07-06_day-podping-frequency.png)](2021-07-06_day-podping-frequency.png)
-[![2021-07-06_7 days-podping-frequency.png](2021-07-06_7 days-podping-frequency.png)](2021-07-06_7 days-podping-frequency.png)
 [![2021-07-05_day-podping-frequency.png](2021-07-05_day-podping-frequency.png)](2021-07-05_day-podping-frequency.png)
-[![2021-07-05_7 days-podping-frequency.png](2021-07-05_7 days-podping-frequency.png)](2021-07-05_7 days-podping-frequency.png)
-[![2021-07-04_day-podping-frequency.png](2021-07-04_day-podping-frequency.png)](2021-07-04_day-podping-frequency.png)
-[![2021-07-04_7 days-podping-frequency.png](2021-07-04_7 days-podping-frequency.png)](2021-07-04_7 days-podping-frequency.png)
 [![2021-07-03_day-podping-frequency.png](2021-07-03_day-podping-frequency.png)](2021-07-03_day-podping-frequency.png)
-[![2021-07-03_7 days-podping-frequency.png](2021-07-03_7 days-podping-frequency.png)](2021-07-03_7 days-podping-frequency.png)
 [![2021-07-02_day-podping-frequency.png](2021-07-02_day-podping-frequency.png)](2021-07-02_day-podping-frequency.png)
-[![2021-07-02_7 days-podping-frequency.png](2021-07-02_7 days-podping-frequency.png)](2021-07-02_7 days-podping-frequency.png)
-[![2021-07-01_day-podping-frequency.png](2021-07-01_day-podping-frequency.png)](2021-07-01_day-podping-frequency.png)
 [![2021-07-01_7 days-podping-frequency.png](2021-07-01_7 days-podping-frequency.png)](2021-07-01_7 days-podping-frequency.png)
 [![2021-06-30_day-podping-frequency.png](2021-06-30_day-podping-frequency.png)](2021-06-30_day-podping-frequency.png)
 [![2021-06-30_7 days-podping-frequency.png](2021-06-30_7 days-podping-frequency.png)](2021-06-30_7 days-podping-frequency.png)
 [![2021-06-29_day-podping-frequency.png](2021-06-29_day-podping-frequency.png)](2021-06-29_day-podping-frequency.png)
-[![2021-06-29_7 days-podping-frequency.png](2021-06-29_7 days-podping-frequency.png)](2021-06-29_7 days-podping-frequency.png)
 [![2021-06-29_3 days-podping-frequency.png](2021-06-29_3 days-podping-frequency.png)](2021-06-29_3 days-podping-frequency.png)
 [![2021-06-28_day-podping-frequency.png](2021-06-28_day-podping-frequency.png)](2021-06-28_day-podping-frequency.png)
 [![2021-06-28_7 days-podping-frequency.png](2021-06-28_7 days-podping-frequency.png)](2021-06-28_7 days-podping-frequency.png)
@@ -590,23 +561,15 @@
 [![2021-06-25_day-podping-frequency.png](2021-06-25_day-podping-frequency.png)](2021-06-25_day-podping-frequency.png)
 [![2021-06-25_7 days-podping-frequency.png](2021-06-25_7 days-podping-frequency.png)](2021-06-25_7 days-podping-frequency.png)
 [![2021-06-24_day-podping-frequency.png](2021-06-24_day-podping-frequency.png)](2021-06-24_day-podping-frequency.png)
-[![2021-06-24_7 days-podping-frequency.png](2021-06-24_7 days-podping-frequency.png)](2021-06-24_7 days-podping-frequency.png)
 [![2021-06-23_4 days-podping-frequency.png](2021-06-23_4 days-podping-frequency.png)](2021-06-23_4 days-podping-frequency.png)
-[![2021-06-23_3 days-podping-frequency.png](2021-06-23_3 days-podping-frequency.png)](2021-06-23_3 days-podping-frequency.png)
 [![2021-06-23_4 hours-podping-frequency.png](2021-06-23_4 hours-podping-frequency.png)](2021-06-23_4 hours-podping-frequency.png)
 [![2021-06-23_day-podping-frequency.png](2021-06-23_day-podping-frequency.png)](2021-06-23_day-podping-frequency.png)
-[![2021-06-23_7 days-podping-frequency.png](2021-06-23_7 days-podping-frequency.png)](2021-06-23_7 days-podping-frequency.png)
 [![2021-06-22_day-podping-frequency.png](2021-06-22_day-podping-frequency.png)](2021-06-22_day-podping-frequency.png)
-[![2021-06-22_7 days-podping-frequency.png](2021-06-22_7 days-podping-frequency.png)](2021-06-22_7 days-podping-frequency.png)
 [![2021-06-21_day-podping-frequency.png](2021-06-21_day-podping-frequency.png)](2021-06-21_day-podping-frequency.png)
-[![2021-06-21_7 days-podping-frequency.png](2021-06-21_7 days-podping-frequency.png)](2021-06-21_7 days-podping-frequency.png)
 [![2021-06-20_day-podping-frequency.png](2021-06-20_day-podping-frequency.png)](2021-06-20_day-podping-frequency.png)
-[![2021-06-20_7 days-podping-frequency.png](2021-06-20_7 days-podping-frequency.png)](2021-06-20_7 days-podping-frequency.png)
 [![2021-06-20_3 hours-podping-frequency.png](2021-06-20_3 hours-podping-frequency.png)](2021-06-20_3 hours-podping-frequency.png)
-[![2021-06-20_3 days-podping-frequency.png](2021-06-20_3 days-podping-frequency.png)](2021-06-20_3 days-podping-frequency.png)
 [![2021-06-20_23 hours-podping-frequency.png](2021-06-20_23 hours-podping-frequency.png)](2021-06-20_23 hours-podping-frequency.png)
 [![2021-06-19_22 hours-podping-frequency.png](2021-06-19_22 hours-podping-frequency.png)](2021-06-19_22 hours-podping-frequency.png)
-[![2021-06-19_7 days-podping-frequency.png](2021-06-19_7 days-podping-frequency.png)](2021-06-19_7 days-podping-frequency.png)
 [![2021-06-19_21 hours-podping-frequency.png](2021-06-19_21 hours-podping-frequency.png)](2021-06-19_21 hours-podping-frequency.png)
 [![2021-06-19_20 hours-podping-frequency.png](2021-06-19_20 hours-podping-frequency.png)](2021-06-19_20 hours-podping-frequency.png)
 [![2021-06-19_19 hours-podping-frequency.png](2021-06-19_19 hours-podping-frequency.png)](2021-06-19_19 hours-podping-frequency.png)
@@ -617,7 +580,6 @@
 [![2021-06-19_14 hours-podping-frequency.png](2021-06-19_14 hours-podping-frequency.png)](2021-06-19_14 hours-podping-frequency.png)
 [![2021-06-19_13 hours-podping-frequency.png](2021-06-19_13 hours-podping-frequency.png)](2021-06-19_13 hours-podping-frequency.png)
 [![2021-06-19_12 hours-podping-frequency.png](2021-06-19_12 hours-podping-frequency.png)](2021-06-19_12 hours-podping-frequency.png)
-[![2021-06-19_day-podping-frequency.png](2021-06-19_day-podping-frequency.png)](2021-06-19_day-podping-frequency.png)
 [![2021-06-18_14 hours-podping-frequency.png](2021-06-18_14 hours-podping-frequency.png)](2021-06-18_14 hours-podping-frequency.png)
 [![2021-06-18_7 days-podping-frequency.png](2021-06-18_7 days-podping-frequency.png)](2021-06-18_7 days-podping-frequency.png)
 [![2021-06-18_15 hours-podping-frequency.png](2021-06-18_15 hours-podping-frequency.png)](2021-06-18_15 hours-podping-frequency.png)
@@ -658,7 +620,6 @@
 [![2021-06-04_7 days-podping-frequency.png](2021-06-04_7 days-podping-frequency.png)](2021-06-04_7 days-podping-frequency.png)
 [![2021-06-01_7 days-podping-frequency.png](2021-06-01_7 days-podping-frequency.png)](2021-06-01_7 days-podping-frequency.png)
 [![2021-06-01_day-podping-frequency.png](2021-06-01_day-podping-frequency.png)](2021-06-01_day-podping-frequency.png)
-[![2021-06-01-7 days-podping-frequency.png](2021-06-01-7 days-podping-frequency.png)](2021-06-01-7 days-podping-frequency.png)
 [![2021-06-02_7 days-podping-frequency.png](2021-06-02_7 days-podping-frequency.png)](2021-06-02_7 days-podping-frequency.png)
 [![2021-05-28_28 days-podping-url-frequency.png](2021-05-28_28 days-podping-url-frequency.png)](2021-05-28_28 days-podping-url-frequency.png)
 [![2021-05-29_7 days-podping-frequency.png](2021-05-29_7 days-podping-frequency.png)](2021-05-29_7 days-podping-frequency.png)
