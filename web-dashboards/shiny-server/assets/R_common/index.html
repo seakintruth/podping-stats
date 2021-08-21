@@ -1,0 +1,36 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"> 
+  <link rel="stylesheet" type="text/css" href="../../../assets/css/main.css"/>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    //function to fix height of iframe!
+    var calcHeight = function() {
+      $('#preview-frame').height($(window).height());
+    }
+     
+    $(document).ready(function() {
+      calcHeight();
+    }); 
+
+    $(window).resize(function() {
+      (calcHeight());
+    }).load(function() {
+      (calcHeight());
+    });
+  </script>
+</head>
+
+<body>
+  <div class="topnav">
+    <a class="active" href="https://shiny.podping-stats.com/">Stats</a>
+    <a href="https://www.podping-stats.com/index.html">Toot Bot Reports</a>
+    <a href="https://www.podping-stats.com/contact.html">Contact</a>
+    <a href="https://www.podping-stats.com/about.html">About</a>
+    <a href="https://shiny.podping-stats.com/apps/">Apps by Authors</a>
+    <a href="../">Up</a>
+  </div>
+  <iframe id="preview-frame" src="../../apps/jeremy_gerdes/app_components/sub_InstalledPackages/" name="preview-frame" frameborder="0" noresize="noresize" style="height: 902px;">
+  </iframe>
+</body>
+</html>
