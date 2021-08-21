@@ -23,6 +23,7 @@
 *crontab.log
 
 ### R ###
+*.Rhistory
 # History files
 /hive-watcher/examples/write-to-csv-analyze-with-R/.Rhistory
 # Session Data files
