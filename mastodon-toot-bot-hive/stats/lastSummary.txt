@@ -4,5 +4,5 @@ Podping hive "custom json" post report for the last  day :
 		(average of 3.62 urls/post)
 	
 Details at:
-https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=2021-08-28%2003:04:30
+https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=2021-08-28%2003:04:31
 #podping #Stats
