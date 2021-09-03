@@ -3,7 +3,7 @@ library(DBI)
 library(RPostgres)
 library(glue)
 
-authenticate_with_posgtres <- function(){
+authenticate_with_postgres <- function() {
   # Prompt user if password is not yet set
   if (Sys.getenv("PGPASSWORD") == "") {
     Sys.setenv(PGPASSWORD = readLines(file("~/env/read_all_user_access.txt")) )
@@ -24,12 +24,12 @@ authenticate_with_posgtres <- function(){
   }
 }
 
-dbFetchTable_Podping <- function(table_name){
+dbfetch_table_podping <- function(table_name) {
   # Connect to the default postgres database
   connection <- DBI::dbConnect(RPostgres::Postgres(),dbname=Sys.getenv("PGDBNAME"))
   ptm <- proc.time()
   table_con <- DBI::dbSendQuery(connection,paste0( "SELECT * FROM ",table_name))
-  table_results <- dbFetch(table_con)
+  table_results <- dbfetch(table_con)
   DBI::dbClearResult(table_con)
   # Close the connection
   proc.time() - ptm
@@ -37,26 +37,26 @@ dbFetchTable_Podping <- function(table_name){
   return(table_results)
 }
 
-dbFetchQuery_Podping <- function(query_sql){
+dbfetch_query_podping <- function(query_sql) {
   # Connect to the default postgres database
   connection <- DBI::dbConnect(RPostgres::Postgres(),dbname=Sys.getenv("PGDBNAME"))
   table_con <- DBI::dbSendQuery(connection,query_sql)
-  table_results <- dbFetch(table_con)
+  table_results <- dbfetch(table_con)
   DBI::dbClearResult(table_con)
   # Close the connection
   DBI::dbDisconnect(connection)
   return(table_results)
 }
 
-get_podpings_served <- function(){
-  dbFetchQuery_Podping(
+get_podpings_served <- function() {
+  dbfetch_query_podping(
     "SELECT count(*) FROM public.podping_urls;"
   )
 }
 
 # When this changes we need to get new data
-get_last_block_num <-function(){
-  dbFetchQuery_Podping(
+get_last_hive_block_num <-function() {
+  dbfetch_query_podping(
     "SELECT block_num FROM custom_json_ops ORDER BY id DESC LIMIT 1;"
   )
 }
@@ -93,7 +93,7 @@ server <- function(input, output,session) {
   pollData <- reactivePoll(450, session,
     # This function returns the last block that was processed and updates if modified
     checkFunc = function() ({
-        get_last_block_num()
+        get_last_hive_block_num()
       }),
     # This function returns the conteny
     valueFunc = function() {
