@@ -1,10 +1,10 @@
 library(shiny)
 library(DT)
 library(dplyr)
-# create_link function is modified from https://stackoverflow.com/a/29637883
 # Loads the funciton hit_counter
 source("../../../../assets/R_common/hitCounter.R")
 
+# create_link function is modified from https://stackoverflow.com/a/29637883
 create_link <- function(val) {
   sprintf('<a href="%s" target="_blank" class="btn btn-primary">1st link</a>',val)
 }

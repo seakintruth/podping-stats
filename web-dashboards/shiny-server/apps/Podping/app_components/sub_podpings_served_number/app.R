@@ -46,11 +46,11 @@ server <- function(input, output, session) {
 
 
     # Not used, just called to save info
-    #g_client_data <- handle_client_query(session)
+    # g_client_data <- handle_client_query(session)
     # This is the results
-    cat(paste0("Podpings Served: <span id=podpings_served>",pollData(),"</span>"))
+    cat(paste0('<div class="kpi-massive-value" id=podpings_served>',pollData(),"</div>"))
   }) 
 }
- 
-#l89 Run the application 
+
+# Run the application 
 shinyApp(ui = ui, server = server)

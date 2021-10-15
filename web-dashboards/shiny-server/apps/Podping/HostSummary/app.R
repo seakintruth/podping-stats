@@ -101,7 +101,7 @@ server <- function(input, output, session) {
     '<span id=hitcounter></span>'
   })
 
-  pollData <- reactivePoll(9000, session,
+  pollData <- reactivePoll(2500, session,
   # This function returns the last block that was processed and updates if modified
   checkFunc = function() ({
       if (input$chkEnableLiveData) {
@@ -116,7 +116,7 @@ server <- function(input, output, session) {
     }
   )
 
-  pollLastBlock <- reactivePoll(9000, session,
+  pollLastBlock <- reactivePoll(3000, session,
     # This function returns the last block that was processed and updates if modified
     checkFunc = function() ({
         if (input$chkEnableLiveData) {
