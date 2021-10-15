@@ -13,6 +13,7 @@
 */data-unauthorized.csv
 */data-podping-url.csv
 */data-podping.csv
+web-dashboards/shiny-server/assets/data/*
 
 # The crontab log #
 *crontab.log
