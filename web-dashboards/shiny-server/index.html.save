@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>The Podping Shiny Server!</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <div class="topnav">
+    <a class="active" href="#">Stats</a>
+    <a href="https://www.podping-stats.com/index.html">Toot Bot Reports</a>
+    <a href="https://www.podping-stats.com/contact.html">Contact</a>
+    <a href="https://www.podping-stats.com/about.html">About</a>
+</div>
+  <div id="titleBar">
+    <div id="container">
+      <h1>The Podping Shiny Server!</h1>
+    </div>
+  </div>
+  <div>
+  <div id="outer-content">
+    <div id="intro">
+      <p>Podping is part of the <a href="https://podcastindex.org/stats">podcast index's <strong> podcasting 2.0</strong></a> frame work. <br/>This page is an index of R Shiny apps that display Podping Stats,  and other apps by various developers.</p>    
+      </div>
+    <div id="content">
+      <div id="main">
+        <h2><a text-decoration:none href="apps/Podping">Podping Stats</a></h1>
+        <ul>
+          <li>
+            <a href="apps/Podping/HostSummary">Host Summary</a>
+          </li>
+          <li>
+            <a href="apps/Podping/RateChart">Rate Chart</a>
+          </li>
+        </ul>
+        <hr/>
+        <h2><a href="apps/">Other Shiny Apps Hosted Here (by author)</a></h2>
+        <ul>
+          <li>
+            <a href="apps/jeremy_gerdes/">Jeremy D. Gerdes (seakintruth)</a>
+          </li>
+          <li>
+            <a href="apps/jim_leathrum/">Jim Leathrum</a>
+          </li>
+        </ul>
+        <hr/>
+        8<h2>Generic Shiny Examples</a></h1>
+          <ul>
+            <li>
+              <a href="apps/shiny-examples/">Re-hosting of Rstudio's shiny-examples on this server</a>
+              <ul>
+                <li>
+                  <a href="https://github.com/rstudio/shiny-examples">see the github repository</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+      </div>
+      <div id="shiny">
+        <iframe src="./apps/Podping/app_components/sub_podpings_served/" style="border: 0px solid #AAA; width: 390px; height: 45px"></iframe>
+        <iframe src="./apps/jim_leathrum/CountdownTimer-Simple/" style="border: 1px solid #AAA; width: 390px; height: 560px"></iframe>
+        <iframe src="./apps/jeremy_gerdes/app_components/sub_InstalledPackages/" style="border: 1px solid #AAA; width: 390px; height: 620px"></iframe>
+        <div class="caption">
+          List Installed Packages by Jeremy D. Gerdes displays a list of all the installed packages on this server,  this is useful for those developing apps for this server.
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div>
+  <hr/>
+        <h3>
+          Analyzing <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
+            <img src="assets/images/podping_logo.png" width="50" hight="50" alt="podping logo"> 
+            Podping
+          </a> on
+          <a href="https://hive.io/">
+            <img src="assets/images/hive_logo.png" width="50" hight="50" alt="Hive.io logo">
+            blockchain
+          </a> as envisioned by<span id="podcast_index_logo">
+            <a href="https://podcastindex.org/">
+              <img src="assets/images/podcast_index_logo.jpeg" width="150px">
+            </a>
+          </span>
+        </h3>
+  </div>
+</body>
+</html>
