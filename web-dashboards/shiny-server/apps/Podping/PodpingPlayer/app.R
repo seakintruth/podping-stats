@@ -2,6 +2,7 @@ library(shiny)
 library(DBI) # Required by authenticateWithPostgres.R
 library(RPostgres) # Required by authenticateWithPostgres.R
 library(glue)
+library(htmlwidgets)
 #library(feather) # Requried by hitCounter.R
 
 #-----------------------------------------------------------------------#
@@ -44,7 +45,9 @@ ui <- fluidPage(
       HTML(
         '<h2>
           <u>Podping Player</u>
-        </h2><p>(Just a list of links and iframes)</p>'
+        </h2>
+	<p>Just a list of links and iframes of last podpings</p>
+	'
       )
     ),
     column(9,
@@ -84,6 +87,12 @@ ui <- fluidPage(
             label = "Number of podping urls to display:", 
             value = 10000
         )    
+    ),
+    column(
+      6,
+      HTML(
+        '<code>The search on this page only searches the timestamp and rss url values (not the contents of the feeds)</code>'
+      )
     )
   ),
   fluidRow(
@@ -112,15 +121,19 @@ server <- function(input, output, session) {
     # This function returns the content
     valueFunc = function() {
       url_list <- dbfetch_query_podping(
-        paste0(
-          "SELECT b.timestamp, ",
-          "   p.url ",
-          "FROM blocks b, ",
-          "   custom_json_ops c, ",
-          "   podping_urls p ",
-          "WHERE b.num = c.block_num AND c.id = p.json_ops_id ",
-          "ORDER BY p.json_ops_id DESC ",
-          "FETCH FIRST ",input$ReturnUrlCount," ROWS ONLY"
+        paste0("SELECT bb.timestamp,
+                    pp.url,
+                    pp.json_ops_id
+                  FROM blocks bb,
+                    custom_json_ops cc,
+                    ( SELECT jo.id AS json_ops_id,
+                      json_array_elements_text((jo.op_json ->> 'urls'::text)::json) AS url
+                      FROM custom_json_ops jo
+                      ORDER BY jo.id DESC
+                      FETCH FIRST ",input$ReturnUrlCount," ROWS ONLY
+                    ) pp
+                  WHERE bb.num = cc.block_num AND cc.id = pp.json_ops_id
+                  ORDER BY pp.json_ops_id DESC"
         )
       )
       url_list$url <- paste0(
