@@ -36,10 +36,19 @@ server <- function(input, output, session) {
     }
   )
   output$podping_info <- renderPrint({
+
+    handle_client_query_value <- function(session) {
+        query <- parseQueryString(session$clientData$url_search)
+        # Return a string with key-value pairs
+    }
+
+
+
+
     # Not used, just called to save info
-    #g_client_data <- handle_client_query(session)
+    # g_client_data <- handle_client_query(session)
     # This is the results
-    cat(paste0("Podpings Served: <span id=podpings_served>",pollData(),"</span>"))
+    dbfetch_query_podping('SELCT AVG(CHAR_LENGTH(url)) FROM public.podping_urls')
   }) 
 }
 
