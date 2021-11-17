@@ -22,8 +22,13 @@
 # The crontab log #
 *crontab.log
 
-### R ###
+### R  ###
 *.Rhistory
+*.Rproj.user/*
+
+# vs code
+*.vscode/*
+
 # History files
 /hive-watcher/examples/write-to-csv-analyze-with-R/.Rhistory
 # Session Data files
