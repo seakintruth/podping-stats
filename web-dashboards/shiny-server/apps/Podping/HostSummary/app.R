@@ -2,7 +2,7 @@ library(shiny)
 library(DBI) # Required by authenticateWithPostgres.R
 library(RPostgres) # Required by authenticateWithPostgres.R
 library(glue)
-#library(feather) # Requried by hitCounter.R
+library(feather) # Requried by hitCounter.R
 
 #-----------------------------------------------------------------------#
 # Ultimately the files sourced here should be a new package             #
@@ -43,15 +43,15 @@ ui <- fluidPage(
       HTML(
         '<h3>
           Analyzing <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
-            <img src="../../../../assets/images/podping_logo.png" width=50 hight=50 alt="podping logo" /> 
+            <img src="../../../assets/images/podping_logo.png" width=50 hight=50 alt="podping logo" /> 
             Podping
           </a> on
           <a href="https://hive.io/">
-            <img src="../../../../assets/images/hive_logo.png" width=50 hight=50 alt="Hive.io logo"/>
+            <img src="../../../assets/images/hive_logo.png" width=50 hight=50 alt="Hive.io logo"/>
             blockchain
           </a> as envisioned by<span id=podcast_index_logo>
             <a href="https://podcastindex.org/">
-              <img src="../../../../assets/images/podcast_index_logo.jpeg" width=150px />
+              <img src="../../../assets/images/podcast_index_logo.jpeg" width=150px />
             </a>
           </span>
         </h3>'

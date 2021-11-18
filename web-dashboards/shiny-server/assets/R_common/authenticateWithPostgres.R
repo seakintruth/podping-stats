@@ -1,10 +1,12 @@
 # Database reading functions
 authenticate_with_postgres <- function() {
   # Prompt user if password is not yet set
-  if (! Sys.getenv("PGPASSWORD") == "") {
+#  if (Sys.getenv("PGPASSWORD") == "") {
     # This user only has read access to the database
-    Sys.setenv(PGPASSWORD = readLines(file("~/env/read_all_user_access.txt")))
-  }
+    Sys.setenv(
+      PGPASSWORD = readLines(file("~/env/read_all_user_access.txt"))[1]
+    )
+#  }
   # Set environment variables for pgsql connection
   if (! Sys.getenv("PGHOST") == "127.0.0.1") {
     Sys.setenv(PGHOST = "127.0.0.1")
