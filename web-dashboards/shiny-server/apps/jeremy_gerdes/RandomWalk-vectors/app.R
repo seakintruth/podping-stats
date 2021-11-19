@@ -102,8 +102,3 @@ server <- function(input, output) {
 
 # Run the appsummarylication 
 shinyApp(ui = ui, server = server)
-
-
-
-
-
