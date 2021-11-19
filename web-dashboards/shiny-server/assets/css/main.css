@@ -18,6 +18,9 @@ img {
   text-align: left;
 }
 
+.shadow {
+  filter: drop-shadow( 1px 1px 4px rgba(84, 84, 84, .45));
+}
 
 a {
   text-decoration: none;

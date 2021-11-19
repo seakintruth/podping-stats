@@ -1,4 +1,5 @@
 clientDataReport <- function(){ 
+  #dplyr::summarise(clientDataReport())
   
   #dev testing stuff
   clientDataFiles <- list.files(
@@ -21,11 +22,9 @@ clientDataReport <- function(){
   # Merge all the results togeather
   clientData = Reduce(function(...) merge(..., all=T), clientData)
   clientData$timestamp <- as.numeric(clientData$timestamp)
-  class(clientData)
-  str(clientData)
-  summary(clientData)
-  
-  clientData
-  
+  clientData$date <- anytime::anytime(clientData$timestamp)
+  clientData$appName <- as.factor(clientData$appName)
 
+  #return
+  clientData
 }

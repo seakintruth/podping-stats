@@ -6,6 +6,8 @@ library(RPostgres) # Required by authenticateWithPostgres.R
 library(glue)
 library(stringr)
 library(ggplot2)
+# https://www.infoworld.com/article/3533453/easier-ggplot-with-the-ggeasy-r-package.html
+library(ggeasy) 
 library(lubridate)
 
 #library(feather) # Requried by hitCounter.R
@@ -263,7 +265,17 @@ server <- function(input, output, session) {
   output$plot <- renderPlot({
     podpingData <- getDataFromSelected()
     podpingDataCount <- dplyr::count(podpingData,period)
-    plot(podpingDataCount$period, podpingDataCount$n)
+    # snakecase::to_any_case(df,case = "title")
+    graphics::plot(
+      x=podpingDataCount$period, 
+      y=podpingDataCount$n,
+      type="b",
+      xlab = "Date / Time",
+      ylab = "Url Count",
+      main = paste0( 
+        "Podping url updates per period:" , input$GroupBySelected
+      )
+    )
   }, res = 96)
   # for if the user clicks on the plot
   output$info <- renderPrint({
@@ -282,7 +294,7 @@ server <- function(input, output, session) {
   output$data_summary <- renderPrint({
     podpingData <- getDataFromSelected()
     #[TODO] write a usefull summary...
-    summary(podpingData)
+    summary(dplyr::select(podpingData,host, timestamp,block_number))
   })
 
 }
