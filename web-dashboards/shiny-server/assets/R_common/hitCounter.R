@@ -2,7 +2,7 @@
 # A non-visible local client data store, for debugging
 hit_counter <- function(session) {
   handle_client_reactive_value <- function(session) {
-    query <- parseQueryString(session$clientData$url_search)
+    query <- shiny::parseQueryString(session$clientData$url_search)
     # Return a string with key-value pairs
     query <- paste(names(query), query, sep = "=", collapse=", ")
     query <- data.frame(

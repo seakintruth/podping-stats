@@ -38,8 +38,8 @@ ui <- fluidPage(
     ),
     fluidRow(
         HTML('<div class="caption">
-            A working example of a simple Countdown Timer.<br/>
-            Contributed by <a href="https://www.odu.edu/directory/people/j/jleathru">
+            &nbsp&nbsp A working example of a simple Countdown Timer.<br/>
+            &nbsp&nbsp Contributed by <a href="https://www.odu.edu/directory/people/j/jleathru">
             Dr. Jim Leathrum
             </a>ASSOCIATE PROFESSOR Computational Modeling and Simulation Engineering, 
             Old Dominion University</div>'
@@ -72,7 +72,7 @@ server <- function(input, output, session) {
                     showModal(modalDialog(
                         title = "Important message",
                         "Countdown completed!"
-                    ))
+                    ))&nbsp&nbsp
                 }
             }
         })

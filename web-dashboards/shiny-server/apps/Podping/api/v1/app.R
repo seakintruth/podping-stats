@@ -21,7 +21,7 @@ source("../../../../assets/R_common/authenticateWithPostgres.R")
 # Define UI for application
 ui <- fluidPage( 
   tags$head(
-    tags$title("Podping-Stats/api/v1/podpings-served-fake-JSON")
+    tags$title("Podping-Stats/api/v1/podpings-served-fake-JSON"),
   ),
   fluidRow(
     htmlOutput("podping_info"),

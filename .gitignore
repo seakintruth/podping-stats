@@ -1,5 +1,6 @@
 # editors #
 .vscode
+*.vscode/
 .idea/
 /venv
 .saved-info.txt
@@ -7,7 +8,6 @@
 # Data and shiny example dirctories
 /web-dashboards/shiny-server/apps/shiny-examples/*
 /web-dashboards/shiny-server/assets/data/*
-
 
 # Credentials files #
 /mastodon-toot-bot-hive/credentials/*
@@ -22,8 +22,11 @@
 # The crontab log #
 *crontab.log
 
-### R ###
+### R  ###
 *.Rhistory
+*.Rproj.user/
+web-dashboards/shiny-server/.Rproj.user/
+
 # History files
 /hive-watcher/examples/write-to-csv-analyze-with-R/.Rhistory
 # Session Data files
