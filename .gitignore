@@ -5,9 +5,12 @@
 /venv
 .saved-info.txt
 
-# Data and shiny example dirctories
+# Data and shiny example directories
 /web-dashboards/shiny-server/apps/shiny-examples/*
 /web-dashboards/shiny-server/assets/data/*
+
+# All feather files are data files, either caches or site hit counters
+*.feather
 
 # Credentials files #
 /mastodon-toot-bot-hive/credentials/*
