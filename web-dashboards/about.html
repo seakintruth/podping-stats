@@ -1,53 +1,139 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>podping-stats</title>
-        <meta name="vewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="assets/css/main.css">
-
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1">
-        <link rel="manifest" href="/site.webmanifest?v=1">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg?v=1" color="#5bbad5">
-        <link rel="shortcut icon" href="/favicon.ico?v=1">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
-
-    </head>
-    <body>
-        <div class="topnav">
-            <a href="http://shiny.podping-stats.com">Stats</a>
-            <a href="index.html">Toot Bot Reports</a>
-            <a href="contact.html">Contact</a>
-            <a class="active" href="#">About</a>
-        </div> 
-        <h2>&nbsp What's a Podping?</h2>
-	<h3>&nbsp&nbspHere's the overview from 
-	    <a href="https://www.dapp.com/app/podping-on-hive">
-	        dapp.com/app/podping-on-hive
-            </a>
-        </h3>
-        <p>&nbsp&nbsp
-           "Podping is an alternative to WebSub for the open, RSS based podcasting ecosystem that allows for rapid, global notification of podcast feed updates. Using the Hive blockchain, Podping allows a wide variety of Podcast Hosting platforms to send out instant notification that a Podcast feed has changed. Podcast subscribing indexes and apps can then re-poll only the RSS feeds which have changed, eliminating periodic polling."
-        </p>
-        <h2>&nbsp&nbsp What's podping-stats.com?</h2>
-        <p>&nbsp&nbsp 
-            This podping-stats site displays statistics on the podpings on the hive blockchain. <br/></br>&nbsp&nbsp 
-            Streaming analysis is driven by the <a href="https://github.com/imwatsi/hive-plug-play">Hive_plug_play python app </a>
-            that reads the relevent Hive.io blockchain into a postgres database. Then a R - Shiny app serves the results at: 
-            <a href="https://shiny.podping-stats.com/apps/Podping/HostSummary/">shiny.podping-stats.com/apps/Podping/HostSummary/</a>
-        </p>
-        <h2>
-          <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
-            <img src="https://shiny.podping-stats.com/assets/images/podping_logo.png" width=50 hight=50 alt="podping logo" /> 
-            Podping 
-          </a> on 
-          <a href="https://hive.io/">
-            <img src="https://shiny.podping-stats.com/assets/images/hive_logo.png" width=50 hight=50 alt="Hive.io logo"/>
-            blockchain</a>    in support of  <a href="https://podcastindex.org/">Podcasting 2.0 with      
-            <img src="https://shiny.podping-stats.com/assets/images/podcast_index_logo.jpeg" width=150px />
-          </a>
-        </h2>
-    </body>
+  <head>
+    <title>podping-stats</title>
+    <meta name="vewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1">
+    <link rel="manifest" href="/site.webmanifest?v=1">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=1" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon.ico?v=1">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <script>
+      /* 
+      functions to copy table contents to clipboard from: 
+      https://stackoverflow.com/a/54852212
+      */
+      function CopyMyLeftTd(e) {
+        var leftTdIndex= $(e).parent().index()-1;
+        var leftTd= $(e).closest("tr").find("td:eq(" + leftTdIndex + ")");
+        copyToClipboard($(leftTd).text().trim());
+      }
+      function copyToClipboard(txt) {
+        var el = document.createElement('textarea');        
+        el.value = txt;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      }
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+      table {
+        border-collapse: collapse;
+      }  
+      th {
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        }    
+      td {
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        border-left:1px solid #ddd ;
+        border-right:1px solid #ddd ;
+      }
+      </style>
+      
+  </head>
+  <body>
+    <div class="topnav">
+      <a href="http://shiny.podping-stats.com">Stats</a>
+      <a href="index.html">Toot Bot Reports</a>
+      <a href="contact.html">Contact</a>
+      <a class="active" href="#">About</a>
+    </div> 
+    <div style="padding:10px;">
+      <h2>&nbsp What's a Podping?</h2>
+      <h3>&nbsp&nbspHere's the overview from 
+        <a href="https://www.dapp.com/app/podping-on-hive">
+          dapp.com/app/podping-on-hive
+        </a>
+      </h3>
+      <p>&nbsp&nbsp
+          "Podping is an alternative to WebSub for the open, RSS based podcasting ecosystem that allows for rapid, global notification of podcast feed updates. Using the Hive blockchain, Podping allows a wide variety of Podcast Hosting platforms to send out instant notification that a Podcast feed has changed. Podcast subscribing indexes and apps can then re-poll only the RSS feeds which have changed, eliminating periodic polling."
+      </p>
+      <h2>&nbsp&nbsp What's podping-stats.com?</h2>
+      <p>&nbsp&nbsp 
+          This podping-stats site displays statistics on the podpings on the hive blockchain. <br/></br>&nbsp&nbsp 
+          Streaming analysis is driven by the <a href="https://github.com/imwatsi/hive-plug-play">Hive_plug_play python app </a>
+          that reads the relevent Hive.io blockchain into a postgres database. Then a R - Shiny app serves the results at: 
+          <a href="https://shiny.podping-stats.com/apps/Podping/HostSummary/">shiny.podping-stats.com/apps/Podping/HostSummary/</a>
+      </p>
+      <p>&nbsp&nbsp 
+        This site is a passion project and exists for the sole purpose of educating and edifying the developers. 
+        We provide no guarentees of accuracy of analysis, or reliability of services of this site. 
+      </p>
+      <h2>
+        <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
+          <img src="https://shiny.podping-stats.com/assets/images/podping_logo.png" width=50 hight=50 alt="podping logo" /> 
+          Podping 
+        </a> on 
+        <a href="https://hive.io/">
+          <img src="https://shiny.podping-stats.com/assets/images/hive_logo.png" width=50 hight=50 alt="Hive.io logo"/>
+          blockchain</a>    in support of  <a href="https://podcastindex.org/">Podcasting 2.0 with      
+          <img src="https://shiny.podping-stats.com/assets/images/podcast_index_logo.jpeg" width=150px />
+        </a>
+      </h2>
+      <h2>
+        Value for value
+      </h2>
+      <p>
+        If you find any value in this site you can donate to this site at these crypto wallet addresses. <br/p>
+      </p>
+      <table style="border-spacing: 30px;">
+        <tr>
+          <th width="300px" colspan="2">
+            Bitcoin
+          </th>
+          <th width="300px" colspan="2">
+            Lightning via Keysend
+          </th>
+        </tr>
+        <tr>
+          <td align="right" width="280px">
+            <div style="overflow-x:auto; max-width:280px">
+              bc1q6j5m4s466v3fa2xqfhcc6nvlwh3w8mvpz0ppa8
+            </div>
+          </td>
+          <td width="15px">
+            <button style="button" onclick="CopyMyLeftTd(this)" >Copy</button>
+          </td>
+          <td align="right" width="280px">
+            <div style="overflow-x:auto; max-width:280px">
+              0376f26d88b7ab7a77fb2c3cdc07d6111ca571cc4df3571eea76d11605c313ecbd@3uyujd2eg3mqpk4wuk2donuxrxojd4oehen5fl5hgzodzhjkqq2m56qd.onion:9735
+            </div>
+          </td >
+          <td width="15px">
+            <button style="button;" onclick="CopyMyLeftTd(this)" >Copy</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <img src="/assets/images/donate_bitcoin_podping-stats.png" width="295px" alt="Bitcoin Address QR code" /> 
+          </td>
+          <td colspan="2">
+            <img src="/assets/images/BSETMET_Lightning_Address.png" width="295px" alt="Bitcoin Address QR code" /> 
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
 </html>

@@ -1,12 +1,9 @@
 # Database reading functions
 authenticate_with_postgres <- function() {
-  # Prompt user if password is not yet set
-#  if (Sys.getenv("PGPASSWORD") == "") {
-    # This user only has read access to the database
-    Sys.setenv(
-      PGPASSWORD = readLines(file("~/env/read_all_user_access.txt"))[1]
-    )
-#  }
+  # set the environment variable for the postgresql password from
+  conn <- file("~/env/read_all_user_access.txt")
+  Sys.setenv(PGPASSWORD = readLines(conn)[1])
+  close(conn)
   # Set environment variables for pgsql connection
   if (! Sys.getenv("PGHOST") == "127.0.0.1") {
     Sys.setenv(PGHOST = "127.0.0.1")
@@ -21,7 +18,6 @@ authenticate_with_postgres <- function() {
     Sys.setenv(PGDBNAME = "plug_play")
   }
 }
-
 
 dbfetch_table_podping <- function(table_name) {
   dbfetch_query_podping(paste0("SELECT * FROM ", table_name))  
@@ -53,7 +49,6 @@ dbfetch_query_podping <- function(query_sql) {
   # Return results
   table_results
 }
-
 
 # When this changes we need to get new data
 get_last_hive_block_num <-function() {

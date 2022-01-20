@@ -1,32 +1,64 @@
-#dev testing stuff
-#setwd("/srv/shiny-server/apps/jeremy_gerdes/Podping_descriptive/")
-library(shiny)
-library(DBI) # Required by authenticateWithPostgres.R
-library(RPostgres) # Required by authenticateWithPostgres.R
-library(glue)
-library(stringr)
-library(ggplot2)
-# https://www.infoworld.com/article/3533453/easier-ggplot-with-the-ggeasy-r-package.html
-library(ggeasy) 
-library(lubridate)
 
-#library(feather) # Requried by hitCounter.R
+#dev testing stuff
+# setwd("/srv/shiny-server/apps/Podping/Dashboard/")
+# [TODO] review streaming data visulizations with plotly
+# https://plotly-r.com/linking-views-with-shiny.html#shiny-performance
+
+library(datasets)       # for testing
+
+library(shiny)          # Shiny applications
+library(DBI)            # Required by authenticateWithPostgres.R
+library(RPostgres)      # Required by authenticateWithPostgres.R
+library(glue)           # fast concat
+library(stringr)        # handle strings
+library(ggplot2)        # plotting
+library(tidyverse)      # data manipulation and viz
+library(ggthemes)       # themes for ggplot2
+library(viridis)        # the best color palette
+library(rgdal)          # deal with shapefiles
+library(microbenchmark) # measure the speed of executing
+library(extrafont)      # nice font
+library(RColorBrewer)   # colors
+library(anytime)        # date stuff
+library(lubridate)      # more date stuff
+library(feather)        # fast to and from disk caching
+library(ggeasy)         # https://www.infoworld.com/article/3533453/easier-ggplot-with-the-ggeasy-r-package.html
 
 #-----------------------------------------------------------------------#
 # Ultimately the files sourced here should be a new package             #
 # just replace these source calls with a single library('podpingStats') #
 #-----------------------------------------------------------------------#
-# Loads the funciton hit_counter
+        
+# Loads the function hit_counter
 source("../../../assets/R_common/hitCounter.R")
 # Loads authentication, and query functions for postgresql database
 source("../../../assets/R_common/authenticateWithPostgres.R")
 # Loads podcastindex api query functions
 source("../../../assets/R_common/podcastIndexGet.R")
 
-# Load all the data globally, once, takes roughly 2 seconds per million records
-podping_data_global <- dbfetch_query_podping(
-  "SELECT * FROM podping_url_timestamp"
-)
+createPodpingCacheFile <- function(){
+  # Load all the data globally, once, takes roughly 2 seconds per million records
+  data_return <- dbfetch_query_podping(
+    "SELECT * FROM podping_url_timestamp"
+  )
+  feather::write_feather(data_return,"podping_data_cache.feather")
+  data_return
+}
+
+# For the dashboard cache this to local file for everyone once an hour
+if (file.exists("podping_data_cache.feather")){
+  if (file.info("podping_data_cache.feather")$mtime>(Sys.time()-(60*60))){
+    # just load the file
+    podping_data_global <- feather::read_feather("podping_data_cache.feather")
+  } else {
+    # Re-create the file
+    podping_data_global <- createPodpingCacheFile()
+  }
+} else {
+  #create the file
+   podping_data_global <- createPodpingCacheFile()
+}
+podping_data_cache_file_last_modified <- file.info("podping_data_cache.feather")$mtime
 podping_data_global$host <- as.factor(podping_data_global$host)
 
 # Define UI for application
@@ -136,10 +168,10 @@ ui <- fluidPage(
       dateRangeInput(
         inputId = "DateRangeFilter",
         label = "Date Range",
-        start = "2021-05-01",
+        start = Sys.Date()-31,
         end = Sys.Date(),
         min = "2021-05-01",
-        max = Sys.Date(),
+        max = Sys.Date()+1,
         format = "mm/dd/yyyy", #yyyy-mm-dd
         startview = "year",
         weekstart = 0,
@@ -147,7 +179,7 @@ ui <- fluidPage(
         separator = " to ",
         width = NULL,
         autoclose = TRUE
-      )       
+      )
     ),
     column(2,
       selectInput(
@@ -165,32 +197,46 @@ ui <- fluidPage(
           "Month" = "month",
           "Year" = "year"
         ),
-        selected = "week"
+        selected = "hour"
       )
     )
   ),
   fluidRow(
-    column(6,
+    column(
+      6,
       plotOutput("plot", click = "plot_click"),
       verbatimTextOutput("info")
     ),
-    column(6,
+    column(
+      6,
       plotOutput("plot_hist")
     )
   ),
+# [todo] add ggplotting, reactive plots? and Near points clicking on plots...
+# https://shiny.rstudio.com/articles/plot-interaction.html
+#  fluidRow(
+#    column(
+#      12,
+#      plotOutput("testPlot")
+#    )
+#  ),
   fluidRow(
-    column(12,
-           verbatimTextOutput("data_summary")
+    column(
+      6,
+      verbatimTextOutput("data_last_modified")
+    ),
+    column(
+      6,
+      verbatimTextOutput("data_summary")
     )
   )
 )
 
 # Define server logic
 server <- function(input, output, session) {
-  startTime <- Sys.time()
   output$run_once <- renderText({
     client_query_processed <- hit_counter(session)
-    paste0("<span id=hitcounter>", client_query_processed, "</span>")
+    paste0('<span id=hitcounter style="display:none;">', anytime::rfc3339(Sys.time()), "</span>")
   })
 
   # A reactive function only runs once, and results are cached for 
@@ -214,51 +260,35 @@ server <- function(input, output, session) {
     )
     
     # setup period field for grouping
-    if (period == "none") {
+    # this list of if, else if's should be restructured as some sort of 
+    # mapping of podping_data_filtered$timestamp with breaks ?
+    periodBreak <- switch(
+      EXPR = period,
+      "30second" = "30 sec" ,
+      "minute" = "1 min",
+      "15minute" = "15 min",
+      "30minute" = "30 min",
+      "day" = "1 day",
+      "hour" = "1 hour",
+      "week" = "1 week",
+      "month" = "1 month",
+      "year" = "1 year",
+      "none"
+    )
+    if(periodBreak == "none") {
       podping_data_filtered$period <- podping_data_filtered$timestamp
-    } else if (period == "30second") {
+    } else {
       podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "30 sec"
-      )
-    } else if (period == "minute") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "1 min"
-      )
-    } else if (period == "15minute") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "15 min"
-      )
-    } else if (period == "30minute") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "30 min"
-      )
-    } else if (period == "day") {
-      podping_data_filtered$period <- as.Date(
-        podping_data_filtered$timestamp
-      )
-    } else if (period == "hour") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "1 hour"
-      )
-    } else if (period == "week") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "1 week"
-      )
-    } else if (period == "month") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "1 month"
-      )
-    } else if (period == "year") {
-      podping_data_filtered$period <- cut(
-        podping_data_filtered$timestamp,breaks = "1 year"
+        podping_data_filtered$timestamp,breaks = periodBreak
       )
     }
-    #podping_data_filtered$period <- as.POSIXct(
-    #  podping_data_filtered$period
-    #)
-    
     # Return data
     podping_data_filtered
+  })
+
+  timeSinceLoad <- reactive({
+    tmp <- getDataFromSelected()
+    round(proc.time(),2)['elapsed']
   })
 
   # Plot results
@@ -273,7 +303,7 @@ server <- function(input, output, session) {
       xlab = "Date / Time",
       ylab = "Url Count",
       main = paste0( 
-        "Podping url updates per period:" , input$GroupBySelected
+        "Podping url updates per period:", input$GroupBySelected
       )
     )
   }, res = 96)
@@ -288,7 +318,24 @@ server <- function(input, output, session) {
   output$plot_hist <- renderPlot({
     podpingData <- getDataFromSelected()
     podpingDataCount <- dplyr::count(podpingData,period)
-    hist(podpingDataCount$n, col = "lightblue",main=paste0("Histogram of URLs per ",input$GroupBySelected," period"))
+    hist(
+      podpingDataCount$n,
+      col = "lightblue",
+      main = paste0(
+        "Histogram of URLs per ",
+        ifelse(
+          input$GroupBySelected == "none",
+          "Block",
+          paste0(
+            input$GroupBySelected," period"
+          )
+        )
+      )
+    )
+    # Draw the normal distribution line for this data
+    l<-rnorm(1000000, mean(podpingDataCount$n), sd(podpingDataCount$n))
+    lines(density(l), col="red")
+
   })
 
   output$data_summary <- renderPrint({
@@ -296,6 +343,12 @@ server <- function(input, output, session) {
     #[TODO] write a usefull summary...
     summary(dplyr::select(podpingData,host, timestamp,block_number))
   })
+
+  output$data_last_modified <- renderPrint({
+    cat("Data source last cached:", anytime::rfc3339(podping_data_cache_file_last_modified),"
+Time since session load:", timeSinceLoad(), " seconds")
+  })
+
 
 }
 

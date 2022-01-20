@@ -51,7 +51,7 @@ ListenElsewhere <- function(
 create_url_html <- function(url_val="", strHost="PodcastIndex") {
   errorLoad <- tryCatch(
     {
-      feedPayload <- podcast_index_get_by_url(url_val)
+      feedPayload <- podcast_index_get_feed_by_url(url_val)
     },
     error=function(cond) {
       message(paste("URL does not seem to exist:", url_val))

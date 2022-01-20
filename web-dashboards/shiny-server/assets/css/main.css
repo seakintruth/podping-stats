@@ -13,9 +13,9 @@ img {
 .kpi-massive-value {
   font-family: var(--font-family-exp);
   font-weight: bold;
-  font-size: 186px;
+  font-size: 100px;
   color: #ff1c41;
-  text-align: left;
+  text-align: center;
 }
 
 .shadow {
@@ -52,7 +52,15 @@ a:hover {
   background-color: #04AA6D;
   color: white;
 }
-
+#table-scroll-wrapper {
+  position:relative;
+  width:100%;
+}
+#table-scroll {
+  height:250px;
+  overflow:auto;  
+  margin-top:20px;
+}
 
 #titleBar {
   height: 80px;
@@ -89,32 +97,28 @@ a:hover {
 }
 
 #outer-content {
-  max-width: 910px;
+  max-width: 98%;
   margin-left: auto;
   margin-right: auto;
 }
 
 #content {
   margin: 1em auto 1em auto;
-  float: left;
+  float: center;
 }
 
-#main {
-  margin-right: 350px;
+#main, #shiny {
   float: left;
+  min-width: 480px;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 45.5%;
   line-height: 24px;
+  border-right: 1px solid #AAA;
 }
 
-#shiny {
-  float: left;
-  width: 305px;
-  margin-left: -330px;
-  padding-left: 20px;
-  border-left: 1px solid #AAA;
-}
-
-#shiny iframe {
-  margin-top: 30px;
+#main iframe, #shiny iframe {
+  margin-top: 10px;
 }
 
 .caption {
@@ -176,13 +180,11 @@ body {
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
   word-wrap: break-word;
-
   -ms-word-break: break-all;
   /* This is the dangerous one in WebKit, as it breaks things wherever */
   word-break: break-all;
-  /* Instead use this non-standard one: */
+  /* Instead use this non-standard one (if  regognized): */
   word-break: break-word;
-
   /* Adds a hyphen where the word breaks, if supported (No Blink) */
   -ms-hyphens: auto;
   -moz-hyphens: auto;
