@@ -41,10 +41,6 @@ server <- function(input, output, session) {
         query <- parseQueryString(session$clientData$url_search)
         # Return a string with key-value pairs
     }
-
-
-
-
     # Not used, just called to save info
     # g_client_data <- handle_client_query(session)
     # This is the results

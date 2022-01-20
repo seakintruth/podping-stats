@@ -3,7 +3,6 @@
 <head>
   <title>The Podping Shiny Server!</title>
   <link rel="stylesheet" href="assets/css/main.css">
-
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1">
@@ -12,7 +11,6 @@
   <link rel="shortcut icon" href="/favicon.ico?v=1">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
-
 </head>
 <body>
   <div class="topnav">
@@ -24,39 +22,50 @@
   <div id="titleBar">
     <div id="container">
       <h1>The Podping Shiny Server!</h1>
-    </div>
+    </div>  
   </div>
   <div>
   <div id="outer-content">
     <div id="intro">
-      <p>Podping is part of the <a href="https://podcastindex.org/stats">podcast index's <strong> podcasting 2.0</strong></a> frame work. <br/>This page is an index of R Shiny apps that display Podping Stats,  and other apps by various developers.</p>    
+      <h2>
+        Analyzing <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
+          <img src="assets/images/podping_logo.png" width="50" alt="podping logo"> 
+          Podping
+        </a> on
+        <a href="https://hive.io/">
+          <img src="assets/images/hive_logo.png" width="50" alt="Hive.io logo">
+          blockchain
+        </a> as envisioned by
+        <span id="podcast_index_logo">
+          <a href="https://podcastindex.org/">
+            <img src="assets/images/podcast_index_logo.jpeg" width="150px">
+          </a>
+        </span>
+      </h2>
       <hr/>
-      <div>
-        <h3>
-          Analyzing <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
-            <img src="assets/images/podping_logo.png" width="50" hight="50" alt="podping logo"> 
-            Podping
-          </a> on
-          <a href="https://hive.io/">
-            <img src="assets/images/hive_logo.png" width="50" hight="50" alt="Hive.io logo">
-            blockchain
-          </a> as envisioned by<span id="podcast_index_logo">
-            <a href="https://podcastindex.org/">
-              <img src="assets/images/podcast_index_logo.jpeg" width="150px">
-            </a>
-          </span>
-        </h3>
-      </div>
+      This page is an index of R Shiny apps that display Podping Stats,
+      and other apps by various developers. <br/>
+      Podping is part of the 
+      <a href="https://podcastindex.org/stats">
+        podcast index's <strong> podcasting 2.0</strong>
+      </a> frame work. 
     </div>
     <div id="content">
       <div id="main">
+        <h1>
+          Total Podpings Served:
+          <iframe src="./apps/Podping/app_components/sub_podpings_served_number/" 
+            style='border: 0px solid #AAA; width: 100%; height: 110px'
+            scrolling="no">
+          </iframe>
+        </h1>
         <h2><a text-decoration:none href="apps/Podping">Podping Stats</a></h1>
         <ul>
           <li>
             <a href="apps/Podping/HostSummary">Host Summary</a>
           </li>
           <li>
-            <a href="apps/Podping/RateChart">Rate Chart</a>
+            <a href="apps/Podping/Dashboard">Dashboard</a>
           </li>
           <li>
             <a href="apps/Podping/PodpingPlayer/">Podping Player</a>
@@ -84,15 +93,14 @@
               </ul>
             </li>
           </ul>
+          <div>
+            <iframe src="./apps/Podping/app_components/sub_client_data_report/" 
+              style="border: 1px solid #AAA; width: 100%; height: 750px">
+            </iframe>
+          </div>
       </div>
       <div id="shiny">
-        <iframe src="./apps/Podping/app_components/sub_podpings_served/" style="border: 0px solid #AAA; width: 100%; height: 45px"></iframe>
-        <iframe src="./apps/Podping/app_components/sub_client_data_report/" style="border: 0px solid #AAA; width: 100%; height: 80px"></iframe>
-        <iframe src="./apps/jim_leathrum/CountdownTimer-ShowCode/" style="border: 1px solid #AAA; width: 100%; height: 560px"></iframe>
-        <iframe src="./apps/jeremy_gerdes/app_components/sub_InstalledPackages/" style="border: 1px solid #AAA; width: 100%; height: 620px"></iframe>
-        <div class="caption">
-          List Installed Packages by Jeremy D. Gerdes displays a list of all the installed packages on this server,  this is useful for those developing apps for this server.
-        </div> 
+        <iframe src="./apps/jim_leathrum/CountdownTimer-ShowCode/" style="border: 1px solid #AAA; width: 100%; height: 560px"></iframe> 
       </div>
     </div>
   </div>

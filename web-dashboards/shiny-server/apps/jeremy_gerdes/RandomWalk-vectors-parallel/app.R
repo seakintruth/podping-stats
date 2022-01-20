@@ -1,5 +1,6 @@
 library(shiny)
 library(parallel)
+library(future)
 #library(ggplot2)
 #licence MIT
 max_step_count <- 10^5

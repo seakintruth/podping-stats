@@ -4,6 +4,7 @@ library(remotes)
 #library(tidyRSS)
 # tidyRSS with podcast 2.0 namespace updates
 remotes::install_github("seakintruth/tidyrss")
+library(tidyRSS)
 
 #get_tidy_rss_feed <- function(feed_url,session){
   

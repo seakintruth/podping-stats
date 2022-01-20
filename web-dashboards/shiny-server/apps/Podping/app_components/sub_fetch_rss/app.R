@@ -1,7 +1,7 @@
 library(shiny)
 library(DT)
 library(remotes)
-#library(tidyRSS)
+library(tidyRSS)
 # tidyRSS with podcast 2.0 namespace updates
 remotes::install_github("seakintruth/tidyrss")
 

@@ -51,7 +51,7 @@ ListenElsewhere <- function(
 create_url_html <- function(url_val="", strHost="PodcastIndex") {
   errorLoad <- tryCatch(
     {
-      feedPayload <- podcast_index_get_by_url(url_val)
+      feedPayload <- podcast_index_get_feed_by_url(url_val)
     },
     error=function(cond) {
       message(paste("URL does not seem to exist:", url_val))
@@ -94,6 +94,7 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
   }
   # prep for building the Iframe
   feedIframe <- ""
+  # First handle iframes where podcast index returned the feed info
   if(!is.null(feedPayload) & !is.na(feedPayload)){
     if(strHost=="PodcastIndex"){
       if(!is.null(feedPayload$feed$id)){
@@ -127,270 +128,265 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
         utils::URLencode(url_val,reserved=TRUE)
       )
       feedIframeHieght <- 380
-  } 
-  # build the iframe
-  if(strHost=="None" | stringr::str_length(feedIframe) == 0){
-    feedIframe <- ""
-  } else { # none
-    feedIframe <- glue(
-      '<iframe ',
-      'loading="lazy"',
-      'src="{feedIframe}" ',
-      'height="{feedIframeHieght}" ',
-      'width="95%" ',
-      'title="{feedTitle}"',
-      '>',
-      '</iframe>', 
-    )
+    } 
+    # build the iframe
+    if(strHost=="None" | stringr::str_length(feedIframe) == 0){
+      feedIframe <- ""
+    } else { # none
+      feedIframe <- glue(
+        '<iframe ',
+        'loading="lazy"',
+        'src="{feedIframe}" ',
+        'height="{feedIframeHieght}" ',
+        'width="95%" ',
+        'title="{feedTitle}"',
+        '>',
+        '</iframe>', 
+      )
+    }
   }
-}
 
-  feedListenElsewhere <- ""
-if(!is.null(feedPayload) & !is.na(feedPayload)){
-  # Build the html for the Listen elsewhere: section
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://podcastindex.org/podcast",
-      "Podcast Index",
-      "../../../assets/images/podcast_player_icons/podcast-index.svg",
-      feedPayload$feed$id
-    )
-  )
-  if(!is.null(feedPayload$feed$id)){
+feedListenElsewhere <- ""
+  if(!is.null(feedPayload) & !is.na(feedPayload)){
+    # Build the html for the Listen elsewhere: section
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://podnews.net/podcast",
-        "Podnews",
-        "../../../assets/images/podcast_player_icons/podnews-net-favicon.svg",
-        feedPayload$feed$podcastGuid,
-        "/"
+        "https://podcastindex.org/podcast",
+        "Podcast Index",
+        "../../../assets/images/podcast_player_icons/podcast-index.svg",
+        feedPayload$feed$id
       )
     )
-  }
-  if(!is.null(feedPayload$feed$podcastGuid)){
+    if(!is.null(feedPayload$feed$id)){
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://podnews.net/podcast",
+          "Podnews",
+          "../../../assets/images/podcast_player_icons/podnews-net-favicon.svg",
+          feedPayload$feed$podcastGuid,
+          "/"
+        )
+      )
+    }
+    if(!is.null(feedPayload$feed$podcastGuid)){
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://curiocaster.com/podcast",
+          "Curiocaster",
+          "../../../assets/images/podcast_player_icons/curiocaster.jpg",
+          feedPayload$feed$podcastGuid
+        )
+      )
+    }
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://curiocaster.com/podcast",
-        "Curiocaster",
-        "../../../assets/images/podcast_player_icons/curiocaster.jpg",
-        feedPayload$feed$podcastGuid
+        "https://podcastaddict.com/feed",
+        "Podcast Addict",
+        "../../../assets/images/podcast_player_icons/podcast-addict.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/"
       )
     )
-  }
     feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://podcastaddict.com/feed",
-      "Podcast Addict",
-      "../../../assets/images/podcast_player_icons/podcast-addict.svg",
-      utils::URLencode(url_val,reserved=TRUE),
-      sep="/"
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://player.fm/subscribe?id",
-      "Player FM",
-      "../../../assets/images/podcast_player_icons/player-fm.svg",
-      url_val,
-      sep="="
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "",
-      "RSS feed",
-      "../../../assets/images/podcast_player_icons/rss.svg",
-      url_val,
-      sep=""
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://subscribebyemail.com",
-      "Subscribe<br/> by Email",
-      "../../../assets/images/podcast_player_icons/sube.svg",
-      stringr::str_replace(
-        stringr::str_replace(
+      feedListenElsewhere, ListenElsewhere(
+        "https://player.fm/subscribe?id",
+        "Player FM",
+        "../../../assets/images/podcast_player_icons/player-fm.svg",
         url_val,
-          "https://",""
-        ),"http://",""
-      ),
-      sep="/"
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://podstation.github.io/subscribe-ext",
-      "podStation",
-      "../../../assets/images/podcast_player_icons/podstation.svg",
-      utils::URLencode(url_val,reserved=TRUE),
-      sep="/?feedUrl="
-    )
-  )
-
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://podhero.com/podcast/feed",
-      "Podhero",
-      "../../../assets/images/podcast_player_icons/podhero.svg",
-      utils::URLencode(url_val,reserved=TRUE),
-      sep="/"
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "http://radiopublic.com",
-      "Radio Public",
-      "../../../assets/images/podcast_player_icons/radiopublic.svg",
-      utils::URLencode(url_val,reserved=TRUE),
-      sep="/"
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://podcasts.google.com/feed",
-      "Google Podcasts",
-      "../../../assets/images/podcast_player_icons/google-podcasts.svg",
-      base64enc::base64encode(charToRaw(url_val)),
-      sep="/"
-    )
-  )
-  feedListenElsewhere <- paste0(
-    feedListenElsewhere, ListenElsewhere(
-      "https://subscribeonandroid.com",
-      "Subscribe on Android",
-      "../../../assets/images/podcast_player_icons/suba.svg",
-      url_val,
-      sep="/"
-    )
-  )
-#<a class="podcastsubscribe" rel="nofollow" href="/feeds.buzzsprout.com/1585531.rss"><div><img class="shadow" loading="lazy" alt="Subscribe on Android" src="https://podnews.net/static/svg/suba.svg" width="44" height="44"></div>Subscribe on Android</a>div><img class="shadow" loading="lazy" alt="Subscribe on Android" src="https://podnews.net/static/svg/suba.svg" width="44" height="44"></div>
-  if(!is.null(feedPayload$feed$itunesId)){
-    feedListenElsewhere <- paste0(
-      feedListenElsewhere, ListenElsewhere(
-        "https://web.podfriend.com/podcast",
-        "Podfriend",
-        "../../../assets/images/podcast_player_icons/podfriend.svg",
-        feedPayload$feed$itunesId
+        sep="="
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "http://castbox.fm/vic",
-        "Castbox",
-        "../../../assets/images/podcast_player_icons/castbox.svg",
-        feedPayload$feed$itunesId,
-        sep="/",suffix="?ref=shiny.podping-stats.com"
+        "",
+        "RSS feed",
+        "../../../assets/images/podcast_player_icons/rss.svg",
+        url_val,
+        sep=""
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://pca.st/itunes",
-        "Pocket Casts",
-        "../../../assets/images/podcast_player_icons/pocketcasts.svg",
-        feedPayload$feed$itunesId,
+        "https://subscribebyemail.com",
+        "Subscribe<br/> by Email",
+        "../../../assets/images/podcast_player_icons/sube.svg",
+        stringr::str_replace(
+          stringr::str_replace(
+          url_val,
+            "https://",""
+          ),"http://",""
+        ),
         sep="/"
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://app.podcastguru.io/podcast",
-        "Podcast Guru",
-        "../../../assets/images/podcast_player_icons/podcast_guru.svg",
-        feedPayload$feed$itunesId,
+        "https://podstation.github.io/subscribe-ext",
+        "podStation",
+        "../../../assets/images/podcast_player_icons/podstation.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/?feedUrl="
+      )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://podhero.com/podcast/feed",
+        "Podhero",
+        "../../../assets/images/podcast_player_icons/podhero.svg",
+        utils::URLencode(url_val,reserved=TRUE),
         sep="/"
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://www.podbean.com/itunes",
-        "Podbean",
-        "../../../assets/images/podcast_player_icons/podbean.svg",
-        feedPayload$feed$itunesId,
+        "http://radiopublic.com",
+        "Radio Public",
+        "../../../assets/images/podcast_player_icons/radiopublic.svg",
+        utils::URLencode(url_val,reserved=TRUE),
         sep="/"
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://overcast.fm",
-        "Overcast (iOS)",
-        "../../../assets/images/podcast_player_icons/overcast.svg",
-        feedPayload$feed$itunesId,
-        sep="/itunes"
-      )
-    )
-    feedListenElsewhere <- paste0(
-      feedListenElsewhere, ListenElsewhere(
-        "https://podcasts.apple.com/us/podcast/feed",
-        "Apple iTunes",
-        "../../../assets/images/podcast_player_icons/itunes.svg",
-        feedPayload$feed$itunesId,
-        sep="/id"
-      )
-    )
-    feedListenElsewhere <- paste0(
-      feedListenElsewhere, ListenElsewhere(
-        "https://castro.fm/itunes",
-        "Castro (iOS)",
-        "../../../assets/images/podcast_player_icons/castro.svg",
-        feedPayload$feed$itunesId,
+        "https://podcasts.google.com/feed",
+        "Google Podcasts",
+        "../../../assets/images/podcast_player_icons/google-podcasts.svg",
+        base64enc::base64encode(charToRaw(url_val)),
         sep="/"
       )
     )
     feedListenElsewhere <- paste0(
       feedListenElsewhere, ListenElsewhere(
-        "https://sonnet.fm/p",
-        "Sonnet",
-        "../../../assets/images/podcast_player_icons/sonnet.svg",
-        feedPayload$feed$itunesId,
+        "https://subscribeonandroid.com",
+        "Subscribe on Android",
+        "../../../assets/images/podcast_player_icons/suba.svg",
+        url_val,
         sep="/"
       )
     )
-#<a class="podcastsubscribe" rel="nofollow" href="
-#https://sonnet.fm/p/1547140545"><div><img class="shadow" loading="lazy" alt="Sonnet" src="https://podnews.net/static/svg/sonnet.svg" width="44" height="44"></div>Sonnet</a>
-
+    if(!is.null(feedPayload$feed$itunesId)){
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://web.podfriend.com/podcast",
+          "Podfriend",
+          "../../../assets/images/podcast_player_icons/podfriend.svg",
+          feedPayload$feed$itunesId
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "http://castbox.fm/vic",
+          "Castbox",
+          "../../../assets/images/podcast_player_icons/castbox.svg",
+          feedPayload$feed$itunesId,
+          sep="/",suffix="?ref=shiny.podping-stats.com"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://pca.st/itunes",
+          "Pocket Casts",
+          "../../../assets/images/podcast_player_icons/pocketcasts.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://app.podcastguru.io/podcast",
+          "Podcast Guru",
+          "../../../assets/images/podcast_player_icons/podcast_guru.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://www.podbean.com/itunes",
+          "Podbean",
+          "../../../assets/images/podcast_player_icons/podbean.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://overcast.fm",
+          "Overcast (iOS)",
+          "../../../assets/images/podcast_player_icons/overcast.svg",
+          feedPayload$feed$itunesId,
+          sep="/itunes"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://podcasts.apple.com/us/podcast/feed",
+          "Apple iTunes",
+          "../../../assets/images/podcast_player_icons/itunes.svg",
+          feedPayload$feed$itunesId,
+          sep="/id"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://castro.fm/itunes",
+          "Castro (iOS)",
+          "../../../assets/images/podcast_player_icons/castro.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://sonnet.fm/p",
+          "Sonnet",
+          "../../../assets/images/podcast_player_icons/sonnet.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+    }
   }
-} 
 
-results=""
-errorWrite <- tryCatch(
-  {
-    results <- glue(
-      '<table id="table_podplayer_title"><tr>',
-      '<td>',
-      '<a href="{url_val}" target="_blank" class="btn btn-primary">',
-      '{feedTitle}</a>',
-      '</td>',
-      '</tr></table>',
-      '<table id="table_podplayer_listenelsewhere"><tr>',
-      '{feedListenElsewhere}',
-      '</tr></table>{feedIframe}',
-      .na=""
-    )
-  },
-  error=function(cond) {
-    message(paste("URL does not seem to exist:", url_val))
-    message("Here's the original error message:")
-    message(cond)
-    # Choose a return value in case of error
-    return(NA)
-  },
-  warning=function(cond) {
-    message(paste("URL caused a warning:", url_val))
-    message("Here's the original warning message:")
-    message(cond)
-    # Choose a return value in case of warning
-    return(NULL)
-  },
-  finally={
-    # NOTE:
-    # Here goes everything that should be executed at the end,
-    # regardless of success or error.
-    message(paste("Processed URL:", url_val))
-  }
-)
-# Return results
-results
+  results=""
+  errorWrite <- tryCatch(
+    {
+      results <- glue(
+        '<table id="table_podplayer_title"><tr>',
+        '<td>',
+        '<a href="{url_val}" target="_blank" class="btn btn-primary">',
+        '{feedTitle}</a>',
+        '</td>',
+        '</tr></table>',
+        '<table id="table_podplayer_listenelsewhere"><tr>',
+        '{feedListenElsewhere}',
+        '</tr></table>{feedIframe}',
+        .na=""
+      )
+    },
+    error=function(cond) {
+      message(paste("URL does not seem to exist:", url_val))
+      message("Here's the original error message:")
+      message(cond)
+      # Choose a return value in case of error
+      return(NA)
+    },
+    warning=function(cond) {
+      message(paste("URL caused a warning:", url_val))
+      message("Here's the original warning message:")
+      message(cond)
+      # Choose a return value in case of warning
+      return(NULL)
+    },
+    finally={
+      # NOTE:
+      # Here goes everything that should be executed at the end,
+      # regardless of success or error.
+      message(paste("Processed URL:", url_val))
+    }
+  )
+  # Return results
+  results
 }
 
 # Define UI for application

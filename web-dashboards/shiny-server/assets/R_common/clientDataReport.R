@@ -12,7 +12,16 @@ clientDataReport <- function(){
   loadFeatherData <- function(filePath)({
     data <- feather::read_feather(filePath)
     data <- tibble::add_column(data,filePath) 
-    data <- tibble::add_column(data,stringr::str_split_fixed(filePath,"/",stringr::str_count(filePath,"/")+1)[str_count(filePath,"/")]) 
+    data <- tibble::add_column(
+      data,
+      stringr::str_split_fixed(
+        filePath,
+        "/",
+        stringr::str_count(
+          filePath,"/"
+        )+1
+      )[stringr::str_count(filePath,"/")]
+    ) 
     names(data)[4] <- "path"
     names(data)[5] <- "appName"
     data

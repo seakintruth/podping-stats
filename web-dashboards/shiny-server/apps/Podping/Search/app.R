@@ -28,20 +28,20 @@ ListenElsewhere <- function(
 ){
   glue(
     '<td>',
-      '<a class="podcastsubscribe" ',
-        'rel="nofollow" ',
-        'href=',
-        '"{playerUrl}{sep}{urlIdNumber}{suffix}"',
-      '>',
-        '<div>',
-          '<img class="shadow" loading="lazy" ',
-            'alt="{playerName}" ',
-            'src="{imgUrl}" ',
-            'width="44" height="44"',
-          '>',
-        '</div>',
-        '{playerName}',
-      '</a>',
+    '<a class="podcastsubscribe" ',
+    'target="_blank" rel="noopener noreferrer" ',
+    'href=',
+    '"{playerUrl}{sep}{urlIdNumber}{suffix}"',
+    '>',
+    '<div>',
+    '<img class="shadow" loading="lazy" ',
+    'alt="{playerName}" ',
+    'src="{imgUrl}" ',
+    'width="44" height="44"',
+    '>',
+    '</div>',
+    '{playerName}',
+    '</a>',
     '</td>', 
     .na=""
   )
@@ -51,7 +51,7 @@ ListenElsewhere <- function(
 create_url_html <- function(url_val="", strHost="PodcastIndex") {
   errorLoad <- tryCatch(
     {
-      feedPayload <- podcast_index_get_by_url(url_val)
+      feedPayload <- podcast_index_get_feed_by_url(url_val)
     },
     error=function(cond) {
       message(paste("URL does not seem to exist:", url_val))
@@ -92,8 +92,9 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
   if(stringr::str_length(feedTitle)==0){
     feedTitle <-url_val
   }
-  # Build the Iframe 
+  # prep for building the Iframe
   feedIframe <- ""
+  # First handle iframes where podcast index returned the feed info
   if(!is.null(feedPayload) & !is.na(feedPayload)){
     if(strHost=="PodcastIndex"){
       if(!is.null(feedPayload$feed$id)){
@@ -101,27 +102,37 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
                              feedPayload$feed$id)
         feedIframeHieght <- 450
       }
-    }
-    if(strHost=="Podnews_ID"){
-      #        feedIframe <- paste0("https://podnews.net/podcast/",
-      if(!is.null(feedPayload$feed$id)){  
+    } else if(strHost=="Podnews_Guid"){
+      if(!is.null(feedPayload$feed$podcastGuid)){  
         feedIframe <- paste0(
-          "https://podnews.net/podcast/pi",
-          feedPayload$feed$id
+          "https://podnews.net/podcast/",
+          feedPayload$feed$podcastGuid
         )
         feedIframeHieght <- 500
       }
-    }
-    if(strHost=="Curiocaster"){
+    } else if(strHost=="Curiocaster"){
       if(!is.null(feedPayload$feed$podcastGuid)){
         feedIframe <- paste0("https://curiocaster.com/podcast/",
                              feedPayload$feed$podcastGuid)
         feedIframeHieght <- 650
       }
-    }
+    } else if(strHost=="PartytimeParser"){
+      feedIframe <- paste0(
+        "https://partytime.hirsch.dev/?url=",
+        url_val
+      )
+      feedIframeHieght <- 380
+    } else if(strHost=="PodcastAddict"){
+      feedIframe <- paste0(
+        "https://podcastaddict.com/feed/",
+        utils::URLencode(url_val,reserved=TRUE)
+      )
+      feedIframeHieght <- 380
+    } 
+    # build the iframe
     if(strHost=="None" | stringr::str_length(feedIframe) == 0){
       feedIframe <- ""
-    } else {
+    } else { # none
       feedIframe <- glue(
         '<iframe ',
         'loading="lazy"',
@@ -135,7 +146,7 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
     }
   }
 
-  feedListenElsewhere <- ""
+feedListenElsewhere <- ""
   if(!is.null(feedPayload) & !is.na(feedPayload)){
     # Build the html for the Listen elsewhere: section
     feedListenElsewhere <- paste0(
@@ -152,8 +163,8 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
           "https://podnews.net/podcast",
           "Podnews",
           "../../../assets/images/podcast_player_icons/podnews-net-favicon.svg",
-          feedPayload$feed$id,
-          "/pi"
+          feedPayload$feed$podcastGuid,
+          "/"
         )
       )
     }
@@ -167,62 +178,98 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
         )
       )
     }
-    if(!is.null(feedPayload$feed$url)){
-      feedListenElsewhere <- paste0(
-        feedListenElsewhere, ListenElsewhere(
-          "https://player.fm/subscribe?id",
-          "Player FM",
-          "../../../assets/images/podcast_player_icons/player-fm.svg",
-          feedPayload$feed$url,
-          sep="="
-        )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://podcastaddict.com/feed",
+        "Podcast Addict",
+        "../../../assets/images/podcast_player_icons/podcast-addict.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/"
       )
-      feedListenElsewhere <- paste0(
-        feedListenElsewhere, ListenElsewhere(
-          "",
-          "RSS feed",
-          "../../../assets/images/podcast_player_icons/rss.svg",
-          feedPayload$feed$url,
-          sep=""
-        )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://player.fm/subscribe?id",
+        "Player FM",
+        "../../../assets/images/podcast_player_icons/player-fm.svg",
+        url_val,
+        sep="="
       )
-      feedListenElsewhere <- paste0(
-        feedListenElsewhere, ListenElsewhere(
-          "https://subscribebyemail.com",
-          "Subscribe by Email",
-          "../../../assets/images/podcast_player_icons/sube.svg",
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "",
+        "RSS feed",
+        "../../../assets/images/podcast_player_icons/rss.svg",
+        url_val,
+        sep=""
+      )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://subscribebyemail.com",
+        "Subscribe<br/> by Email",
+        "../../../assets/images/podcast_player_icons/sube.svg",
+        stringr::str_replace(
           stringr::str_replace(
-            stringr::str_replace(
-              feedPayload$feed$url,"https://",""
-            ),"http://",""
-          ),
-          sep="/"
-        )
+          url_val,
+            "https://",""
+          ),"http://",""
+        ),
+        sep="/"
       )
-      feedListenElsewhere <- paste0(
-        feedListenElsewhere, ListenElsewhere(
-          "https://podstation.github.io/subscribe-ext",
-          "podStation",
-          "../../../assets/images/podcast_player_icons/podstation.svg",
-          feedPayload$feed$url,
-          sep="/?feedUrl="
-        )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://podstation.github.io/subscribe-ext",
+        "podStation",
+        "../../../assets/images/podcast_player_icons/podstation.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/?feedUrl="
       )
-    }
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://podhero.com/podcast/feed",
+        "Podhero",
+        "../../../assets/images/podcast_player_icons/podhero.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/"
+      )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "http://radiopublic.com",
+        "Radio Public",
+        "../../../assets/images/podcast_player_icons/radiopublic.svg",
+        utils::URLencode(url_val,reserved=TRUE),
+        sep="/"
+      )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://podcasts.google.com/feed",
+        "Google Podcasts",
+        "../../../assets/images/podcast_player_icons/google-podcasts.svg",
+        base64enc::base64encode(charToRaw(url_val)),
+        sep="/"
+      )
+    )
+    feedListenElsewhere <- paste0(
+      feedListenElsewhere, ListenElsewhere(
+        "https://subscribeonandroid.com",
+        "Subscribe on Android",
+        "../../../assets/images/podcast_player_icons/suba.svg",
+        url_val,
+        sep="/"
+      )
+    )
     if(!is.null(feedPayload$feed$itunesId)){
       feedListenElsewhere <- paste0(
         feedListenElsewhere, ListenElsewhere(
           "https://web.podfriend.com/podcast",
           "Podfriend",
           "../../../assets/images/podcast_player_icons/podfriend.svg",
-          feedPayload$feed$itunesId
-        )
-      )
-      feedListenElsewhere <- paste0(
-        feedListenElsewhere, ListenElsewhere(
-          "https://pca.st/itunes",
-          "Pocket Casts",
-          "../../../assets/images/podcast_player_icons/pocketcasts.svg",
           feedPayload$feed$itunesId
         )
       )
@@ -237,28 +284,82 @@ create_url_html <- function(url_val="", strHost="PodcastIndex") {
       )
       feedListenElsewhere <- paste0(
         feedListenElsewhere, ListenElsewhere(
+          "https://pca.st/itunes",
+          "Pocket Casts",
+          "../../../assets/images/podcast_player_icons/pocketcasts.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://app.podcastguru.io/podcast",
+          "Podcast Guru",
+          "../../../assets/images/podcast_player_icons/podcast_guru.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://www.podbean.com/itunes",
+          "Podbean",
+          "../../../assets/images/podcast_player_icons/podbean.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://overcast.fm",
+          "Overcast (iOS)",
+          "../../../assets/images/podcast_player_icons/overcast.svg",
+          feedPayload$feed$itunesId,
+          sep="/itunes"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
           "https://podcasts.apple.com/us/podcast/feed",
           "Apple iTunes",
           "../../../assets/images/podcast_player_icons/itunes.svg",
           feedPayload$feed$itunesId,
           sep="/id"
         )
-      )      
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://castro.fm/itunes",
+          "Castro (iOS)",
+          "../../../assets/images/podcast_player_icons/castro.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
+      feedListenElsewhere <- paste0(
+        feedListenElsewhere, ListenElsewhere(
+          "https://sonnet.fm/p",
+          "Sonnet",
+          "../../../assets/images/podcast_player_icons/sonnet.svg",
+          feedPayload$feed$itunesId,
+          sep="/"
+        )
+      )
     }
-  } 
+  }
 
   results=""
   errorWrite <- tryCatch(
     {
       results <- glue(
         '<table id="table_podplayer_title"><tr>',
-          '<td>',
-            '<a href="{url_val}" target="_blank" class="btn btn-primary">',
-            '{feedTitle}</a>',
-          '</td>',
+        '<td>',
+        '<a href="{url_val}" target="_blank" class="btn btn-primary">',
+        '{feedTitle}</a>',
+        '</td>',
         '</tr></table>',
         '<table id="table_podplayer_listenelsewhere"><tr>',
-          '{feedListenElsewhere}',
+        '{feedListenElsewhere}',
         '</tr></table>{feedIframe}',
         .na=""
       )
@@ -315,29 +416,29 @@ ui <- fluidPage(
   ),
   fluidRow(
     column(3,
-      HTML(
-        paste0(
-          '<h2>',
-            '<u>Podping Player</u>',
-          '</h2>',
-          '<p>A list of the most recent podping feed upates',
-            '<br/>',
-            '<iframe ',
-              'loading="lazy"',
-              'frameBorder="0"',
-              'src="../app_components/sub_podpings_served/" ',
-              'height="25" ',
-              'width="100%" ',
-              'title="All Time Podpings Served"',
-              '>',
-            '</iframe>',
-          '</p>'
-        )
-      )
+           HTML(
+             paste0(
+               '<h2>',
+               '<u>Podping Player</u>',
+               '</h2>',
+               '<p>A list of the most recent podping feed upates',
+               '<br/>',
+               '<iframe ',
+               'loading="lazy"',
+               'frameBorder="0"',
+               'src="../app_components/sub_podpings_served/" ',
+               'height="25" ',
+               'width="100%" ',
+               'title="All Time Podpings Served"',
+               '>',
+               '</iframe>',
+               '</p>'
+             )
+           )
     ),
     column(9,
-      HTML(
-         '<h3>
+           HTML(
+             '<h3>
           Analyzing <a href="https://peakd.com/podcasting2/@podping/overview-and-purpose-of-podpingcloud-and-the-podping-dapp">
             <img src="../../../assets/images/podping_logo.png" width=50 hight=50 alt="podping logo" /> 
             Podping
@@ -351,7 +452,7 @@ ui <- fluidPage(
             </a>
           </span>
         </h3>'
-      )
+           )
     )
   ),
   # Show a plot of the generated distribution
@@ -365,21 +466,23 @@ ui <- fluidPage(
              choices = c(
                "Podcast Index" = "PodcastIndex",
                "Curiocaster" = "Curiocaster",
-               "Podnews" = "Podnews_ID",
+               "Podcast Addict"="PodcastAddict",
+               "Podnews" = "Podnews_Guid",
+               "🎉🕙PartytimeParser" = "PartytimeParser",
                "None" = "None"
              ),
              selected = "PodcastIndex"
            )
     ),
     column(2,
-      numericInput(
-            inputId = "ReturnUrlCount",
-            label = "Number of feeds (max 30)", 
-            value = 5,
-            min = 1,
-            max = 30
-        )    
-     ),
+           numericInput(
+             inputId = "ReturnUrlCount",
+             label = "Number of feeds (max 30)", 
+             value = 5,
+             min = 1,
+             max = 30
+           )    
+    ),
     column(2,
            # Using the default time 00:00:00
            timeInput("time1", "Starting at local timestamp:", value = Sys.time())
@@ -393,7 +496,7 @@ ui <- fluidPage(
              label="Enable Live Data Updates (refresh every 3 seconds)", 
              value = FALSE,
              width = NULL)
-     ),
+    ),
   ),
   fluidRow(
     column(8,
@@ -402,7 +505,7 @@ ui <- fluidPage(
   ),
   fluidRow(
     column(12,
-      DT::dataTableOutput("results_table")
+           DT::dataTableOutput("results_table")
     )
   )
 )
@@ -413,26 +516,27 @@ server <- function(input, output, session) {
     client_query_processed <- hit_counter(session)
     paste0('<span id=hitcounter>', client_query_processed, '</span>')
   })
-  
   observeEvent(input$to_current_time, {
     updateTimeInput(session, "time1", value = Sys.time())
   })
-  
   output$time_summary <- renderText({
     glue(
       input$time1
     )
   })
-  pollLastPodpingUrls <- reactivePoll(3000, session,
+   # each user/session? polls randomly between .25 and .5 seconds
+  pollLastPodpingUrls <- reactivePoll(
+    sample(250:500,1 , replace=T),
+    session,
     # This function returns the last block that was processed and updates if modified
     checkFunc = function() ({
-        if (input$chkEnableLiveData) {
-          updateTimeInput(session, "time1", value = Sys.time())
-          get_last_hive_block_num()
-        } else {
-          FALSE
-        }
-      }),
+      if (input$chkEnableLiveData) {
+        updateTimeInput(session, "time1", value = Sys.time())
+        get_last_hive_block_num()
+      } else {
+        FALSE
+      }
+    }),
     # This function returns the content
     valueFunc = function() {
       url_list <- dbfetch_query_podping(
@@ -463,7 +567,7 @@ server <- function(input, output, session) {
       url_list_return
     }
   )
-
+  
   # choose columns to display
   output$results_table <- DT::renderDataTable({
     DT::datatable(
