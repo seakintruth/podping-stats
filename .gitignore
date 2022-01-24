@@ -11,6 +11,7 @@
 
 # All feather files are data files, either caches or site hit counters
 *.feather
+*.csv
 
 # Credentials files #
 /mastodon-toot-bot-hive/credentials/*
