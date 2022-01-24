@@ -5,24 +5,27 @@
 # https://plotly-r.com/linking-views-with-shiny.html#shiny-performance
 
 library(datasets)       # for testing
-
 library(shiny)          # Shiny applications
 library(DBI)            # Required by authenticateWithPostgres.R
 library(RPostgres)      # Required by authenticateWithPostgres.R
 library(glue)           # fast concat
 library(stringr)        # handle strings
-library(ggplot2)        # plotting
 library(tidyverse)      # data manipulation and viz
-library(ggthemes)       # themes for ggplot2
-library(viridis)        # the best color palette
-library(rgdal)          # deal with shapefiles
-library(microbenchmark) # measure the speed of executing
-library(extrafont)      # nice font
-library(RColorBrewer)   # colors
+library(tidyr)
 library(anytime)        # date stuff
 library(lubridate)      # more date stuff
 library(feather)        # fast to and from disk caching
-library(ggeasy)         # https://www.infoworld.com/article/3533453/easier-ggplot-with-the-ggeasy-r-package.html
+library(data.table)     # for fast write data to csv with fwrite
+library(dygraphs)       # for interactive time series charts
+library(xts)            # To make the convertion data-frame / xts format for dygraphs
+#library(ggplot2)        # plotting
+#library(ggthemes)       # themes for ggplot2
+#library(ggeasy)         # https://www.infoworld.com/article/3533453/easier-ggplot-with-the-ggeasy-r-package.html
+#library(extrafont)      # nice font
+#library(RColorBrewer)   # colors
+#library(viridis)        # the best color palette
+#library(rgdal)          # deal with shapefiles
+#library(microbenchmark) # measure the speed of executing
 
 #-----------------------------------------------------------------------#
 # Ultimately the files sourced here should be a new package             #
@@ -136,7 +139,7 @@ ui <- fluidPage(
               'width="100%" ',
               'title="All Time Podpings Served"',
             '>',
-            '</iframe>',          
+            '</iframe>',
           '</p>'
         )
       )
@@ -170,7 +173,7 @@ ui <- fluidPage(
         label = "Date Range",
         start = Sys.Date()-31,
         end = Sys.Date(),
-        min = "2021-05-01",
+        min = "2021-05-18",
         max = Sys.Date()+1,
         format = "mm/dd/yyyy", #yyyy-mm-dd
         startview = "year",
@@ -199,35 +202,48 @@ ui <- fluidPage(
         ),
         selected = "hour"
       )
+    ),
+    column(
+      3,
+      downloadButton(
+        "downloadSelectedData",
+        ".csv Download Selected Date Range URL Timestamp Data"
+      )
+    ),
+    column(
+      3,
+      downloadButton(
+        "downloadData",
+        ".csv Download ALL URL Timestamp Data"
+      )
     )
   ),
   fluidRow(
     column(
-      6,
-      plotOutput("plot", click = "plot_click"),
-      verbatimTextOutput("info")
-    ),
+      12,
+      dygraphOutput("urls_per_period_chart")
+    )
+  ),
+  fluidRow(
+    column(
+      12,
+      dygraphOutput("urls_per_period_by_host_chart")
+    )
+  ),
+  fluidRow(
     column(
       6,
       plotOutput("plot_hist")
-    )
-  ),
-# [todo] add ggplotting, reactive plots? and Near points clicking on plots...
-# https://shiny.rstudio.com/articles/plot-interaction.html
-#  fluidRow(
-#    column(
-#      12,
-#      plotOutput("testPlot")
-#    )
-#  ),
-  fluidRow(
-    column(
-      6,
-      verbatimTextOutput("data_last_modified")
     ),
     column(
       6,
       verbatimTextOutput("data_summary")
+    )
+  ),
+  fluidRow(
+    column(
+      6,
+      verbatimTextOutput("data_last_modified")
     )
   )
 )
@@ -258,7 +274,6 @@ server <- function(input, output, session) {
       timestamp >= dateRangeMin,
       timestamp <= dateRangeMax+1
     )
-    
     # setup period field for grouping
     # this list of if, else if's should be restructured as some sort of 
     # mapping of podping_data_filtered$timestamp with breaks ?
@@ -285,36 +300,33 @@ server <- function(input, output, session) {
     # Return data
     podping_data_filtered
   })
-
   timeSinceLoad <- reactive({
     tmp <- getDataFromSelected()
     round(proc.time(),2)['elapsed']
   })
-
-  # Plot results
-  output$plot <- renderPlot({
-    podpingData <- getDataFromSelected()
-    podpingDataCount <- dplyr::count(podpingData,period)
-    # snakecase::to_any_case(df,case = "title")
-    graphics::plot(
-      x=podpingDataCount$period, 
-      y=podpingDataCount$n,
-      type="b",
-      xlab = "Date / Time",
-      ylab = "Url Count",
-      main = paste0( 
-        "Podping url updates per period:", input$GroupBySelected
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste('Podping_Urls_by_Timestamp_ALL_',format(Sys.time(), "%Y-%m-%d_%H_%M_%S"),'.csv', sep='')
+    },
+    content = function(file) {
+      data.table::fwrite(data.table::as.data.table(podping_data_global), file, row.names = TRUE)
+    }
+  )
+  output$downloadSelectedData <- downloadHandler(
+    filename = function() {
+      paste(
+        'Podping_Urls_by_Timestamp_Selected_',
+        format(input$DateRangeFilter[1], "%Y-%m-%d"),
+        '_to_',
+        format(input$DateRangeFilter[2], "%Y-%m-%d"),
+        '.csv',
+        sep=''
       )
-    )
-  }, res = 96)
-  # for if the user clicks on the plot
-  output$info <- renderPrint({
-    req(input$plot_click)
-    x <- round(input$plot_click$x, 2)
-    y <- round(input$plot_click$y, 2)
-    cat("[", x, ", ", y, "]", sep = "")
-  })
-  
+    },
+    content = function(file) {
+      data.table::fwrite(data.table::as.data.table(getDataFromSelected()), file, row.names = TRUE)
+    }
+  )
   output$plot_hist <- renderPlot({
     podpingData <- getDataFromSelected()
     podpingDataCount <- dplyr::count(podpingData,period)
@@ -337,19 +349,58 @@ server <- function(input, output, session) {
     lines(density(l), col="red")
 
   })
-
   output$data_summary <- renderPrint({
     podpingData <- getDataFromSelected()
     #[TODO] write a usefull summary...
     summary(dplyr::select(podpingData,host, timestamp,block_number))
   })
-
   output$data_last_modified <- renderPrint({
     cat("Data source last cached:", anytime::rfc3339(podping_data_cache_file_last_modified),"
 Time since session load:", timeSinceLoad(), " seconds")
   })
+  output$urls_per_period_chart <- renderDygraph({
+    podpingData <- getDataFromSelected()
+    podpingDataCount <- dplyr::count(podpingData,period)
+    podpingDataCount$period <- anytime::anytime(podpingDataCount$period)
+    # xts format (time series):
+    xts_podpingData <- xts::xts(x=podpingDataCount, order.by=podpingDataCount$period)
+    results_dygraph <- dygraph(
+      xts_podpingData,
+      group = "url_timestamp_count_group",
+      xlab = "Date / Time",
+      ylab = "Url Count",
+      main = paste0( 
+        "Podping url updates per period:", input$GroupBySelected
+      )
+    )
+    results_dygraph <- dyRangeSelector(
+      results_dygraph 
+    )
+    results_dygraph
+  })
 
+  output$urls_per_period_by_host_chart <- renderDygraph({
+    podpingData <- data.table::as.data.table(getDataFromSelected())
+    podpingData$period <- anytime::anytime(podpingData$period)
+    podpingDataCounting <- podpingData[,.(count=.N), by = .(period,host)]
+    podpingDataCounting <- tidyr::pivot_wider(podpingDataCounting,names_from="host",values_from ="count")
+    # xts format (time series):
+    xts_podpingData <- xts::xts(podpingDataCounting, order.by=podpingDataCounting$period)
 
+    results_dygraph <- dygraph(
+      xts_podpingData,
+      group = "url_timestamp_count_group",
+      xlab = "Date / Time",
+      ylab = "Url Count per Host",
+      main = paste0( 
+        "Podping url updates for each host per period:", input$GroupBySelected
+      )
+    )
+    results_dygraph <- dyRangeSelector(
+      results_dygraph 
+    )
+    results_dygraph
+  })
 }
 
 # Run the application
