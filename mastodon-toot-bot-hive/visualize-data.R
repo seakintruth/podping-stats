@@ -380,7 +380,9 @@ summary_Stats <- paste0(
   round(length(podcastUrls)/count_podping_data_unique,2),
   " urls/post)\n\t", summary_stats_not_podping_data,
   "\nDetails at:\n" , 
-  "https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=",
+# While off line pointing to github instead
+#  "https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=",
+  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
   utils::URLencode(as.character(Sys.time())),
   "\n#podping #Stats"
 )
