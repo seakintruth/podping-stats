@@ -365,7 +365,7 @@ if (exists("not_podping_data")) {
 summary_Stats <- paste0(  
   'Podping hive "custom json" post report ',
   "for the last ",
-  time_length_display,
+  str_trim(time_length_display, side ="both"),
   ":\n\t",
   "Post count is ",
   count_podping_data_unique, 
@@ -382,7 +382,7 @@ summary_Stats <- paste0(
   "\nDetails at:\n" , 
 # While off line pointing to github instead
 #  "https://shiny.podping-stats.com/apps/Podping/HostSummary/?version=",
-  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/",
+  "https://seakintruth.github.io/podping-stats/mastodon-toot-bot-hive/stats/?version=",
   utils::URLencode(as.character(Sys.time())),
   "\n#podping #Stats"
 )
@@ -406,7 +406,7 @@ formated_summary_table <- gt::gt(url_summary) %>%
     title = paste0(  
       'Podping report ',
       "for the last ",
-      time_length_display, ""),
+      str_trim(time_length_display, side ="both"), ""),
     subtitle = "Podping urls are 'custom json' posts on the Hive.io block chain"
   ) %>% 
   gt::tab_source_note(
